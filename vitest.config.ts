@@ -6,5 +6,6 @@ export default getViteConfig({
     // Vitest configuration options
     globals: true,
     environment: "jsdom",
+    exclude: ["**/node_modules/**", "**/tests/e2e/**"],
   },
 });
