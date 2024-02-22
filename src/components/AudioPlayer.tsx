@@ -28,7 +28,7 @@ function AudioPlayer({ src }: { src: string }) {
     <div>
       <button
         onClick={togglePlayPause}
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 w-12 h-12 rounded-full flex items-center justify-center"
+        class="bg-gray-900 hover:bg-blue-800 text-white font-bold p-2 w-12 h-12 rounded-full flex items-center justify-center"
       >
         {isPlaying ? (
           <svg
