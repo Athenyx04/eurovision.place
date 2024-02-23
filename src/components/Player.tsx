@@ -1,10 +1,36 @@
-import { usePlayerStore } from "@/store/playerStore";
-import { useEffect, useRef, useState } from "react";
+import { usePlayerStore } from "../store/playerStore";
+import { useEffect, useRef } from "react";
 
 function Player() {
-  const { isPlaying, setIsPlaying } = usePlayerStore((state) => state);
-  const [currentTrack, setCurrentTrack] = useState(null);
+  const { isPlaying, currentTrack, setIsPlaying, setIsLoading } =
+    usePlayerStore((state) => state);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+  };
+
+  const handleLoaded = () => {
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.addEventListener("ended", handleEnded);
+    return () => {
+      if (!audioRef.current) return;
+      audioRef.current.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.addEventListener("playing", handleLoaded);
+    return () => {
+      if (!audioRef.current) return;
+      audioRef.current.removeEventListener("playing", handleLoaded);
+    };
+  }, []);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -20,21 +46,7 @@ function Player() {
     }
   }, [currentTrack]);
 
-  const handleClick = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  return (
-    <div>
-      <button
-        className="bg-white text-black rounded-full p-2"
-        onClick={handleClick}
-      >
-        {isPlaying ? "II" : "D"}
-      </button>
-      <audio ref={audioRef} />
-    </div>
-  );
+  return <audio ref={audioRef} />;
 }
 
 export default Player;
