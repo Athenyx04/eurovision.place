@@ -8,29 +8,31 @@ const songs = [
 		artist: 'Nebulossa',
 		country: 'España',
 		countryCode: 'ES',
-		previewURL: "https://p.scdn.co/mp3-preview/9282f511673c6ef9466ac9ae3226c5567cc10e0f"
+		previewURL: "https://p.scdn.co/mp3-preview/9282f511673c6ef9466ac9ae3226c5567cc10e0f",
+		imageURL: "https://i.scdn.co/image/ab676186000010161a555d3633e077a3afc21fbd"
 	},
 	{
 		title: 'La noia',
 		artist: 'Angelina Mango',
 		country: 'Italia',
 		countryCode: 'IT',
-		previewURL: 'https://p.scdn.co/mp3-preview/30d0318fb9390a0760632d45df42bdb9505c7a04'
+		previewURL: "https://p.scdn.co/mp3-preview/30d0318fb9390a0760632d45df42bdb9505c7a04",
+		imageURL: "https://i.scdn.co/image/ab67618600001016d4005b44168ae12c71a64674"
 	}
 ];
 ---
 
 <Layout title="EuroSorter">
-	<h1 class="text-2xl font-bold mb-8 text-center">Selecciona tu favorita:</h1>
-	<div class="grid grid-cols-2 gap-8">
-			{songs.map(({ title, artist, country, countryCode, previewURL }) => (
-				<SongCard
-					title={title}
-					artist={artist}
-					country={country}
-					countryCode={countryCode}
-					previewUrl={previewURL}
-				/>
-			))}
+	<div class="flex grow flex-col sm:flex-row">
+		{songs.map(({ title, artist, country, countryCode, previewURL, imageURL }) => (
+			<SongCard
+				title={title}
+				artist={artist}
+				country={country}
+				countryCode={countryCode}
+				previewUrl={previewURL}
+				imageUrl={imageURL || ""}
+			/>
+		))}
 	</div>
 </Layout>
