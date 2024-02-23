@@ -1,38 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SongCard from '../components/SongCard.astro';
+import Layout from "../layouts/Layout.astro";
+import SongCard from "../components/SongCard.astro";
+import { playlists } from "../lib/data";
 
-const songs = [
-	{
-		title: 'ZORRA',
-		artist: 'Nebulossa',
-		country: 'España',
-		countryCode: 'ES',
-		previewURL: "https://p.scdn.co/mp3-preview/9282f511673c6ef9466ac9ae3226c5567cc10e0f",
-		imageURL: "./imgs/es.webp"
-	},
-	{
-		title: 'La noia',
-		artist: 'Angelina Mango',
-		country: 'Italia',
-		countryCode: 'IT',
-		previewURL: "https://p.scdn.co/mp3-preview/30d0318fb9390a0760632d45df42bdb9505c7a04",
-		imageURL: "./imgs/it.webp"
-	}
-];
+const eurovisionSongs = playlists[0].songs;
 ---
 
 <Layout title="EuroSorter">
-	<div class="flex grow flex-col sm:flex-row">
-		{songs.map(({ title, artist, country, countryCode, previewURL, imageURL }) => (
-			<SongCard
-				title={title}
-				artist={artist}
-				country={country}
-				countryCode={countryCode}
-				previewUrl={previewURL}
-				imageUrl={imageURL || ""}
-			/>
-		))}
-	</div>
+  <div class="flex grow flex-col sm:flex-row">
+    {
+      eurovisionSongs.map(({ title, artist, country, audioUrl }) => (
+        <SongCard
+          title={title}
+          artist={artist}
+          country={country}
+          audioUrl={audioUrl}
+        />
+      ))
+    }
+  </div>
 </Layout>
