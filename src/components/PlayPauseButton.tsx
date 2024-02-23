@@ -1,4 +1,4 @@
-import { usePlayerStore } from "@/store/playerStore";
+import { usePlayerStore } from "../store/playerStore";
 
 const Play = () => (
   <svg role="img" aria-hidden="true" width="16" viewBox="0 0 16 16">
@@ -12,9 +12,31 @@ const Pause = () => (
   </svg>
 );
 
+const Load = () => (
+  <svg
+    role="img"
+    aria-hidden="true"
+    width="16"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="#000000"
+    fill="none"
+    className="animate-spin"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M12 3a9 9 0 1 0 9 9" />
+  </svg>
+);
+
 function PlayPauseButton({ src }: { src: string }) {
-  const { isPlaying, currentTrack, setIsPlaying, setCurrentTrack } =
-    usePlayerStore((state) => state);
+  const {
+    isPlaying,
+    isLoading,
+    currentTrack,
+    setIsPlaying,
+    setIsLoading,
+    setCurrentTrack,
+  } = usePlayerStore((state) => state);
 
   const isPlayingThisTrack = isPlaying && currentTrack === src;
 
@@ -23,8 +45,8 @@ function PlayPauseButton({ src }: { src: string }) {
       setIsPlaying(false);
       return;
     }
-
     setCurrentTrack(src);
+    setIsLoading(true);
     setIsPlaying(true);
   };
 
@@ -35,7 +57,7 @@ function PlayPauseButton({ src }: { src: string }) {
         className="bg-gray-200 hover:scale-105 text-white p-4 rounded-full"
         onClick={handleClick}
       >
-        {isPlayingThisTrack ? <Pause /> : <Play />}
+        {isPlayingThisTrack ? isLoading ? <Load /> : <Pause /> : <Play />}
       </button>
     </div>
   );
