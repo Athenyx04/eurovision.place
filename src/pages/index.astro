@@ -1,20 +1,22 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import SongCard from '@/components/SongCard.astro';
-import { playlists } from '@/lib/data'
+import Layout from "../layouts/Layout.astro";
+import SongCard from "../components/SongCard.astro";
+import { playlists } from "../lib/data";
 
 const eurovisionSongs = playlists[0].songs;
 ---
 
 <Layout title="EuroSorter">
-	<div class="flex grow flex-col sm:flex-row">
-		{eurovisionSongs.map(({ title, artist, country, audioUrl }) => (
-			<SongCard
-				title={title}
-				artist={artist}
-				country={country}
-				audioUrl={audioUrl}
-			/>
-		))}
-	</div>
+  <div class="flex grow flex-col sm:flex-row">
+    {
+      eurovisionSongs.map(({ title, artist, country, audioUrl }) => (
+        <SongCard
+          title={title}
+          artist={artist}
+          country={country}
+          audioUrl={audioUrl}
+        />
+      ))
+    }
+  </div>
 </Layout>

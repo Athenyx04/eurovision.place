@@ -1,9 +1,9 @@
 ---
-import Player from '@/components/Player';
-import Header from '@/components/Header.astro';
+import Player from "../components/Player";
+import Header from "../components/Header.astro";
 
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -11,28 +11,26 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body class="flex flex-col bg-gray-900 min-h-[100dvh]">
-		<Header />
-		<main class="flex grow">
-			<slot />
-		</main>
-		<Player client:load />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="flex flex-col bg-gray-900 min-h-[100dvh]">
+    <Header />
+    <main class="flex grow">
+      <slot />
+    </main>
+    <Player client:load />
+  </body>
 </html>
 
 <style is:global>
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-		color-scheme: dark light;
-	}
+  html {
+    font-family: system-ui, sans-serif;
+    color-scheme: dark light;
+  }
 </style>
