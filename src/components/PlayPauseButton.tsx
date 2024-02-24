@@ -18,7 +18,7 @@ const Load = () => (
     aria-hidden="true"
     width="16"
     viewBox="0 0 24 24"
-    stroke-width="2"
+    strokeWidth="2"
     stroke="#000000"
     fill="none"
     className="animate-spin"
@@ -54,8 +54,9 @@ function PlayPauseButton({ src }: { src: string }) {
     <div>
       <button
         aria-label={isPlayingThisTrack ? "Pause" : "Play"}
-        className="bg-gray-200 hover:scale-105 text-white p-4 rounded-full"
+        className="bg-gray-200 hover:scale-105 text-white p-4 rounded-full disabled:bg-gray-500 disabled:cursor-not-allowed disabled:hover:scale-100"
         onClick={handleClick}
+        disabled={src === ""}
       >
         {isPlayingThisTrack ? isLoading ? <Load /> : <Pause /> : <Play />}
       </button>

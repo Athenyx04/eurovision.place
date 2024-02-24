@@ -1,22 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import SongCard from "../components/SongCard.astro";
 import { playlists } from "../lib/data";
-
-const eurovisionSongs = playlists[0].songs;
+import BattlePair from "../components/BattlePair";
 ---
 
 <Layout title="EuroSorter">
-  <div class="flex grow flex-col sm:flex-row">
-    {
-      eurovisionSongs.map(({ title, artist, country, audioUrl }) => (
-        <SongCard
-          title={title}
-          artist={artist}
-          country={country}
-          audioUrl={audioUrl}
-        />
-      ))
-    }
-  </div>
+  <BattlePair client:load songs={playlists[0].songs} />
 </Layout>
