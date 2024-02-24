@@ -23,6 +23,9 @@ dependencies:
   astro:
     specifier: ^4.4.2
     version: 4.4.2(@types/node@20.11.19)(typescript@5.3.3)
+  flag-icons:
+    specifier: ^7.1.0
+    version: 7.1.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2385,6 +2388,10 @@ packages:
     dependencies:
       micromatch: 4.0.5
       pkg-dir: 4.2.0
+    dev: false
+
+  /flag-icons@7.1.0:
+    resolution: {integrity: sha512-AH4v++19bpC5P3Wh767top4wylJYJCWkFnvNiDqGHDxqSqdMZ49jpLXp8PWBHTTXaNQ+/A+QPrOwyiIGaiIhmw==}
     dev: false
 
   /flat-cache@3.2.0:
