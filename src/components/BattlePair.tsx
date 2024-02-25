@@ -1,6 +1,7 @@
 import type { Song } from "../lib/data";
 import SongCard from "./SongCard";
 import { useDisplayStore } from "../store/displayStore";
+import { usePlayerStore } from "../store/playerStore";
 
 function BattlePair({ songs }: { songs: Song[] }) {
   const state = useDisplayStore();
@@ -12,10 +13,13 @@ function BattlePair({ songs }: { songs: Song[] }) {
     updateIndexes,
   } = state;
 
+  const { setIsPlaying } = usePlayerStore();
+
   const displaySongs = [songs[firstCard], songs[secondCard]];
   const nextSongs = [songs[nextFirstCard], songs[nextSecondCard]];
 
   function handleVote() {
+    setIsPlaying(false);
     updateIndexes(state, songs);
   }
 
