@@ -13,7 +13,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content="Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" href="/favicon.ico" />
     <link
@@ -21,6 +21,11 @@ const { title } = Astro.props;
       href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.1.0/css/flag-icons.min.css"
     />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Eurovision Place">
+    <meta property="og:url" content="https://www.eurovision.place/">
+    <meta property="og:image" content="https://www.eurovision.place/og-image-1200x1200.png">
+    <meta property="og:description" content="Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!">
     <title>{title}</title>
   </head>
   <body class="flex flex-col bg-gray-900 min-h-[100dvh]">
