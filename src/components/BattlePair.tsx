@@ -3,12 +3,20 @@ import SongCard from "./SongCard";
 import { useDisplayStore } from "../store/displayStore";
 
 function BattlePair({ songs }: { songs: Song[] }) {
-  const { firstCard, secondCard, updateIndexes } = useDisplayStore();
+  const state = useDisplayStore();
+  const {
+    firstCard,
+    secondCard,
+    nextFirstCard,
+    nextSecondCard,
+    updateIndexes,
+  } = state;
+
   const displaySongs = [songs[firstCard], songs[secondCard]];
+  const nextSongs = [songs[nextFirstCard], songs[nextSecondCard]];
 
   function handleVote() {
-    console.log("Votaste por una canción");
-    updateIndexes(songs);
+    updateIndexes(state, songs);
   }
 
   return (
@@ -22,6 +30,9 @@ function BattlePair({ songs }: { songs: Song[] }) {
           audioUrl={audioUrl}
           onVote={handleVote}
         />
+      ))}
+      {nextSongs.map(({ id, artist }) => (
+        <img key={id} src={artist.imageUrl} className="hidden" />
       ))}
     </div>
   );

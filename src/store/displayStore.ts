@@ -4,31 +4,36 @@ import type { Song } from "../lib/data";
 interface DisplayStore {
   firstCard: number;
   secondCard: number;
-  updateIndexes: (songs: Song[]) => void;
+  nextFirstCard: number;
+  nextSecondCard: number;
+  updateIndexes: (state: DisplayStore, songs: Song[]) => void;
 }
 
 export const useDisplayStore = create<DisplayStore>((set) => ({
   firstCard: 0,
   secondCard: 1,
-  updateIndexes: (songs) => {
+  nextFirstCard: 0,
+  nextSecondCard: 1,
+  updateIndexes: (state, songs) => {
     if (songs.length < 2) {
-      set(() => ({
-        firstCard: 0,
-        secondCard: 1,
-      }));
       return;
     }
 
-    const firstCard = Math.floor(Math.random() * songs.length);
-    let secondCard: number;
+    const firstCard = state.nextFirstCard;
+    const secondCard = state.nextSecondCard;
+
+    const nextFirstCard = Math.floor(Math.random() * songs.length);
+    let nextSecondCard: number;
 
     do {
-      secondCard = Math.floor(Math.random() * songs.length);
-    } while (secondCard === firstCard);
+      nextSecondCard = Math.floor(Math.random() * songs.length);
+    } while (nextSecondCard === nextFirstCard);
 
     set(() => ({
       firstCard,
       secondCard,
+      nextFirstCard,
+      nextSecondCard,
     }));
   },
 }));
