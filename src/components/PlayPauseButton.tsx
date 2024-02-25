@@ -45,6 +45,10 @@ function PlayPauseButton({ src }: { src: string }) {
       setIsPlaying(false);
       return;
     }
+    if (currentTrack === src) {
+      setIsPlaying(true);
+      return;
+    }
     setCurrentTrack(src);
     setIsLoading(true);
     setIsPlaying(true);

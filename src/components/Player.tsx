@@ -35,7 +35,13 @@ function Player() {
   useEffect(() => {
     if (!audioRef.current) return;
 
-    isPlaying ? audioRef.current.play() : audioRef.current.pause();
+    if (isPlaying) {
+      if (audioRef.current.currentTime > 0) {
+        audioRef.current.play();
+      }
+    } else {
+      audioRef.current.pause();
+    }
   }, [isPlaying]);
 
   useEffect(() => {
