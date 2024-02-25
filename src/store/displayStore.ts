@@ -12,8 +12,8 @@ interface DisplayStore {
 export const useDisplayStore = create<DisplayStore>((set) => ({
   firstCard: 0,
   secondCard: 1,
-  nextFirstCard: 0,
-  nextSecondCard: 1,
+  nextFirstCard: 1,
+  nextSecondCard: 2,
   updateIndexes: (state, songs) => {
     if (songs.length < 2) {
       return;

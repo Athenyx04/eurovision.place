@@ -45,7 +45,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "2",
-        title: "La noia",
+        title: "La Noia",
         artist: {
           id: "2",
           name: "Angelina Mango",
@@ -60,7 +60,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "3",
-        title: "No rules!",
+        title: "No Rules",
         artist: {
           id: "3",
           name: "Windows95man",
@@ -90,10 +90,10 @@ export const playlists: Playlist[] = [
       },
       {
         id: "5",
-        title: "Zemrën N'dorë",
+        title: "Zemrën n'dorë",
         artist: {
           id: "5",
-          name: "Besa Kokëdhima",
+          name: "Besa",
           imageUrl: "./imgs/al.webp",
         },
         country: {
@@ -105,7 +105,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "6",
-        title: "Before The Party's Over",
+        title: "Before the Party's Over",
         artist: {
           id: "6",
           name: "Mustii",
@@ -135,10 +135,10 @@ export const playlists: Playlist[] = [
       },
       {
         id: "8",
-        title: "Sand",
+        title: "SAND",
         artist: {
           id: "8",
-          name: "Saba",
+          name: "SABA",
           imageUrl: "./imgs/dk.webp",
         },
         country: {
@@ -150,10 +150,10 @@ export const playlists: Playlist[] = [
       },
       {
         id: "9",
-        title: "(nendest) narkootikumidest ei tea me (küll) midagi",
+        title: "(Nendest) narkootikumidest ei tea me (küll) midagi",
         artist: {
           id: "9",
-          name: "5Miinust & Puuluup",
+          name: "5miinust & Puuluup",
           imageUrl: "./imgs/ee.webp",
         },
         country: {
@@ -165,7 +165,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "10",
-        title: "Mon amour",
+        title: "Mon Amour",
         artist: {
           id: "10",
           name: "Slimane",
@@ -180,7 +180,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "11",
-        title: "Always on the run",
+        title: "Always On The Run",
         artist: {
           id: "11",
           name: "Isaak",
@@ -228,7 +228,7 @@ export const playlists: Playlist[] = [
         title: "Fighter",
         artist: {
           id: "14",
-          name: "Tali",
+          name: "TALI",
           imageUrl: "./imgs/lu.webp",
         },
         country: {
@@ -254,7 +254,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: "16",
-        title: "In the middle",
+        title: "In The Middle",
         artist: {
           id: "16",
           name: "Natalia Barbu",
@@ -287,7 +287,7 @@ export const playlists: Playlist[] = [
         title: "The Tower",
         artist: {
           id: "18",
-          name: "Luna",
+          name: "LUNA",
           imageUrl: "./imgs/pl.webp",
         },
         country: {
@@ -316,8 +316,8 @@ export const playlists: Playlist[] = [
         id: "20",
         title: "Teresa & Maria",
         artist: {
-          id: "17",
-          name: "Alyona Alyona & Jerry Heil",
+          id: "20",
+          name: "alyona alyona & Jerry Heil",
           imageUrl: "./imgs/ua.webp",
         },
         country: {
@@ -326,6 +326,21 @@ export const playlists: Playlist[] = [
         },
         audioUrl:
           "https://p.scdn.co/mp3-preview/8465d47338a7aa21397aa565eebfe24c2f561fb4",
+      },
+      {
+        id: "21",
+        title: "11:11",
+        artist: {
+          id: "21",
+          name: "Megara",
+          imageUrl: "./imgs/sm.webp",
+        },
+        country: {
+          code: "SM",
+          name: "San Marino",
+        },
+        audioUrl:
+          "https://p.scdn.co/mp3-preview/0dd06ce62f44a10ed35a9c14114d78d9ed1de28f",
       },
     ],
   },
