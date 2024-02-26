@@ -3,7 +3,9 @@ import { useSortingStore } from "../store/sortingStore";
 function Percentage() {
   const { finishSize, totalSize } = useSortingStore();
 
-  const percentage = ((finishSize / totalSize) * 100).toFixed(0);
+  const percentage = totalSize
+    ? ((finishSize / totalSize) * 100).toFixed(0)
+    : 0;
 
   return (
     <div className="flex justify-center items-center">
