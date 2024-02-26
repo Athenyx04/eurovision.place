@@ -1,10 +1,12 @@
 ---
 import Menu from './Menu.astro'
+import Percentage from './Percentage'
 ---
 
 <header class="fixed top-1/2 left-1/2 z-10 bg-slate-200 rounded-2xl select-none py-2 px-4 -translate-x-1/2 -translate-y-1/2 sm:top-[10%] hover:scale-105">
     <button class="flex gap-2" aria-label="Open menu">
       <img src="./favicon.ico" alt="logo" class="w-6 h-6 mx-auto">
+      <Percentage client:visible />
       <Menu />
     </button>
   </div>
