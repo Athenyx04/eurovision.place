@@ -1,13 +1,21 @@
 ---
-import Menu from './Menu.astro'
-import Percentage from './Percentage'
+import PageIcon from "./PageIcon.astro";
+import Menu from "./Menu.astro";
 ---
 
-<header class="fixed top-1/2 left-1/2 z-10 bg-slate-200 rounded-2xl select-none py-2 px-4 -translate-x-1/2 -translate-y-1/2 sm:top-[10%] hover:scale-105">
-    <button class="flex gap-2" aria-label="Open menu">
-      <img src="./favicon.ico" alt="logo" class="w-6 h-6 mx-auto">
-      <Percentage client:visible />
+<header class="flex w-full bg-slate-200 text-black py-2 px-4">
+  <a href="/" class="w-40 h-16 flex gap-2 items-center" >
+    <PageIcon />
+    <img src="/textWG.svg" alt="Text" class="w-2/3" />
+  </a>
+  <div class="flex items-center ml-auto text-slate-900 font-bold">
+    <nav class="hidden space-x-4 sm:flex">
+      <a href="/">Sorter</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="sm:hidden">
       <Menu />
-    </button>
+    </div>
   </div>
 </header>

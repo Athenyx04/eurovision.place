@@ -12,7 +12,7 @@ interface Props {
 const SongCard = ({ artist, title, country, audioUrl, onVote }: Props) => {
   return (
     <div
-      className="w-full sm:w-1/2 flex grow flex-col bg-cover bg-center"
+      className="w-full h-1/2 sm:w-1/2 sm:h-full flex grow flex-col bg-cover bg-center"
       style={{ backgroundImage: `url(${artist.imageUrl})` }}
     >
       <div className="flex grow select-none p-4 bg-black/40 hover:bg-black/60 transition-all">

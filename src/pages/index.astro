@@ -1,9 +1,9 @@
 ---
 import { playlists } from "../lib/data";
-import Layout from "../layouts/Layout.astro";
+import FloatingHeaderLayout from "../layouts/FloatingHeaderLayout.astro";
 import BattlePair from "../components/BattlePair";
 ---
 
-<Layout title="Sorter | Eurovision Place">
+<FloatingHeaderLayout title="Sorter | Eurovision Place">
   <BattlePair client:load songList={playlists[0].songs} />
-</Layout>
+</FloatingHeaderLayout>
