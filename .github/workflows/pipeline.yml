@@ -34,7 +34,7 @@ jobs:
           cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install
-      - name: Run ESLint
+      - name: Run Prettier & ESLint
         run: pnpm lint
   # Sonar:
   #   runs-on: ubuntu-latest
