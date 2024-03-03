@@ -46,7 +46,7 @@ function BattlePair({ songList }: { songList: Song[] }) {
   }
 
   if (!hasHydrated) {
-    return <p>Loading....</p>;
+    return null;
   }
 
   if (finishFlag) {
