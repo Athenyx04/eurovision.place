@@ -49,7 +49,7 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
         <div className='flex h-full w-7 items-center'>
           <span
             className={
-              `fi fi-${country.code.toLowerCase()}` + 'size-7 rounded-full'
+              `fi fi-${country.code.toLowerCase()} ` + 'size-7 rounded-full'
             }
           />
         </div>
