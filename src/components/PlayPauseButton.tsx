@@ -28,7 +28,7 @@ const Load = () => (
   </svg>
 );
 
-function PlayPauseButton({ src }: { src: string }) {
+function PlayPauseButton({ src, size = "sm" }: { src: string; size?: string }) {
   const {
     isPlaying,
     isLoading,
@@ -58,7 +58,9 @@ function PlayPauseButton({ src }: { src: string }) {
     <div>
       <button
         aria-label={isPlayingThisTrack ? "Pause" : "Play"}
-        className="bg-gray-200 hover:scale-105 text-white p-4 rounded-full disabled:bg-gray-500 disabled:cursor-not-allowed disabled:hover:scale-100"
+        className={`bg-gray-200 hover:scale-105 text-white rounded-full disabled:bg-gray-500 disabled:cursor-not-allowed disabled:hover:scale-100 ${
+          size === "sm" ? "p-2" : "p-4"
+        }`}
         onClick={handleClick}
         disabled={src === ""}
       >
