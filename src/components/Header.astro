@@ -1,13 +1,26 @@
 ---
-import Menu from './Menu.astro'
-import Percentage from './Percentage'
+import Menu from "./Menu.astro";
 ---
 
-<header class="fixed top-1/2 left-1/2 z-10 bg-slate-200 rounded-2xl select-none py-2 px-4 -translate-x-1/2 -translate-y-1/2 sm:top-[10%] hover:scale-105">
-    <button class="flex gap-2" aria-label="Open menu">
-      <img src="./favicon.ico" alt="logo" class="w-6 h-6 mx-auto">
-      <Percentage client:visible />
-      <Menu />
-    </button>
+<header class="flex justify-between w-full bg-slate-200 text-black py-1 px-4 sticky top-0 left-0 z-20">
+  <div class="sm:hidden flex items-center">
+    <Menu />
+  </div>
+  <div class="flex items-center">
+    <a href="/" class="w-24 h-14 flex gap-2 justify-center items-center" >
+      <img src="/textWG.svg" alt="Text" />
+    </a>
+  </div>
+  <div class="hidden sm:flex items-center text-slate-900 font-bold">
+    <nav class="space-x-4">
+      <a href="/">Sorter</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+  <div class="flex items-center">
+    <svg height="30" width="30">
+      <circle cx="15" cy="15" r="14" fill="#111827" stroke="#5365a6" stroke-width="2" />
+    </svg>
   </div>
 </header>
