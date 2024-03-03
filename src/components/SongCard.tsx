@@ -12,14 +12,14 @@ interface Props {
 function SongCard({ position, title, artist, country, audioUrl }: Props) {
   return (
     <div
-      className={`w-full flex border-b-2 border-x-2 border-black ${
+      className={`w-full flex ${
         position === 1
-          ? "bg-yellow-200 text-black lg:col-span-2 xl:col-span-3"
+          ? "bg-yellow-200 text-black lg:col-span-2 xl:col-span-6"
           : position === 2
-          ? "bg-gray-400 lg:col-span-2 xl:col-span-3"
+          ? "bg-gray-400 border-[#e5e5e5] border-t-2 lg:col-span-2 xl:col-span-3"
           : position === 3
-          ? "bg-orange-900 lg:col-span-2 xl:col-span-3"
-          : ""
+          ? "bg-orange-900 border-[#e5e5e5] border-t-2 lg:col-span-2 xl:col-span-3"
+          : "border-[#5365a6] border-t-2 xl:col-span-2"
       }`}
     >
       <div
@@ -27,9 +27,9 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
           position === 1
             ? "w-1/5 sm:w-1/6 md:w-1/12"
             : position === 2
-            ? "w-1/5 sm:w-1/6 md:w-1/12"
+            ? "w-1/5 sm:w-1/6 md:w-1/12 xl:w-1/6"
             : position === 3
-            ? "w-1/5 sm:w-1/6 md:w-1/12"
+            ? "w-1/5 sm:w-1/6 md:w-1/12 xl:w-1/6"
             : "w-1/5 sm:w-1/6 md:w-1/12 lg:w-1/6 xl:w-1/5"
         }`}
       >
