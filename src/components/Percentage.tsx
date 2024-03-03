@@ -1,17 +1,15 @@
-import { useSortingStore } from "../store/sortingStore";
+import { useSortingStore } from '../store/sortingStore.ts'
 
 function Percentage() {
-  const { finishSize, totalSize } = useSortingStore();
+  const { finishSize, totalSize } = useSortingStore()
 
-  const percentage = totalSize
-    ? ((finishSize / totalSize) * 100).toFixed(0)
-    : 0;
+  const percentage = totalSize ? ((finishSize / totalSize) * 100).toFixed(0) : 0
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="text-l font-bold text-black">{percentage}%</div>
+    <div className='flex items-center justify-center'>
+      <div className='font-bold text-black'>{percentage}%</div>
     </div>
-  );
+  )
 }
 
-export default Percentage;
+export default Percentage

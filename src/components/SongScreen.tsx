@@ -1,40 +1,42 @@
-import type { Artist, Country } from "../lib/data";
-import PlayPauseButton from "./PlayPauseButton";
+import type { Artist, Country } from '../lib/data.ts'
+import PlayPauseButton from './PlayPauseButton.tsx'
 
 interface Props {
-  artist: Artist;
-  title: string;
-  country: Country;
-  audioUrl: string;
-  onVote?: () => void;
+  artist: Artist
+  title: string
+  country: Country
+  audioUrl: string
+  onVote?: () => void
 }
 
 const SongScreen = ({ artist, title, country, audioUrl, onVote }: Props) => {
   return (
     <div
-      className="w-full h-1/2 sm:w-1/2 sm:h-full flex grow flex-col bg-cover bg-center"
+      className='flex h-1/2 w-full grow flex-col bg-cover bg-center sm:h-full sm:w-1/2'
       style={{ backgroundImage: `url(${artist.imageUrl})` }}
     >
-      <div className="flex grow select-none p-4 bg-black/40 hover:bg-black/60 transition-all">
+      <div className='flex grow select-none bg-black/40 p-4 transition-all hover:bg-black/60'>
         <div
           onClick={onVote}
-          className="flex flex-col grow px-2 justify-center"
+          className='flex grow flex-col justify-center px-2'
         >
-          <h1 className="text-2xl tracking-tight font-extrabold">{title}</h1>
-          <p className="text-lg font-light">{artist.name}</p>
-          <p className="text-sm flex items-center font-semibold gap-2">
+          <h1 className='text-2xl font-extrabold tracking-tight'>{title}</h1>
+          <p className='text-lg font-light'>{artist.name}</p>
+          <p className='flex items-center gap-2 text-sm font-semibold'>
             <span
-              className={`fi fi-${country.code.toLowerCase()} w-6 h-6 rounded-full`}
+              className={
+                `fi fi-${country.code.toLowerCase()}` + 'size-6 rounded-full'
+              }
             />
             {country.name}
           </p>
         </div>
-        <div className="flex items-center justify-center">
-          <PlayPauseButton src={audioUrl} size="lg" />
+        <div className='flex items-center justify-center'>
+          <PlayPauseButton src={audioUrl} size='lg' />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SongScreen;
+export default SongScreen
