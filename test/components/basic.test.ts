@@ -1,13 +1,13 @@
-import { assert, expect, test } from "vitest";
+import { assert, expect, test } from 'vitest'
 
-test("JSON", () => {
+test('JSON', () => {
   const input = {
-    foo: "hello",
-    bar: "world",
-  };
+    foo: 'hello',
+    bar: 'world'
+  }
 
-  const output = JSON.stringify(input);
+  const output = JSON.stringify(input)
 
-  expect(output).eq('{"foo":"hello","bar":"world"}');
-  assert.deepEqual(JSON.parse(output), input, "matches original");
-});
+  expect(output).eq('{"foo":"hello","bar":"world"}')
+  assert.deepEqual(JSON.parse(output), input, 'matches original')
+})

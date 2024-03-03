@@ -1,8 +1,9 @@
-import { useEffect } from "react";
-import SongScreen from "./SongScreen";
-import type { Song } from "../lib/data";
-import { usePlayerStore } from "../store/playerStore";
-import { useSortingStore } from "../store/sortingStore";
+import { useEffect } from 'react'
+
+import type { Song } from '../lib/data'
+import { usePlayerStore } from '../store/playerStore.ts'
+import { useSortingStore } from '../store/sortingStore.ts'
+import SongScreen from './SongScreen.tsx'
 
 function BattlePair({ songList }: { songList: Song[] }) {
   const {
@@ -15,51 +16,51 @@ function BattlePair({ songList }: { songList: Song[] }) {
     finishFlag,
     setSongs,
     initList,
-    sortList,
-  } = useSortingStore();
-  const hasHydrated = useSortingStore((state) => state._hasHydrated);
+    sortList
+  } = useSortingStore()
+  const hasHydrated = useSortingStore((state) => state._hasHydrated)
 
-  const { setIsPlaying } = usePlayerStore();
+  const { setIsPlaying } = usePlayerStore()
 
   useEffect(() => {
     if (songList) {
-      setSongs(songList);
-      initList(songList);
+      setSongs(songList)
+      initList(songList)
     }
-  }, [songList]);
+  }, [songList])
 
   useEffect(() => {
-    useSortingStore.persist.rehydrate();
-  }, []);
+    useSortingStore.persist.rehydrate()
+  }, [])
 
   const firstCardIndex =
-    sortedIndexes[currentComparisonLeft]?.[comparisonHeadLeft];
+    sortedIndexes[currentComparisonLeft]?.[comparisonHeadLeft]
   const secondCardIndex =
-    sortedIndexes[currentComparisonRight]?.[comparisonHeadRight];
+    sortedIndexes[currentComparisonRight]?.[comparisonHeadRight]
 
-  const firstCard = songs?.[firstCardIndex];
-  const secondCard = songs?.[secondCardIndex];
+  const firstCard = songs?.[firstCardIndex]
+  const secondCard = songs?.[secondCardIndex]
 
   function handleVote(flag: boolean) {
-    setIsPlaying(false);
-    sortList(flag);
+    setIsPlaying(false)
+    sortList(flag)
   }
 
   if (!hasHydrated) {
-    return null;
+    return null
   }
 
   if (finishFlag) {
     // Redirect to the ranking page for now
-    window.location.href = "/ranking";
+    window.location.href = '/ranking'
   }
 
   if (!firstCard || !secondCard) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
-    <div className="flex grow flex-col sm:flex-row">
+    <div className='flex grow flex-col sm:flex-row'>
       <SongScreen
         key={firstCard.id}
         title={firstCard.title}
@@ -77,7 +78,7 @@ function BattlePair({ songList }: { songList: Song[] }) {
         onVote={() => handleVote(true)}
       />
     </div>
-  );
+  )
 }
 
-export default BattlePair;
+export default BattlePair

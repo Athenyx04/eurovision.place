@@ -1,36 +1,44 @@
 ---
-import Player from "../components/Player";
-import FloatingHeader from "../components/FloatingHeader.astro";
+import FloatingHeader from '../components/FloatingHeader.astro'
+import Player from '../components/Player.tsx'
 
 interface Props {
-  title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
-<!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.1.0/css/flag-icons.min.css"
+    <meta charset='UTF-8' />
+    <meta
+      name='description'
+      content='Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!'
     />
-    <meta name="generator" content={Astro.generator} />
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Eurovision Place">
-    <meta property="og:url" content="https://www.eurovision.place/">
-    <meta property="og:image" content="https://www.eurovision.place/banner.png">
-    <meta property="og:description" content="Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!">
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' href='/favicon.ico' />
+    <link
+      rel='stylesheet'
+      href='https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.1.0/css/flag-icons.min.css'
+    />
+    <meta name='generator' content={Astro.generator} />
+    <meta property='og:type' content='website' />
+    <meta property='og:title' content='Eurovision Place' />
+    <meta property='og:url' content='https://www.eurovision.place/' />
+    <meta
+      property='og:image'
+      content='https://www.eurovision.place/banner.png'
+    />
+    <meta
+      property='og:description'
+      content='Sort the Eurovision Song Contest 2024 songs based on your preferences, in a 1v1 battle system, and discover your favourite to win!'
+    />
     <title>{title}</title>
   </head>
-  <body class="flex flex-col bg-gray-900 min-h-[100dvh]">
+  <body class='flex min-h-[100dvh] flex-col bg-gray-900'>
     <FloatingHeader />
-    <main class="flex grow">
+    <main class='flex grow'>
       <slot />
     </main>
     <Player client:load />
