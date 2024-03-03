@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import SongCard from "./SongCard";
+import SongScreen from "./SongScreen";
 import type { Song } from "../lib/data";
 import { usePlayerStore } from "../store/playerStore";
 import { useSortingStore } from "../store/sortingStore";
@@ -45,23 +45,8 @@ function BattlePair({ songList }: { songList: Song[] }) {
   }
 
   if (finishFlag) {
-    return (
-      <div className="flex grow flex-col justify-center items-center">
-        <div className="text-l font-bold">Finished! The final order is:</div>
-        <div className="text-center p-2">
-          {sortedIndexes.map((segment, index) => (
-            <div key={index}>
-              {segment.map((songIndex) => (
-                <div key={songIndex} className="p-0.5">
-                  {songs[songIndex].country.name} / {songs[songIndex].title} -{" "}
-                  {songs[songIndex].artist.name}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    // Redirect to the ranking page for now
+    window.location.href = "/ranking";
   }
 
   if (!firstCard || !secondCard) {
@@ -70,7 +55,7 @@ function BattlePair({ songList }: { songList: Song[] }) {
 
   return (
     <div className="flex grow flex-col sm:flex-row">
-      <SongCard
+      <SongScreen
         key={firstCard.id}
         title={firstCard.title}
         artist={firstCard.artist}
@@ -78,7 +63,7 @@ function BattlePair({ songList }: { songList: Song[] }) {
         audioUrl={firstCard.audioUrl}
         onVote={() => handleVote(false)}
       />
-      <SongCard
+      <SongScreen
         key={secondCard.id}
         title={secondCard.title}
         artist={secondCard.artist}
