@@ -17,31 +17,36 @@ function BattlePair({ songList }: { songList: Song[] }) {
     initList,
     sortList,
   } = useSortingStore();
+  const hasHydrated = useSortingStore((state) => state._hasHydrated);
 
   const { setIsPlaying } = usePlayerStore();
 
   useEffect(() => {
-    if (songList && songs.length === 0) {
+    if (songList) {
       setSongs(songList);
       initList(songList);
     }
   }, [songList]);
+
+  useEffect(() => {
+    useSortingStore.persist.rehydrate();
+  }, []);
 
   const firstCardIndex =
     sortedIndexes[currentComparisonLeft]?.[comparisonHeadLeft];
   const secondCardIndex =
     sortedIndexes[currentComparisonRight]?.[comparisonHeadRight];
 
-  const firstCard = songs[firstCardIndex];
-  const secondCard = songs[secondCardIndex];
+  const firstCard = songs?.[firstCardIndex];
+  const secondCard = songs?.[secondCardIndex];
 
   function handleVote(flag: boolean) {
     setIsPlaying(false);
     sortList(flag);
   }
 
-  if (songs.length === 0) {
-    return null;
+  if (!hasHydrated) {
+    return <p>Loading....</p>;
   }
 
   if (finishFlag) {
