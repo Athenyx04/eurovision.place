@@ -23,7 +23,9 @@ const SongScreen = ({ artist, title, country, audioUrl, onVote }: Props) => {
           <h1 className="text-2xl tracking-tight font-extrabold">{title}</h1>
           <p className="text-lg font-light">{artist.name}</p>
           <p className="text-sm flex items-center font-semibold gap-2">
-            <span className={`fi fi-${country.code.toLowerCase()} w-6 h-6`} />
+            <span
+              className={`fi fi-${country.code.toLowerCase()} w-6 h-6 rounded-full`}
+            />
             {country.name}
           </p>
         </div>

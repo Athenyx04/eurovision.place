@@ -2,59 +2,50 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="102.50314mm"
-   height="39.73708mm"
-   viewBox="0 0 102.50314 39.73708"
+   width="110.32472mm"
+   height="45.664211mm"
+   viewBox="0 0 110.32472 45.664211"
    version="1.1"
    id="svg1"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm" />
   <defs
      id="defs1" />
   <g
-     inkscape:label="Capa 1"
-     inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-44.948018,-73.125723)">
+     transform="translate(0,-0.36531364)">
+    <rect
+       style="fill:none;stroke-width:0.267704"
+       id="rect1"
+       width="110.32472"
+       height="45.664207"
+       x="0"
+       y="0.36531365" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.5778px;font-family:Lato;-inkscape-font-specification:'Lato Bold';fill:#16233b;fill-opacity:1;stroke-width:0.264583"
-       x="44.202953"
-       y="89.867157"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.5778px;font-family:Lato;-inkscape-font-specification:'Lato Bold';display:inline;fill:#16233b;fill-opacity:1;stroke-width:0.264583"
+       x="3.2826905"
+       y="20.391665"
        id="text1"><tspan
-         sodipodi:role="line"
          id="tspan1"
          style="fill:#16233b;fill-opacity:1;stroke-width:0.264583"
-         x="44.202953"
-         y="89.867157">eurovision</tspan></text>
+         x="3.2826905"
+         y="20.391665">eurovision</tspan></text>
     <circle
-       style="fill:#5365a6;fill-opacity:1;stroke-width:0.264583"
+       style="display:inline;fill:#5365a6;fill-opacity:1;stroke-width:0.264583"
        id="path1"
-       cx="50.948021"
-       cy="103.19636"
+       cx="10.027758"
+       cy="33.720871"
        r="6" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.5778px;font-family:Lato;-inkscape-font-specification:'Lato Bold';fill:#16233b;fill-opacity:1;stroke-width:0.264583"
-       x="61.167465"
-       y="109.08102"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.5778px;font-family:Lato;-inkscape-font-specification:'Lato Bold';display:inline;fill:#16233b;fill-opacity:1;stroke-width:0.264583"
+       x="20.247198"
+       y="39.60553"
        id="text1-9"><tspan
-         sodipodi:role="line"
          id="tspan1-0"
          style="fill:#5365a6;fill-opacity:1;stroke-width:0.264583"
-         x="61.167465"
-         y="109.08102">place</tspan></text>
+         x="20.247198"
+         y="39.60553">place</tspan></text>
   </g>
 </svg>
