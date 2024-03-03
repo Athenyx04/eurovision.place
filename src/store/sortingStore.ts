@@ -1,41 +1,42 @@
-import type { Song } from "../lib/data";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+
+import type { Song } from '../lib/data'
 
 interface SortingStore {
-  songs?: Song[];
+  songs?: Song[]
 
   // Stores indexes of the songs to be sorted.
   // Initially, it contains a single array with indexes representing all songs.
-  sortedIndexes: number[][];
+  sortedIndexes: number[][]
   // Keeps track of relationships between divided segments of sortedIndexes.
-  segmentParents: number[];
+  segmentParents: number[]
   // Initialized to track the number of items that have been processed.
-  totalSize: number;
+  totalSize: number
 
   // Records the user's preferences.
-  comparisonResults: number[];
+  comparisonResults: number[]
 
   // Current segments being compared.
-  currentComparisonLeft: number;
-  currentComparisonRight: number;
+  currentComparisonLeft: number
+  currentComparisonRight: number
 
   // Indexes within the segments being compared.
-  comparisonHeadLeft: number;
-  comparisonHeadRight: number;
+  comparisonHeadLeft: number
+  comparisonHeadRight: number
 
-  finishSize: number;
-  finishFlag: boolean;
-  _hasHydrated: boolean;
-  setSongs: (songs: Song[]) => void;
-  setHasHydrated: (state: boolean) => void;
+  finishSize: number
+  finishFlag: boolean
+  _hasHydrated: boolean
+  setSongs: (songs: Song[]) => void
+  setHasHydrated: (state: boolean) => void
 
   // Prepares the list for sorting.
   // Initializes several arrays to manage the sorting state,
   // including dividing the songs into segments for comparison.
-  initList: (songs: Song[]) => void;
+  initList: (songs: Song[]) => void
 
-  sortList: (flag: boolean) => void;
+  sortList: (flag: boolean) => void
 }
 
 export const useSortingStore = create<SortingStore>()(
@@ -55,11 +56,11 @@ export const useSortingStore = create<SortingStore>()(
       _hasHydrated: false,
 
       setSongs: (songs) => {
-        set({ songs });
+        set({ songs })
       },
 
       setHasHydrated: (state: boolean) => {
-        set({ _hasHydrated: state });
+        set({ _hasHydrated: state })
       },
 
       /*
@@ -72,37 +73,37 @@ export const useSortingStore = create<SortingStore>()(
         * @param {Song[]} songs - The list of songs to be sorted.
         */
       initList: (songs) => {
-        const totalSongs = songs.length;
+        const totalSongs = songs.length
 
         // Create an array of song indexes
-        const initialSortedIndexes = Array.from(Array(totalSongs).keys());
-        const tempSortedIndexes = [initialSortedIndexes];
-        const tempSegmentParents = [-1];
-        let totalSize = 0;
-        const queue = [initialSortedIndexes];
+        const initialSortedIndexes = Array.from(Array(totalSongs).keys())
+        const tempSortedIndexes = [initialSortedIndexes]
+        const tempSegmentParents = [-1]
+        let totalSize = 0
+        const queue = [initialSortedIndexes]
 
         while (queue.length > 0) {
           // Return the first segment in the queue
-          const currentSegment = queue.shift();
+          const currentSegment = queue.shift()
           if (currentSegment && currentSegment.length > 1) {
-            const midIndex = Math.ceil(currentSegment.length / 2);
-            const leftSegment = currentSegment.slice(0, midIndex);
-            const rightSegment = currentSegment.slice(midIndex);
-            const parentIndex = tempSortedIndexes.indexOf(currentSegment);
+            const midIndex = Math.ceil(currentSegment.length / 2)
+            const leftSegment = currentSegment.slice(0, midIndex)
+            const rightSegment = currentSegment.slice(midIndex)
+            const parentIndex = tempSortedIndexes.indexOf(currentSegment)
 
             // Add new segments to the temp arrays and the queue for further division
-            tempSortedIndexes.push(leftSegment, rightSegment);
-            tempSegmentParents.push(parentIndex, parentIndex);
+            tempSortedIndexes.push(leftSegment, rightSegment)
+            tempSegmentParents.push(parentIndex, parentIndex)
 
             // Increment totalSize for each division
-            totalSize += currentSegment.length;
+            totalSize += currentSegment.length
 
             // Only add to the queue if the segment has more than one item
             if (leftSegment.length > 1) {
-              queue.push(leftSegment);
+              queue.push(leftSegment)
             }
             if (rightSegment.length > 1) {
-              queue.push(rightSegment);
+              queue.push(rightSegment)
             }
           }
         }
@@ -119,8 +120,8 @@ export const useSortingStore = create<SortingStore>()(
           comparisonHeadLeft: 0,
           comparisonHeadRight: 0,
           finishSize: 0,
-          finishFlag: false,
-        });
+          finishFlag: false
+        })
       },
 
       /*
@@ -141,29 +142,29 @@ export const useSortingStore = create<SortingStore>()(
             currentComparisonRight,
             comparisonHeadLeft,
             comparisonHeadRight,
-            comparisonResults,
-          } = state;
+            comparisonResults
+          } = state
 
-          const newComparisonResults = [...comparisonResults];
-          let newComparisonHeadLeft = comparisonHeadLeft;
-          let newComparisonHeadRight = comparisonHeadRight;
-          let newFinishSize = state.finishSize;
+          const newComparisonResults = [...comparisonResults]
+          let newComparisonHeadLeft = comparisonHeadLeft
+          let newComparisonHeadRight = comparisonHeadRight
+          let newFinishSize = state.finishSize
 
           // Determine the vote winner based on flag and update state accordingly
           if (flag) {
             // If true, right side won
             newComparisonResults.push(
               sortedIndexes[currentComparisonRight][comparisonHeadRight]
-            );
-            newComparisonHeadRight += 1;
+            )
+            newComparisonHeadRight += 1
           } else {
             // If false, left side won
             newComparisonResults.push(
               sortedIndexes[currentComparisonLeft][comparisonHeadLeft]
-            );
-            newComparisonHeadLeft += 1;
+            )
+            newComparisonHeadLeft += 1
           }
-          newFinishSize += 1;
+          newFinishSize += 1
 
           // Check if we need to pull remaining items from one of the segments
           const remainingItemsProcess = () => {
@@ -173,9 +174,9 @@ export const useSortingStore = create<SortingStore>()(
             ) {
               newComparisonResults.push(
                 sortedIndexes[currentComparisonLeft][newComparisonHeadLeft]
-              );
-              newComparisonHeadLeft += 1;
-              newFinishSize += 1;
+              )
+              newComparisonHeadLeft += 1
+              newFinishSize += 1
             }
 
             while (
@@ -184,11 +185,11 @@ export const useSortingStore = create<SortingStore>()(
             ) {
               newComparisonResults.push(
                 sortedIndexes[currentComparisonRight][newComparisonHeadRight]
-              );
-              newComparisonHeadRight += 1;
-              newFinishSize += 1;
+              )
+              newComparisonHeadRight += 1
+              newFinishSize += 1
             }
-          };
+          }
 
           // Determine if any side ia exhausted and merge if so
           if (
@@ -197,17 +198,17 @@ export const useSortingStore = create<SortingStore>()(
             newComparisonHeadRight ===
               sortedIndexes[currentComparisonRight].length
           ) {
-            remainingItemsProcess();
+            remainingItemsProcess()
 
             // Merge back into the main array and prepare for the next comparison
 
             // Remove the last two compared segments
-            const newSortedIndexes = sortedIndexes.slice(0, -2);
+            const newSortedIndexes = sortedIndexes.slice(0, -2)
             newSortedIndexes[state.segmentParents[currentComparisonLeft]] =
-              newComparisonResults;
+              newComparisonResults
 
-            const nextLeft = currentComparisonLeft - 2;
-            const nextRight = currentComparisonRight - 2;
+            const nextLeft = currentComparisonLeft - 2
+            const nextRight = currentComparisonRight - 2
 
             return {
               ...state,
@@ -219,8 +220,8 @@ export const useSortingStore = create<SortingStore>()(
               comparisonHeadRight: 0,
               finishSize: newFinishSize,
               // Sorting is complete if no more segments to compare
-              finishFlag: nextLeft < 0,
-            };
+              finishFlag: nextLeft < 0
+            }
           }
 
           // If not yet exhausted, just update the heads and finish size
@@ -229,22 +230,22 @@ export const useSortingStore = create<SortingStore>()(
             comparisonHeadLeft: newComparisonHeadLeft,
             comparisonHeadRight: newComparisonHeadRight,
             comparisonResults: newComparisonResults,
-            finishSize: newFinishSize,
-          };
-        });
-      },
+            finishSize: newFinishSize
+          }
+        })
+      }
     }),
     {
-      name: "sorting-store",
+      name: 'sorting-store',
       partialize: (state) => ({
         songs: state.songs,
-        sortedIndexes: state.sortedIndexes,
+        sortedIndexes: state.sortedIndexes
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          state.setHasHydrated(true);
+          state.setHasHydrated(true)
         }
-      },
+      }
     }
   )
-);
+)
