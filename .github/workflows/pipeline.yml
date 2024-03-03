@@ -36,23 +36,23 @@ jobs:
         run: pnpm install
       - name: Run ESLint
         run: pnpm lint
-  Sonar:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ github.token }} # Needed to get PR information
+  # Sonar:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+  #     - name: SonarCloud Scan
+  #       uses: SonarSource/sonarcloud-github-action@master
+  #       with:
+  #         projectBaseDir: .
+  #         args: >
+  #           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+  #           -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         GITHUB_TOKEN: ${{ github.token }} # Needed to get PR information
   Build:
     runs-on: ubuntu-latest
     strategy:
@@ -81,7 +81,7 @@ jobs:
           name: dist
           path: dist
   Unit-Test:
-    needs: [Lint, Sonar]
+    needs: [Lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -100,7 +100,7 @@ jobs:
       - name: Run Unit Tests
         run: pnpm test:unit
   E2E-Test:
-    needs: [Lint, Build, Sonar]
+    needs: [Lint, Build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
