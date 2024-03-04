@@ -8,10 +8,12 @@ import Percentage from './Percentage.tsx'
   class='fixed left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none rounded-2xl bg-slate-200 px-4 py-2 hover:scale-105 sm:top-[10%]'
 >
   <div class='flex items-center gap-3' aria-label='Open menu'>
-    <div class='size-6'>
+    <a href='/' class='size-6'>
       <PageIcon />
-    </div>
+    </a>
     <Percentage client:visible />
-    <Menu />
+    <a href='#'>
+      <Menu />
+    </a>
   </div>
 </header>
