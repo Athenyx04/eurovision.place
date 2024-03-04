@@ -16,10 +16,10 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
         position === 1
           ? 'bg-yellow-200 text-black lg:col-span-2 xl:col-span-6'
           : position === 2
-            ? 'border-t-2 border-[#e5e5e5] bg-gray-400 lg:col-span-2 xl:col-span-3'
+            ? 'border-t-2 border-platinum bg-gray-400 lg:col-span-2 xl:col-span-3'
             : position === 3
-              ? 'border-t-2 border-[#e5e5e5] bg-orange-900 lg:col-span-2 xl:col-span-3'
-              : 'border-t-2 border-[#5365a6] xl:col-span-2'
+              ? 'border-t-2 border-platinum bg-orange-900 lg:col-span-2 xl:col-span-3'
+              : 'border-t-2 border-liberty xl:col-span-2'
       }`}
     >
       <div
@@ -40,7 +40,7 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
         />
         <div className='pb-[100%}'></div>
       </div>
-      <div className='flex size-8 -translate-x-4 items-center justify-center self-center rounded-full bg-[#5365a6]'>
+      <div className='flex size-8 -translate-x-4 items-center justify-center self-center rounded-full bg-liberty'>
         <span className='font-bold text-slate-200'>
           {String(position).padStart(2, '0')}
         </span>
