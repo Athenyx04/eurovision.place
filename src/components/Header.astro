@@ -3,7 +3,7 @@ import Menu from './Menu.astro'
 ---
 
 <header
-  class='sticky left-0 top-0 z-20 flex w-full justify-between bg-slate-200 px-4 py-1 text-black'
+  class='sticky left-0 top-0 z-20 flex w-full justify-between bg-slate-200 px-4 py-1 text-black sm:gap-8'
 >
   <div class='flex items-center sm:hidden'>
     <Menu />
@@ -15,12 +15,12 @@ import Menu from './Menu.astro'
   </div>
   <div class='hidden items-center font-bold text-slate-900 sm:flex'>
     <nav class='space-x-4'>
-      <a href='/'>Sorter</a>
+      <a href='/sorter'>Sorter</a>
       <a href='/about'>About</a>
       <a href='/contact'>Contact</a>
     </nav>
   </div>
-  <div class='flex items-center'>
+  <div class='flex items-center sm:ml-auto'>
     <svg height='30' width='30'>
       <circle
         cx='15'
