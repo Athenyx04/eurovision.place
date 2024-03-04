@@ -1,9 +1,52 @@
 ---
-import BattlePair from '../components/BattlePair.tsx'
-import FloatingHeaderLayout from '../layouts/FloatingHeaderLayout.astro'
-import { playlists } from '../lib/data.ts'
+import GitHubIcon from '../components/GitHubIcon.astro'
+import XIcon from '../components/XIcon.astro'
+import Layout from '../layouts/Layout.astro'
 ---
 
-<FloatingHeaderLayout title='Sorter | Eurovision Place'>
-  <BattlePair client:load songList={playlists[0].songs} />
-</FloatingHeaderLayout>
+<Layout title='Eurovision Place'>
+  <div
+    class='absolute top-0 -z-10 size-full bg-gradient-to-br from-[#5365a6] via-[#111827] to-[#e5e5e5] opacity-25'
+  >
+  </div>
+  <div class='flex w-full flex-col items-center justify-center'>
+    <h1
+      class='mb-10 px-4 text-center text-4xl font-semibold xl:mb-16 xl:text-6xl'
+    >
+      Welcome to eurovision.place
+    </h1>
+    <p class='mb-4 max-w-3xl px-8 text-center xl:mb-8 xl:text-lg'>
+      Whether you want to know your favourite entry this Eurovision season, you
+      want to sort the new releases in your ranking or you want to share your
+      top 10 with your friends,
+    </p>
+    <span
+      class='mb-4 max-w-3xl px-8 text-center text-lg font-semibold xl:mb-8 xl:text-xl'
+    >
+      You've come to the right place!
+    </span>
+    <p class='mb-10 max-w-3xl px-8 text-center xl:mb-16 xl:text-lg'>
+      Sort the Eurovision Song Contest 2024 songs based on your preferences, in
+      a 1v1 battle system, and discover your favourite to win!
+    </p>
+    <a
+      href='/sorter'
+      class='mb-10 inline-flex h-14 items-center justify-center rounded-full bg-slate-200 px-10 font-bold text-[#5365a6] shadow-md hover:bg-slate-200/80'
+      >Start sorting now!</a
+    >
+    <div class='flex gap-8'>
+      <a
+        href='https://x.com/EurovisionPlace'
+        class='opacity-70 transition-opacity hover:opacity-100'
+      >
+        <XIcon />
+      </a>
+      <a
+        href='https://github.com/Athenyx04/eurosorter'
+        class='opacity-70 transition-opacity hover:opacity-100'
+      >
+        <GitHubIcon />
+      </a>
+    </div>
+  </div>
+</Layout>
