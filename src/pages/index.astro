@@ -1,14 +1,13 @@
 ---
+import BackgroundGradient from '../components/BackgroundGradient.astro'
 import GitHubIcon from '../components/GitHubIcon.astro'
+import SocialIcon from '../components/SocialIcon.astro'
 import XIcon from '../components/XIcon.astro'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title='Eurovision Place'>
-  <div
-    class='absolute top-0 -z-10 size-full bg-gradient-to-br from-[#5365a6] from-15% to-[#111827] to-85%'
-  >
-  </div>
+  <BackgroundGradient />
   <div class='flex w-full flex-col items-center justify-center'>
     <h1
       class='mb-10 px-4 text-center text-4xl font-semibold xl:mb-16 xl:text-6xl'
@@ -31,22 +30,16 @@ import Layout from '../layouts/Layout.astro'
     </p>
     <a
       href='/sorter'
-      class='mb-10 inline-flex h-14 items-center justify-center rounded-full bg-slate-200 px-10 font-bold text-[#5365a6] shadow-md hover:bg-slate-200/80'
+      class='mb-10 inline-flex h-14 items-center justify-center rounded-full bg-slate-200 px-10 font-bold text-liberty shadow-md hover:bg-slate-200/80'
       >Start sorting now!</a
     >
     <div class='flex gap-8'>
-      <a
-        href='https://x.com/EurovisionPlace'
-        class='opacity-70 transition-opacity hover:opacity-100'
-      >
+      <SocialIcon href='https://x.com/EurovisionPlace'>
         <XIcon />
-      </a>
-      <a
-        href='https://github.com/Athenyx04/eurosorter'
-        class='opacity-70 transition-opacity hover:opacity-100'
-      >
+      </SocialIcon>
+      <SocialIcon href='https://github.com/Athenyx04/eurosorter'>
         <GitHubIcon />
-      </a>
+      </SocialIcon>
     </div>
   </div>
 </Layout>
