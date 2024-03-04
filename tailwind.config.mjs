@@ -7,6 +7,11 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Lato', ...defaultTheme.fontFamily.sans]
+      },
+      colors: {
+        liberty: '#5365a6',
+        eerie: '#111827',
+        platinum: '#e5e5e5'
       }
     }
   },

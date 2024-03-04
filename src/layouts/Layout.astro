@@ -43,9 +43,9 @@ const { title } = Astro.props
     />
     <title>{title}</title>
   </head>
-  <body class='flex min-h-[100dvh] flex-col bg-gray-900'>
+  <body class='flex min-h-dvh flex-col bg-gray-900'>
     <Header />
-    <main class='flex grow'>
+    <main class='relative flex grow'>
       <slot />
     </main>
     <Player client:load />

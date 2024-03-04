@@ -1,0 +1,72 @@
+---
+import BackgroundGradient from '../components/BackgroundGradient.astro'
+import GitHubIcon from '../components/GitHubIcon.astro'
+import SocialIcon from '../components/SocialIcon.astro'
+import XIcon from '../components/XIcon.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title='About | Eurovision Place'>
+  <BackgroundGradient />
+  <div class='my-8 flex w-full flex-col items-center justify-center'>
+    <h2 class='mb-4 px-8 text-center text-2xl font-semibold'>About Me</h2>
+    <div class='mb-8 max-w-3xl px-8'>
+      <img
+        src='/imgs/manu.webp'
+        alt='Manu'
+        class='float-left mr-4 mt-4 size-24 min-w-24 rounded-full object-cover shadow-lg'
+      />
+      <p class='text-left'>
+        Hey! I'm Manu, a passionate frontend developer hailing from the
+        beautiful region of Salamanca, Spain. By day, I'm immersed in crafting
+        innovative software solutions at uXcale and studying a Web Engineering
+        masters at the Technical University of Madrid. On my free time, I'm
+        either tuning into the latest Formula One race, watching some streams on
+        Twitch or travelling around the world!
+      </p>
+    </div>
+    <h2 class='mb-4 px-8 text-center text-2xl font-semibold'>
+      The vision behind eurovision.place
+    </h2>
+    <p class='mb-4 max-w-3xl px-8 text-left'>
+      Eurovision has been a part of my life since I was a child, and the unity
+      it brings across borders has always fascinated me. This passion, combined
+      with my love for technology and design, led me to create eurovision.place
+      - a platform aimed at fellow Eurovision fans around the globe.
+    </p>
+    <p class='mb-4 max-w-3xl px-8 text-left'>
+      For some years, I wanted to address the gaps I saw in the existing
+      Eurovision related platforms. Inspired by the creativity of amazing
+      projects like <a
+        href='https://x.com/mr_gerbear'
+        target='_blank'
+        class='underline hover:opacity-80'>Mr. Gerbear's</a
+      > sorter, my goal is to blend clean design, a intuitive functionality, and
+      a personalized experience to make exploring Eurovision past and present as
+      enjoyable as possible.
+    </p>
+    <p class='mb-8 max-w-3xl px-8 text-left'>
+      For now, you can sort the ESC 2024 songs based on your preferences, but my
+      objective is to expand the platform to be a hub for all things Eurovision.
+      A place to discover new and old favourites, to see how your taste compares
+      with the community and to share our passion with friends.
+    </p>
+    <h2 class='mb-4 px-8 text-center text-2xl font-semibold'>Let's connect!</h2>
+    <p class='mb-4 max-w-3xl px-8 text-left'>
+      I'm always on the lookout for new ideas or feedback. You can reach me
+      personally on X or check out my code on GitHub. Let's make
+      eurovision.place not just a site, but the place where every Eurovision fan
+      feels at home!
+    </p>
+    <div class='flex w-full flex-col items-center justify-center'>
+      <div class='flex gap-8'>
+        <SocialIcon href='https://x.com/Athenyx04'>
+          <XIcon />
+        </SocialIcon>
+        <SocialIcon href='https://github.com/Athenyx04'>
+          <GitHubIcon />
+        </SocialIcon>
+      </div>
+    </div>
+  </div>
+</Layout>
