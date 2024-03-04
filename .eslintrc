@@ -85,7 +85,8 @@
       "extends": ["plugin:tailwindcss/recommended"],
       "parser": "astro-eslint-parser",
       "parserOptions": {
-        "parser": "@typescript-eslint/parser"
+        "parser": "@typescript-eslint/parser",
+        "project": "./tsconfig.json"
       },
       "rules": {
         "import/extensions": [
