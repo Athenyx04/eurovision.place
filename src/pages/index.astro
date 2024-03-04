@@ -1,6 +1,7 @@
 ---
 import BackgroundGradient from '../components/BackgroundGradient.astro'
 import GitHubIcon from '../components/GitHubIcon.astro'
+import SocialIcon from '../components/SocialIcon.astro'
 import XIcon from '../components/XIcon.astro'
 import Layout from '../layouts/Layout.astro'
 ---
@@ -33,18 +34,12 @@ import Layout from '../layouts/Layout.astro'
       >Start sorting now!</a
     >
     <div class='flex gap-8'>
-      <a
-        href='https://x.com/EurovisionPlace'
-        class='opacity-70 transition-opacity hover:opacity-100'
-      >
+      <SocialIcon href='https://x.com/EurovisionPlace'>
         <XIcon />
-      </a>
-      <a
-        href='https://github.com/Athenyx04/eurosorter'
-        class='opacity-70 transition-opacity hover:opacity-100'
-      >
+      </SocialIcon>
+      <SocialIcon href='https://github.com/Athenyx04/eurosorter'>
         <GitHubIcon />
-      </a>
+      </SocialIcon>
     </div>
   </div>
 </Layout>
