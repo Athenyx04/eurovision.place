@@ -72,6 +72,7 @@ import TextLogo from './TextLogo.astro'
   const menuIcon = document.getElementById('menuIcon')
   const closeIcon = document.getElementById('closeIcon')
   const fullScreenMenu = document.getElementById('fullScreenMenu')
+  const body = document.body
   const mainContainer = document.getElementById('main')
 
   menuButton?.addEventListener('click', () => {
@@ -79,7 +80,7 @@ import TextLogo from './TextLogo.astro'
     if (!(closeIcon && menuIcon)) return
     fullScreenMenu?.classList.toggle('menu-active')
     // Toggle no-scroll and blur based on menu state
-    mainContainer?.classList.toggle('overflow-hidden', !isMenuOpen)
+    body.classList.toggle('overflow-hidden', !isMenuOpen)
     mainContainer?.classList.toggle('blur', !isMenuOpen)
     if (isMenuOpen) {
       // Close menu: Show menu icon after close icon fades out
@@ -104,7 +105,7 @@ import TextLogo from './TextLogo.astro'
     if (window.innerWidth >= 640) {
       // Assuming 640px is the breakpoint for `sm:` classes
       fullScreenMenu?.classList.remove('menu-active')
-      mainContainer?.classList.remove('overflow-hidden')
+      body.classList.remove('overflow-hidden')
       mainContainer?.classList.remove('blur')
       // Ensure icons are reset to their default states
       if (closeIcon && menuIcon) {
