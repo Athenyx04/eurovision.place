@@ -104,6 +104,8 @@ import TextLogo from './TextLogo.astro'
     if (window.innerWidth >= 640) {
       // Assuming 640px is the breakpoint for `sm:` classes
       fullScreenMenu?.classList.remove('menu-active')
+      mainContainer?.classList.remove('overflow-hidden')
+      mainContainer?.classList.remove('blur')
       // Ensure icons are reset to their default states
       if (closeIcon && menuIcon) {
         closeIcon.style.opacity = '0'
