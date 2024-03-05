@@ -1,33 +1,112 @@
 ---
-import Menu from './Menu.astro'
+import Avatar from './Avatar.astro'
+import NavigationLinks from './NavigationLinks.astro'
+import TextLogo from './TextLogo.astro'
 ---
 
+<style>
+  .menu-transition {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition:
+      opacity 0.5s,
+      transform 0.5s,
+      visibility 0s 0.5s;
+  }
+
+  .menu-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition:
+      opacity 0.5s,
+      transform 0.5s;
+  }
+
+  #menuIcon {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  #closeIcon {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>
+
 <header
-  class='sticky left-0 top-0 z-20 flex w-full justify-between bg-slate-200 px-4 py-1 text-black sm:gap-8'
+  class='sticky left-0 top-0 z-20 flex w-full justify-between bg-slate-200 px-4 py-1 shadow-md sm:gap-8'
 >
-  <div class='flex items-center sm:hidden'>
-    <Menu />
-  </div>
-  <div class='flex items-center'>
-    <a href='/' class='flex h-14 w-28 items-center justify-center gap-2'>
-      <img src='/textWG.svg' alt='Text' />
-    </a>
-  </div>
-  <div class='hidden items-center font-bold text-slate-900 sm:flex'>
+  <button id='menuButton' class='w-8 sm:hidden'>
+    <span id='menuIcon' class='text-2xl text-eerie'>&#9776;</span>
+    <span id='closeIcon' class='hidden text-4xl text-eerie'>&times;</span>
+  </button>
+  <TextLogo />
+  <div class='hidden items-center sm:flex'>
     <nav class='space-x-4'>
-      <a href='/sorter'>Sorter</a>
-      <a href='/about'>About</a>
+      <NavigationLinks />
     </nav>
   </div>
   <div class='flex items-center sm:ml-auto'>
-    <svg height='30' width='30'>
-      <circle
-        cx='15'
-        cy='15'
-        r='14'
-        fill='#111827'
-        stroke='#5365a6'
-        stroke-width='2'></circle>
-    </svg>
+    <Avatar />
   </div>
 </header>
+<div id='fullScreenMenu' class={'menu-transition ' + 'fixed inset-0 z-10'}>
+  <div class='flex size-full flex-col'>
+    <nav
+      class='flex grow flex-col items-center justify-center gap-8 bg-slate-200 text-4xl'
+    >
+      <a
+        href='/'
+        class='font-bold text-eerie transition-transform hover:scale-110'
+        >Home</a
+      >
+      <NavigationLinks />
+    </nav>
+  </div>
+</div>
+
+<script>
+  const menuButton = document.getElementById('menuButton')
+  const menuIcon = document.getElementById('menuIcon')
+  const closeIcon = document.getElementById('closeIcon')
+  const fullScreenMenu = document.getElementById('fullScreenMenu')
+
+  menuButton?.addEventListener('click', () => {
+    const isMenuOpen = fullScreenMenu?.classList.contains('menu-active')
+    if (!(closeIcon && menuIcon)) return
+    fullScreenMenu?.classList.toggle('menu-active')
+    if (isMenuOpen) {
+      // Close menu: Show menu icon after close icon fades out
+      closeIcon.style.opacity = '0'
+      closeIcon.classList.add('hidden')
+      menuIcon.classList.remove('hidden')
+      setTimeout(() => {
+        menuIcon.style.opacity = '1'
+      }, 300)
+    } else {
+      // Open menu: Show close icon after menu icon fades out
+      menuIcon.style.opacity = '0'
+      closeIcon.classList.remove('hidden')
+      menuIcon.classList.add('hidden')
+      setTimeout(() => {
+        closeIcon.style.opacity = '1'
+      }, 300)
+    }
+  })
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 640) {
+      // Assuming 640px is the breakpoint for `sm:` classes
+      fullScreenMenu?.classList.remove('menu-active')
+      // Ensure icons are reset to their default states
+      if (closeIcon && menuIcon) {
+        closeIcon.style.opacity = '0'
+        closeIcon.classList.add('hidden')
+        menuIcon.classList.remove('hidden')
+        menuIcon.style.opacity = '1'
+      }
+    }
+  })
+</script>
