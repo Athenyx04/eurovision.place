@@ -55,7 +55,7 @@ import TextLogo from './TextLogo.astro'
 <div id='fullScreenMenu' class={'menu-transition ' + 'fixed inset-0 z-10'}>
   <div class='flex size-full flex-col'>
     <nav
-      class='flex grow flex-col items-center justify-center gap-8 bg-slate-200 text-4xl'
+      class='flex grow flex-col items-center justify-center gap-8 bg-slate-200/85 text-4xl'
     >
       <a
         href='/'
@@ -72,11 +72,15 @@ import TextLogo from './TextLogo.astro'
   const menuIcon = document.getElementById('menuIcon')
   const closeIcon = document.getElementById('closeIcon')
   const fullScreenMenu = document.getElementById('fullScreenMenu')
+  const mainContainer = document.getElementById('main')
 
   menuButton?.addEventListener('click', () => {
     const isMenuOpen = fullScreenMenu?.classList.contains('menu-active')
     if (!(closeIcon && menuIcon)) return
     fullScreenMenu?.classList.toggle('menu-active')
+    // Toggle no-scroll and blur based on menu state
+    mainContainer?.classList.toggle('overflow-hidden', !isMenuOpen)
+    mainContainer?.classList.toggle('blur', !isMenuOpen)
     if (isMenuOpen) {
       // Close menu: Show menu icon after close icon fades out
       closeIcon.style.opacity = '0'
