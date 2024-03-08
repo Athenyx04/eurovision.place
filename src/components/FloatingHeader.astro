@@ -1,9 +1,11 @@
 ---
+import FullScreenMenu from './FullScreenMenu.astro'
 import PageIcon from './PageIcon.astro'
 import Percentage from './Percentage.tsx'
 ---
 
 <header
+  id='floatingMenu'
   class='fixed left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 select-none rounded-2xl bg-slate-200 px-4 py-2 hover:scale-105 sm:top-[10%]'
 >
   <div class='flex items-center gap-3' aria-label='Open menu'>
@@ -11,8 +13,28 @@ import Percentage from './Percentage.tsx'
       <PageIcon />
     </a>
     <Percentage client:visible />
-    <a href='#'>
-      <span id='menuIcon' class='text-2xl text-eerie'>&#9776;</span>
-    </a>
+    <span id='menuIcon' class='cursor-pointer text-2xl text-eerie'>&#9776;</span
+    >
   </div>
 </header>
+<FullScreenMenu withCloseButton />
+
+<script>
+  const menuIcon = document.getElementById('menuIcon')
+  const floatingMenu = document.getElementById('floatingMenu')
+  const fullScreenMenu = document.getElementById('fullScreenMenu')
+  const body = document.body
+  const mainContainer = document.getElementById('main')
+  const closeButton = document.getElementById('closeButton')
+
+  function toggleMenu() {
+    const menuOpen = fullScreenMenu?.classList.contains('menu-active')
+    mainContainer?.classList.toggle('blur', !menuOpen)
+    body.classList.toggle('overflow-hidden', !menuOpen)
+    floatingMenu?.classList.toggle('hidden', !menuOpen)
+    fullScreenMenu?.classList.toggle('menu-active')
+  }
+
+  menuIcon?.addEventListener('click', toggleMenu)
+  closeButton?.addEventListener('click', toggleMenu)
+</script>
