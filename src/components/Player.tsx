@@ -48,6 +48,7 @@ function Player() {
   useEffect(() => {
     if (!audioRef.current) return
     if (currentTrack) {
+      audioRef.current.volume = 0.5
       audioRef.current.src = currentTrack
       audioRef.current.play()
     }
