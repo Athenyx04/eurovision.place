@@ -1,29 +1,11 @@
 ---
 import Avatar from './Avatar.astro'
+import FullScreenMenu from './FullScreenMenu.astro'
 import NavigationLinks from './NavigationLinks.astro'
 import TextLogo from './TextLogo.astro'
 ---
 
 <style>
-  .menu-transition {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(-100%);
-    transition:
-      opacity 0.5s,
-      transform 0.5s,
-      visibility 0s 0.5s;
-  }
-
-  .menu-active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-    transition:
-      opacity 0.5s,
-      transform 0.5s;
-  }
-
   #menuIcon {
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
@@ -52,20 +34,7 @@ import TextLogo from './TextLogo.astro'
     <Avatar />
   </div>
 </header>
-<div id='fullScreenMenu' class={'menu-transition ' + 'fixed inset-0 z-10'}>
-  <div class='flex size-full flex-col'>
-    <nav
-      class='flex grow flex-col items-center justify-center gap-8 bg-slate-200/85 text-4xl'
-    >
-      <a
-        href='/'
-        class='font-bold text-eerie transition-transform hover:scale-110'
-        >Home</a
-      >
-      <NavigationLinks />
-    </nav>
-  </div>
-</div>
+<FullScreenMenu />
 
 <script>
   const menuButton = document.getElementById('menuButton')

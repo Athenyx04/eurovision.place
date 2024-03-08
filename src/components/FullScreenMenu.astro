@@ -1,0 +1,56 @@
+---
+import NavigationLinks from './NavigationLinks.astro'
+
+interface Props {
+  withCloseButton?: boolean
+}
+
+const { withCloseButton = false } = Astro.props
+---
+
+<style>
+  .menu-transition {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition:
+      opacity 0.5s,
+      transform 0.5s,
+      visibility 0s 0.5s;
+  }
+
+  .menu-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    transition:
+      opacity 0.5s,
+      transform 0.5s;
+  }
+</style>
+
+<div
+  id='fullScreenMenu'
+  class={'menu-transition ' + 'fixed inset-0 z-10 bg-slate-200/85'}
+>
+  {
+    withCloseButton && (
+      <button
+        id='closeButton'
+        class='absolute left-1/2 top-20 z-20 w-8 -translate-x-1/2 transition-transform hover:scale-110'
+      >
+        <span class='text-4xl text-eerie'>&times;</span>
+      </button>
+    )
+  }
+  <div class='flex size-full flex-col'>
+    <nav class='flex grow flex-col items-center justify-center gap-8 text-4xl'>
+      <a
+        href='/'
+        class='font-bold text-eerie transition-transform hover:scale-110'
+        >Home</a
+      >
+      <NavigationLinks />
+    </nav>
+  </div>
+</div>
