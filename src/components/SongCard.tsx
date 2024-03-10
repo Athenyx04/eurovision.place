@@ -12,7 +12,7 @@ interface Props {
 function SongCard({ position, title, artist, country, audioUrl }: Props) {
   return (
     <div
-      className={`flex w-full ${
+      className={`flex w-full select-none ${
         position === 1
           ? 'bg-yellow-200 text-black lg:col-span-2 xl:col-span-6'
           : position === 2

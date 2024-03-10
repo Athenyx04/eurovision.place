@@ -1,65 +1,26 @@
-import { useEffect } from 'react'
+import { useDragAndDrop } from '@formkit/drag-and-drop/react'
 
 import type { Song } from '../lib/data.ts'
-import { useSortingStore } from '../store/sortingStore.ts'
 import SongCard from './SongCard.tsx'
 
-const Load = () => (
-  <svg
-    role='img'
-    aria-hidden='true'
-    width='48'
-    viewBox='0 0 24 24'
-    strokeWidth='2'
-    stroke='#e5e5e5'
-    fill='none'
-    className='animate-spin'
-  >
-    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-    <path d='M12 3a9 9 0 1 0 9 9' />
-  </svg>
-)
-
 function Ranking({ songList }: { songList: Song[] }) {
-  const { songs, sortedIndexes, setSongs } = useSortingStore()
-  const hasHydrated = useSortingStore((state) => state._hasHydrated)
-
-  useEffect(() => {
-    useSortingStore.persist.rehydrate()
-  }, [])
-
-  useEffect(() => {
-    if (sortedIndexes.length === 0) return
-    if (!songs && songList) {
-      setSongs(songList)
-    }
-    if (songs) {
-      const sortedSongs = sortedIndexes[0].map((songIndex) => songs[songIndex])
-      setSongs(sortedSongs)
-    }
-  }, [songList, sortedIndexes])
-
-  if (!hasHydrated) {
-    return (
-      <div className='flex h-full items-center justify-center'>
-        <Load />
-      </div>
-    )
-  }
+  const songs = songList.map((song) => song)
+  const [parent, dndSongs] = useDragAndDrop<HTMLUListElement, Song>(songs)
 
   return (
-    <div className='grid w-full lg:grid-cols-2 xl:grid-cols-6'>
-      {songs?.map(({ title, artist, country, audioUrl }, index) => (
-        <SongCard
-          key={index}
-          position={index + 1}
-          title={title}
-          artist={artist}
-          country={country}
-          audioUrl={audioUrl}
-        />
+    <ul className='grid w-full lg:grid-cols-2 xl:grid-cols-6' ref={parent}>
+      {dndSongs?.map((song, index) => (
+        <li key={song.country.code} className='select-none'>
+          <SongCard
+            artist={song.artist}
+            country={song.country}
+            position={index + 1}
+            title={song.title}
+            audioUrl={song.audioUrl}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
