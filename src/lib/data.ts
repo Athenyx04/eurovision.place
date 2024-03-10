@@ -461,24 +461,25 @@ export const playlists: Playlist[] = [
         },
         audioUrl:
           'https://p.scdn.co/mp3-preview/c0bdea115967a84838331f013a9243bc1bcd2511'
-      }
-      // {
-      //   id: "29",
-      //   title: "TBA",
-      //   artist: {
-      //     id: "29",
-      //     name: "Marina Satti",
-      //     imageUrl: "./imgs/gr.webp",
-      //   },
-      //   country: {
-      //     code: "GR",
-      //     name: "Greece",
-      //   },
-      //   audioUrl: "",
-      // },
+      },
+      {
+        id: '29',
+        title: 'Zari',
+        artist: {
+          id: '29',
+          name: 'Marina Satti',
+          imageUrl: './imgs/gr.webp'
+        },
+        country: {
+          code: 'GR',
+          name: 'Greece'
+        },
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/8045da7e62384a51b05f5ee1b7881c2048757fd6'
+      },
       // {
       //   id: "28",
-      //   title: "TBA",
+      //   title: "Firefighter",
       //   artist: {
       //     id: "28",
       //     name: "Nutsa Buzaladze",
@@ -492,7 +493,7 @@ export const playlists: Playlist[] = [
       // },
       // {
       //   id: "31",
-      //   title: "TBA",
+      //   title: "Hurricane",
       //   artist: {
       //     id: "31",
       //     name: "Eden Golan",
@@ -509,7 +510,7 @@ export const playlists: Playlist[] = [
       //   title: "TBA",
       //   artist: {
       //     id: "0",
-      //     name: "TBA",
+      //     name: "Ladaniva",
       //     imageUrl: "./imgs/alt.webp",
       //   },
       //   country: {
@@ -518,26 +519,27 @@ export const playlists: Playlist[] = [
       //   },
       //   audioUrl: "",
       // },
-      // {
-      //   id: "23",
-      //   title: "TBA",
-      //   artist: {
-      //     id: "0",
-      //     name: "TBA",
-      //     imageUrl: "./imgs/alt.webp",
-      //   },
-      //   country: {
-      //     code: "AU",
-      //     name: "Australia",
-      //   },
-      //   audioUrl: "",
-      // },
+      {
+        id: '23',
+        title: 'One Milkali (One Blood)',
+        artist: {
+          id: '23',
+          name: 'Electric Fields',
+          imageUrl: './imgs/au.webp'
+        },
+        country: {
+          code: 'AU',
+          name: 'Australia'
+        },
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/606433c98fd1f294980ac69de0225e21dc5c0e02'
+      },
       // {
       //   id: "25",
       //   title: "TBA",
       //   artist: {
-      //     id: "0",
-      //     name: "TBA",
+      //     id: "25",
+      //     name: "Fahree",
       //     imageUrl: "./imgs/alt.webp",
       //   },
       //   country: {
@@ -546,34 +548,36 @@ export const playlists: Playlist[] = [
       //   },
       //   audioUrl: "",
       // },
-      // {
-      //   id: "33",
-      //   title: "TBA",
-      //   artist: {
-      //     id: "0",
-      //     name: "TBA",
-      //     imageUrl: "./imgs/alt.webp",
-      //   },
-      //   country: {
-      //     code: "PT",
-      //     name: "Portugal",
-      //   },
-      //   audioUrl: "",
-      // },
-      // {
-      //   id: "35",
-      //   title: "TBA",
-      //   artist: {
-      //     id: "0",
-      //     name: "TBA",
-      //     imageUrl: "./imgs/alt.webp",
-      //   },
-      //   country: {
-      //     code: "SE",
-      //     name: "Sweden",
-      //   },
-      //   audioUrl: "",
-      // },
+      {
+        id: '33',
+        title: 'Grito',
+        artist: {
+          id: '33',
+          name: 'Iolanda',
+          imageUrl: './imgs/pt.webp'
+        },
+        country: {
+          code: 'PT',
+          name: 'Portugal'
+        },
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/ee4d2cb4f31e1f65a4038ed4806808e525ce0376'
+      },
+      {
+        id: '35',
+        title: 'Unforgettable',
+        artist: {
+          id: '35',
+          name: 'Marcus & Martinus',
+          imageUrl: './imgs/se.webp'
+        },
+        country: {
+          code: 'SE',
+          name: 'Sweden'
+        },
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/b0f8146b036f3b5ef6d5abf877dea327bfe6c606'
+      }
     ]
   }
 ]
