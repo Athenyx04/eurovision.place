@@ -63,8 +63,17 @@ function Ranking({ songList }: { songList: Song[] }) {
   }, [])
 
   useEffect(() => {
-    if (songList && songs?.length === 0 && hasHydrated) {
-      setSongs(songList)
+    if (hasHydrated && songs) {
+      if (songList && songs.length === 0) {
+        setSongs(songList)
+        return
+      }
+      const currentSongIds = new Set(songs.map((song) => song.id))
+      const newSongIds = songList.filter((song) => !currentSongIds.has(song.id))
+
+      if (newSongIds.length > 0) {
+        setSongs([...songs, ...newSongIds])
+      }
     }
   }, [songList, hasHydrated])
 
