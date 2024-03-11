@@ -1,3 +1,4 @@
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import {
   closestCenter,
   DndContext,
@@ -19,17 +20,23 @@ import SongCard from './SongCard.tsx'
 function Ranking({ songList }: { songList: Song[] }) {
   const [songs, setSongs] = useState(songList)
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { delay: 250 } })
+    useSensor(PointerSensor, {
+      activationConstraint: { delay: 250, tolerance: 5 }
+    })
   )
-  const [activeId, setActiveId] = useState(null)
+  const [activeId, setActiveId] = useState<string | number | null>(null)
 
-  function handleDragStart(event) {
+  function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id)
   }
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
     setActiveId(null)
+
+    if (!over) {
+      return
+    }
 
     if (active.id !== over.id) {
       setSongs((songs) => {
