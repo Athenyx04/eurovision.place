@@ -477,20 +477,20 @@ export const playlists: Playlist[] = [
         audioUrl:
           'https://p.scdn.co/mp3-preview/8045da7e62384a51b05f5ee1b7881c2048757fd6'
       },
-      // {
-      //   id: "28",
-      //   title: "Firefighter",
-      //   artist: {
-      //     id: "28",
-      //     name: "Nutsa Buzaladze",
-      //     imageUrl: "./imgs/alt.webp",
-      //   },
-      //   country: {
-      //     code: "GE",
-      //     name: "Georgia",
-      //   },
-      //   audioUrl: "",
-      // },
+      {
+        id: '28',
+        title: 'Firefighter',
+        artist: {
+          id: '28',
+          name: 'Nutsa Buzaladze',
+          imageUrl: './imgs/ge.webp'
+        },
+        country: {
+          code: 'GE',
+          name: 'Georgia'
+        },
+        audioUrl: ''
+      },
       // {
       //   id: "31",
       //   title: "Hurricane",
