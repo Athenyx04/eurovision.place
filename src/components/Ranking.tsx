@@ -1,65 +1,81 @@
-import { useEffect } from 'react'
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
+import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core'
+import { arrayMove, SortableContext } from '@dnd-kit/sortable'
+import { useState } from 'react'
 
 import type { Song } from '../lib/data.ts'
-import { useSortingStore } from '../store/sortingStore.ts'
 import SongCard from './SongCard.tsx'
 
-const Load = () => (
-  <svg
-    role='img'
-    aria-hidden='true'
-    width='48'
-    viewBox='0 0 24 24'
-    strokeWidth='2'
-    stroke='#e5e5e5'
-    fill='none'
-    className='animate-spin'
-  >
-    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-    <path d='M12 3a9 9 0 1 0 9 9' />
-  </svg>
-)
-
 function Ranking({ songList }: { songList: Song[] }) {
-  const { songs, sortedIndexes, setSongs } = useSortingStore()
-  const hasHydrated = useSortingStore((state) => state._hasHydrated)
+  const [songs, setSongs] = useState(songList)
+  const sensors = useSensors(useSensor(PointerSensor))
+  const [activeId, setActiveId] = useState<string | number | null>(null)
 
-  useEffect(() => {
-    useSortingStore.persist.rehydrate()
-  }, [])
-
-  useEffect(() => {
-    if (sortedIndexes.length === 0) return
-    if (!songs && songList) {
-      setSongs(songList)
-    }
-    if (songs) {
-      const sortedSongs = sortedIndexes[0].map((songIndex) => songs[songIndex])
-      setSongs(sortedSongs)
-    }
-  }, [songList, sortedIndexes])
-
-  if (!hasHydrated) {
-    return (
-      <div className='flex h-full items-center justify-center'>
-        <Load />
-      </div>
-    )
+  function handleDragStart(event: DragStartEvent) {
+    setActiveId(event.active.id)
   }
 
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event
+    setActiveId(null)
+
+    if (!over) {
+      return
+    }
+
+    if (active.id !== over.id) {
+      setSongs((songs) => {
+        const oldIndex = songs.findIndex((song) => song.id === active.id)
+        const newIndex = songs.findIndex((song) => song.id === over.id)
+        return arrayMove(songs, oldIndex, newIndex)
+      })
+    }
+  }
+
+  const activeItem = songs.find((song) => song.id === activeId)
+
   return (
-    <div className='grid w-full lg:grid-cols-2 xl:grid-cols-6'>
-      {songs?.map(({ title, artist, country, audioUrl }, index) => (
-        <SongCard
-          key={index}
-          position={index + 1}
-          title={title}
-          artist={artist}
-          country={country}
-          audioUrl={audioUrl}
-        />
-      ))}
-    </div>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext items={songs.map((song) => song.id)}>
+        <div className={'grid w-full lg:grid-cols-2 xl:grid-cols-6'}>
+          {songs.map((song, index) => (
+            <SongCard
+              id={song.id}
+              artist={song.artist}
+              country={song.country}
+              position={index + 1}
+              title={song.title}
+              audioUrl={song.audioUrl}
+              key={song.id}
+            />
+          ))}
+        </div>
+      </SortableContext>
+      <DragOverlay>
+        {activeItem ? (
+          <SongCard
+            id={activeItem.id}
+            artist={activeItem.artist}
+            country={activeItem.country}
+            position={songs.findIndex((song) => song.id === activeItem.id) + 1}
+            title={activeItem.title}
+            audioUrl={activeItem.audioUrl}
+          />
+        ) : null}
+      </DragOverlay>
+    </DndContext>
   )
 }
 

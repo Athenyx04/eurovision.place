@@ -405,7 +405,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: '5',
-        title: "Zemrën n'dorë",
+        title: 'TiTAN',
         artist: {
           id: '5',
           name: 'Besa',
