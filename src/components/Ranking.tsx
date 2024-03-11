@@ -12,7 +12,10 @@ function Ranking({ songList }: { songList: Song[] }) {
   })
 
   return (
-    <div className='grid w-full lg:grid-cols-2 xl:grid-cols-6' ref={parent}>
+    <div
+      className='grid w-full overflow-x-hidden lg:overflow-x-auto lg:grid-cols-2 xl:grid-cols-6'
+      ref={parent}
+    >
       {dndSongs?.map((song, index) => (
         <SongCard
           artist={song.artist}
