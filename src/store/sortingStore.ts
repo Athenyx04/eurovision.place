@@ -209,6 +209,26 @@ export const useSortingStore = create<SortingStore>()(
 
             const nextLeft = currentComparisonLeft - 2
             const nextRight = currentComparisonRight - 2
+            const finishFlag = nextLeft < 0
+
+            // If finish flag is true, sorting is complete, create the sorted songs array
+            if (finishFlag) {
+              const sortedSongs = newSortedIndexes[0].map(
+                (index) => state.songs?.[index]
+              )
+              return {
+                ...state,
+                sortedIndexes: newSortedIndexes,
+                comparisonResults: [],
+                currentComparisonLeft: nextLeft,
+                currentComparisonRight: nextRight,
+                comparisonHeadLeft: 0,
+                comparisonHeadRight: 0,
+                finishSize: newFinishSize,
+                finishFlag: finishFlag,
+                songs: sortedSongs
+              }
+            }
 
             return {
               ...state,
@@ -220,7 +240,7 @@ export const useSortingStore = create<SortingStore>()(
               comparisonHeadRight: 0,
               finishSize: newFinishSize,
               // Sorting is complete if no more segments to compare
-              finishFlag: nextLeft < 0
+              finishFlag: finishFlag
             }
           }
 
@@ -238,8 +258,7 @@ export const useSortingStore = create<SortingStore>()(
     {
       name: 'sorting-store',
       partialize: (state) => ({
-        songs: state.songs,
-        sortedIndexes: state.sortedIndexes
+        songs: state.songs
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {

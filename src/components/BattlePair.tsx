@@ -56,7 +56,7 @@ function BattlePair({ songList }: { songList: Song[] }) {
   }
 
   if (!firstCard || !secondCard) {
-    return <div>Loading...</div>
+    return null
   }
 
   return (
