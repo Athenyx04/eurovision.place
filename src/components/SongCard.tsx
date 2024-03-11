@@ -36,7 +36,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
 
   return (
     <div
-      className={`flex w-full select-none ${
+      className={`flex min-w-0 select-none ${
         position === 1
           ? 'bg-yellow-200 text-black lg:col-span-2 xl:col-span-6'
           : position === 2
@@ -72,25 +72,23 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
           {String(position).padStart(2, '0')}
         </span>
       </div>
-      <div className='flex flex-row items-center gap-2'>
-        <div className='flex h-full w-7 items-center'>
-          <span
-            className={
-              `fi fi-${country.code.toLowerCase()} ` + 'size-7 rounded-full'
-            }
-          />
-        </div>
-        <div className='flex flex-col p-2'>
-          <span className='font-bold'>{country.name.toUpperCase()}</span>
-          <span className='max-w-40 text-sm font-light sm:max-w-56 xl:max-w-40'>
-            {title}
-          </span>
-          <span className='text-sm font-light'>{artist.name}</span>
+      <div className='flex min-w-0 flex-row items-center py-2'>
+        <div className='flex min-w-0 flex-col'>
+          <div className='flex items-center gap-2 font-bold'>
+            <span
+              className={
+                `fi fi-${country.code.toLowerCase()} ` + 'size-6 rounded-full'
+              }
+            />
+            <span className='truncate'>{country.name.toUpperCase()}</span>
+          </div>
+          <span className='truncate text-sm font-light'>{title}</span>
+          <span className='truncate text-sm font-light'>{artist.name}</span>
         </div>
       </div>
       <div
         className={
-          'ml-auto flex w-10 cursor-grab touch-none items-center justify-center'
+          'ml-auto flex w-8 shrink-0 cursor-grab touch-none items-center justify-center'
         }
         {...listeners}
       >
