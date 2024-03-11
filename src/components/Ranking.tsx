@@ -7,11 +7,7 @@ import {
   useSensor,
   useSensors
 } from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable'
+import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import { useState } from 'react'
 
 import type { Song } from '../lib/data.ts'
@@ -52,10 +48,7 @@ function Ranking({ songList }: { songList: Song[] }) {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <SortableContext
-        items={songs.map((song) => song.id)}
-        strategy={verticalListSortingStrategy}
-      >
+      <SortableContext items={songs.map((song) => song.id)}>
         <div className={'grid w-full lg:grid-cols-2 xl:grid-cols-6'}>
           {songs.map((song, index) => (
             <SongCard

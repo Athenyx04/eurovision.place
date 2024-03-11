@@ -43,7 +43,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
             ? 'border-t-2 border-platinum bg-gray-400 lg:col-span-2 xl:col-span-3'
             : position === 3
               ? 'border-t-2 border-platinum bg-orange-900 lg:col-span-2 xl:col-span-3'
-              : 'border-t-2 border-liberty xl:col-span-2'
+              : 'border-t-2 border-liberty bg-eerie xl:col-span-2'
       }`}
       ref={setNodeRef}
       style={style}
