@@ -19,11 +19,7 @@ import SongCard from './SongCard.tsx'
 
 function Ranking({ songList }: { songList: Song[] }) {
   const [songs, setSongs] = useState(songList)
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: { delay: 250, tolerance: 5 }
-    })
-  )
+  const sensors = useSensors(useSensor(PointerSensor))
   const [activeId, setActiveId] = useState<string | number | null>(null)
 
   function handleDragStart(event: DragStartEvent) {
