@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 import type { Song } from '../lib/data'
 
 interface SortingStore {
-  songs?: Song[]
+  songs: Song[]
 
   // Stores indexes of the songs to be sorted.
   // Initially, it contains a single array with indexes representing all songs.
