@@ -1,7 +1,11 @@
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+
 import type { Artist, Country } from '../lib/data.ts'
 import PlayPauseButton from './PlayPauseButton.tsx'
 
 interface Props {
+  id: string
   position: number
   title: string
   artist: Artist
@@ -9,7 +13,27 @@ interface Props {
   audioUrl: string
 }
 
-function SongCard({ position, title, artist, country, audioUrl }: Props) {
+function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({
+    id: id
+  })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 20 : 'auto',
+    opacity: isDragging ? 0.8 : 1,
+    boxShadow: isDragging ? '0 0 15px rgba(0, 0, 0, 0.2)' : 'none',
+    cursor: 'auto'
+  }
+
   return (
     <div
       className={`flex w-full select-none ${
@@ -21,6 +45,9 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
               ? 'border-t-2 border-platinum bg-orange-900 lg:col-span-2 xl:col-span-3'
               : 'border-t-2 border-liberty xl:col-span-2'
       }`}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
     >
       <div
         className={`relative ${
@@ -63,8 +90,10 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
       </div>
       <div
         className={
-          'ml-auto flex items-center justify-center mr-4' + ' drag-handle'
+          'ml-auto flex items-center justify-center mr-4 cursor-grab' +
+          ' drag-handle'
         }
+        {...listeners}
       >
         ⠿
       </div>
