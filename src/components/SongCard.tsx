@@ -61,11 +61,15 @@ function SongCard({ position, title, artist, country, audioUrl }: Props) {
           <span className='text-sm font-light'>{artist.name}</span>
         </div>
       </div>
-      <div className='ml-auto mr-2 flex items-center justify-center'>
-        <PlayPauseButton src={audioUrl} />
-      </div>
-      <div className={'flex items-center justify-center mr-2' + ' drag-handle'}>
+      <div
+        className={
+          'ml-auto flex items-center justify-center mr-4' + ' drag-handle'
+        }
+      >
         ⠿
+      </div>
+      <div className='mr-4 flex items-center justify-center'>
+        <PlayPauseButton src={audioUrl} />
       </div>
     </div>
   )
