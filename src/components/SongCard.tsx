@@ -50,7 +50,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
       {...attributes}
     >
       <div
-        className={`relative ${
+        className={`relative shrink-0 ${
           position === 1
             ? 'w-1/5 sm:w-1/6 md:w-1/12'
             : position === 2
@@ -67,7 +67,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
         />
         <div className='pb-[100%}'></div>
       </div>
-      <div className='flex size-8 -translate-x-4 items-center justify-center self-center rounded-full bg-liberty'>
+      <div className='flex size-8 shrink-0 -translate-x-4 items-center justify-center self-center rounded-full bg-liberty'>
         <span className='font-bold text-slate-200'>
           {String(position).padStart(2, '0')}
         </span>
@@ -90,7 +90,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
       </div>
       <div
         className={
-          'ml-auto flex w-14 cursor-grab touch-none items-center justify-center'
+          'ml-auto flex w-10 cursor-grab touch-none items-center justify-center'
         }
         {...listeners}
       >
