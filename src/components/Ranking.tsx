@@ -13,7 +13,7 @@ function Ranking({ songList }: { songList: Song[] }) {
 
   return (
     <div
-      className='grid w-full overflow-x-hidden lg:overflow-x-auto lg:grid-cols-2 xl:grid-cols-6'
+      className='grid w-full overflow-x-hidden lg:grid-cols-2 lg:overflow-x-auto xl:grid-cols-6'
       ref={parent}
     >
       {dndSongs?.map((song, index) => (
