@@ -258,21 +258,20 @@ function Ranking({ songList }: { songList: Song[] }) {
               <DialogHeader>
                 <DialogTitle>Share your ranking</DialogTitle>
                 <DialogDescription>
-                  Select which ranking you want to generate as an image
+                  Select which ranking you want to generate as an image (Screen
+                  may freeze for a few seconds while generating).
                 </DialogDescription>
               </DialogHeader>
               <DialogFooter className='gap-4'>
-                <DialogClose
-                  asChild
-                  onClick={() => handleSelectRanking('share10')}
-                >
-                  <Button>Top 10</Button>
+                <DialogClose asChild>
+                  <Button onClick={() => handleSelectRanking('share10')}>
+                    Top 10
+                  </Button>
                 </DialogClose>
-                <DialogClose
-                  asChild
-                  onClick={() => handleSelectRanking('shareAll')}
-                >
-                  <Button>Full Top</Button>
+                <DialogClose asChild>
+                  <Button onClick={() => handleSelectRanking('shareAll')}>
+                    Full Top
+                  </Button>
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
@@ -333,7 +332,6 @@ function Ranking({ songList }: { songList: Song[] }) {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className='gap-4'>
-            {/* <Button onClick={() => setShareImage(null)}>Close</Button> */}
             <DialogClose asChild>
               <Button onClick={handleShare}>Share</Button>
             </DialogClose>
