@@ -489,7 +489,8 @@ export const playlists: Playlist[] = [
           code: 'GE',
           name: 'Georgia'
         },
-        audioUrl: ''
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/07a317f0c394c4f4cf66d80547240c72f7743679'
       },
       // {
       //   id: "31",
