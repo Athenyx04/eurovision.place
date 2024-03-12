@@ -4,14 +4,16 @@ interface Props {
   position: number
   artist: Artist
   country: Country
-  gridColumn?: string
+  gridColumn: string | number
+  gridRowStart?: number | ''
 }
 
 function ShareCard({
   position,
   artist,
   country,
-  gridColumn = 'span 1 / span 1'
+  gridColumn = 'span 1 / span 1',
+  gridRowStart
 }: Props) {
   return (
     <div
@@ -24,7 +26,7 @@ function ShareCard({
               ? 'border-t-2 border-platinum bg-orange-900'
               : 'border-t-2 border-liberty bg-eerie'
       }`}
-      style={{ gridColumn }}
+      style={{ gridColumn, gridRowStart }}
     >
       <div
         className={`relative shrink-0 ${position === 1 && gridColumn !== 'span 1 / span 1' ? 'w-[10%]' : 'w-1/5'}`}
@@ -41,15 +43,15 @@ function ShareCard({
           {String(position).padStart(2, '0')}
         </span>
       </div>
-      <div className='flex min-w-0 flex-row items-center py-3'>
-        <div className='flex min-w-0 flex-col'>
-          <div className='flex items-center gap-3 font-bold'>
+      <div className='flex min-w-0 grow flex-row items-center py-3'>
+        <div className='flex min-w-0 grow flex-col'>
+          <div className='flex grow items-center gap-3 font-bold'>
             <img
               src={`/flags/${country.code.toLowerCase()}.png`}
               alt={country.name}
               className='w-6 rounded-md'
             />
-            <span className='truncate'>{country.name.toUpperCase()}</span>
+            <span className=''>{country.name.toUpperCase()}</span>
           </div>
         </div>
       </div>
