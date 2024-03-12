@@ -75,10 +75,10 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
       <div className='flex min-w-0 flex-row items-center py-2'>
         <div className='flex min-w-0 flex-col'>
           <div className='flex items-center gap-2 font-bold'>
-            <span
-              className={
-                `fi fi-${country.code.toLowerCase()} ` + 'size-6 rounded-full'
-              }
+            <img
+              src={`/flags/${country.code.toLowerCase()}.png`}
+              alt={country.name}
+              className='w-6 rounded-md'
             />
             <span className='truncate'>{country.name.toUpperCase()}</span>
           </div>

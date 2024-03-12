@@ -26,7 +26,9 @@ function ShareCard({
       }`}
       style={{ gridColumn }}
     >
-      <div className={`relative w-1/5 shrink-0`}>
+      <div
+        className={`relative shrink-0 ${position === 1 && gridColumn !== 'span 1 / span 1' ? 'w-[10%]' : 'w-1/5'}`}
+      >
         <img
           className='absolute left-0 top-0 size-full object-cover'
           src={artist.imageUrl}
@@ -41,11 +43,11 @@ function ShareCard({
       </div>
       <div className='flex min-w-0 flex-row items-center py-3'>
         <div className='flex min-w-0 flex-col'>
-          <div className='flex items-center gap-2 font-bold'>
-            <span
-              className={
-                `fi fi-${country.code.toLowerCase()} ` + 'size-6 rounded-full'
-              }
+          <div className='flex items-center gap-3 font-bold'>
+            <img
+              src={`/flags/${country.code.toLowerCase()}.png`}
+              alt={country.name}
+              className='w-6 rounded-md'
             />
             <span className='truncate'>{country.name.toUpperCase()}</span>
           </div>

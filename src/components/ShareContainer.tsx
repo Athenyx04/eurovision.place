@@ -1,3 +1,5 @@
+import './ShareContainer.module.css'
+
 import type { Song } from '../lib/data.ts'
 import ShareCard from './ShareCard.tsx'
 
@@ -31,7 +33,7 @@ function ShareContainer({
     <div
       id={id}
       className={
-        'absolute left-[-9999px] grid grid-cols-1 overflow-hidden rounded-lg'
+        'absolute left-[-9999px] grid grid-cols-1 overflow-hidden bg-eerie'
       }
       style={{ height, width, gridTemplateColumns }}
     >
