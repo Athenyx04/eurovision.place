@@ -104,7 +104,7 @@ function Ranking({ songList }: { songList: Song[] }) {
       onDragEnd={handleDragEnd}
     >
       <SortableContext items={songs.map((song) => song.id)}>
-        <div className={'grid w-full lg:grid-cols-2 xl:grid-cols-6'}>
+        <div className={'grid w-full md:grid-cols-2 xl:grid-cols-6'}>
           {songs.map((song, index) => (
             <SongCard
               id={song.id}

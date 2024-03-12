@@ -38,11 +38,11 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
     <div
       className={`flex min-w-0 select-none ${
         position === 1
-          ? 'bg-yellow-200 text-black lg:col-span-2 xl:col-span-6'
+          ? 'bg-yellow-200 text-black md:col-span-2 xl:col-span-6'
           : position === 2
-            ? 'border-t-2 border-platinum bg-gray-400 lg:col-span-2 xl:col-span-3'
+            ? 'border-t-2 border-platinum bg-gray-400 md:col-span-2 xl:col-span-3'
             : position === 3
-              ? 'border-t-2 border-platinum bg-orange-900 lg:col-span-2 xl:col-span-3'
+              ? 'border-t-2 border-platinum bg-orange-900 md:col-span-2 xl:col-span-3'
               : 'border-t-2 border-liberty bg-eerie xl:col-span-2'
       }`}
       ref={setNodeRef}
@@ -57,7 +57,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
               ? 'w-1/5 sm:w-1/6 md:w-1/12 xl:w-1/6'
               : position === 3
                 ? 'w-1/5 sm:w-1/6 md:w-1/12 xl:w-1/6'
-                : 'w-1/5 sm:w-1/6 md:w-1/12 lg:w-1/6 xl:w-1/5'
+                : 'w-1/5 sm:w-1/6 md:w-1/6 xl:w-1/5'
         }`}
       >
         <img
