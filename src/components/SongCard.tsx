@@ -88,7 +88,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
       </div>
       <div
         className={
-          'ml-auto flex w-8 shrink-0 cursor-grab touch-none items-center justify-center'
+          'z-20 ml-auto flex w-12 shrink-0 cursor-grab touch-none items-center justify-center'
         }
         {...listeners}
       >
