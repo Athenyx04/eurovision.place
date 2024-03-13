@@ -38,11 +38,11 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
     <div
       className={`flex min-w-0 select-none ${
         position === 1
-          ? 'bg-yellow-200 text-black md:col-span-2 xl:col-span-6'
+          ? 'bg-[#ffcf40] text-eerie md:col-span-2 xl:col-span-6'
           : position === 2
-            ? 'border-t-2 border-platinum bg-gray-400 md:col-span-2 xl:col-span-3'
+            ? 'border-t-2 border-platinum bg-gray-400 text-eerie md:col-span-2 xl:col-span-3'
             : position === 3
-              ? 'border-t-2 border-platinum bg-orange-900 md:col-span-2 xl:col-span-3'
+              ? 'border-t-2 border-platinum bg-[#c96f2a] text-eerie md:col-span-2 xl:col-span-3'
               : 'border-t-2 border-liberty bg-eerie xl:col-span-2'
       }`}
       ref={setNodeRef}
@@ -67,10 +67,21 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
         />
         <div className='pb-[100%}'></div>
       </div>
-      <div className='flex size-8 shrink-0 -translate-x-4 items-center justify-center self-center rounded-full bg-liberty'>
-        <span className='font-bold text-slate-200'>
-          {String(position).padStart(2, '0')}
-        </span>
+      <div
+        className={`flex size-8 shrink-0 -translate-x-4 items-center justify-center self-center rounded-full drop-shadow-lg ${position === 1 ? 'bg-[#ffdc73] text-eerie' : position === 2 ? 'bg-gray-300 text-eerie' : position === 3 ? 'bg-[#e5703c] text-eerie' : 'bg-liberty'}`}
+        style={{
+          backgroundImage: `linear-gradient(
+            30deg,
+            transparent 20%,
+            transparent 40%,
+            rgba(255, 255, 255, ${position === 1 ? '0.8' : position === 2 ? '0.8' : position === 3 ? '0.4' : '0.25'}) 50%,
+            rgba(255, 255, 255, ${position === 1 ? '0.8' : position === 2 ? '0.8' : position === 3 ? '0.4' : '0.25'}) 55%,
+            transparent 70%,
+            transparent 100%
+          )`
+        }}
+      >
+        <span className='font-bold'>{String(position).padStart(2, '0')}</span>
       </div>
       <div className='flex min-w-0 flex-row items-center py-2'>
         <div className='flex min-w-0 flex-col'>
