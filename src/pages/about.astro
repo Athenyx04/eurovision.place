@@ -1,4 +1,6 @@
 ---
+import { CLOUDFRONT_DOMAIN } from 'src/lib/data'
+
 import BackgroundGradient from '../components/BackgroundGradient.astro'
 import GitHubIcon from '../components/GitHubIcon.astro'
 import SocialIcon from '../components/SocialIcon.astro'
@@ -12,7 +14,7 @@ import Layout from '../layouts/Layout.astro'
     <h2 class='mb-4 px-8 text-center text-2xl font-semibold'>About Me</h2>
     <div class='mb-8 max-w-3xl px-8'>
       <img
-        src='/imgs/manu.webp'
+        src=`${CLOUDFRONT_DOMAIN}/imgs/manu.webp`
         alt='Manu'
         class='float-left mr-4 mt-4 size-24 min-w-24 rounded-full object-cover shadow-lg'
       />
