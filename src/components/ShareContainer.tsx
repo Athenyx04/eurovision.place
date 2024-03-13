@@ -123,7 +123,7 @@ function ShareContainer({
         <ShareCard
           artist={song.artist}
           country={song.country}
-          position={songs.length / 2 + index + 3}
+          position={Math.ceil(songs.length / 2) + index + 2}
           key={song.id}
           gridColumn={2}
           gridRowStart={index + 4}
