@@ -1,4 +1,4 @@
-import type { Artist, Country } from '../lib/data.ts'
+import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
 
 interface Props {
   position: number
@@ -47,7 +47,7 @@ function ShareCard({
         <div className='flex min-w-0 grow flex-col'>
           <div className='flex grow items-center gap-3 font-bold'>
             <img
-              src={`/flags/${country.code.toLowerCase()}.png`}
+              src={`${CLOUDFRONT_DOMAIN}/flags/${country.code.toLowerCase()}.png`}
               alt={country.name}
               className='w-6 rounded-md'
             />
