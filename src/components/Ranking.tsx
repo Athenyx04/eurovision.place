@@ -4,6 +4,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
@@ -46,7 +47,7 @@ const Load = () => (
 function Ranking({ songList }: { songList: Song[] }) {
   const { songs, setSongs } = useSortingStore()
   const hasHydrated = useSortingStore((state) => state._hasHydrated)
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor))
   const [activeId, setActiveId] = useState<string | number | null>(null)
   const [activeItem, setActiveItem] = useState<Song | null>(null)
   const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
@@ -193,7 +194,9 @@ function Ranking({ songList }: { songList: Song[] }) {
   useEffect(() => {
     if (hasHydrated && songs) {
       // CDN update logic
-      const cdnRoute = `${CLOUDFRONT_DOMAIN}/imgs/` // Replace with your actual CDN route
+      const cdnRoute = `${CLOUDFRONT_DOMAIN}/imgs/`
+      const georgiaAudioUrl =
+        'https://p.scdn.co/mp3-preview/8c02deb99dd0e99954e00d13266c36d8b71bc347'
       if (songs.length > 0 && !songs[0].artist.imageUrl.includes(cdnRoute)) {
         const updatedSongs = songs.map((song) => ({
           ...song,
@@ -202,9 +205,21 @@ function Ranking({ songList }: { songList: Song[] }) {
             imageUrl: `${cdnRoute}${song.artist.imageUrl.split('/').pop()}`
           }
         }))
-        console.log('Updated songs:', updatedSongs)
-        setSongs(updatedSongs) // Update the songs array in the store
-        return // Return early as we've just updated the data
+        setSongs(updatedSongs)
+        return
+      } else if (songs.length > 0) {
+        // Check if Georgia's song exists and needs an update
+        const songIndex = songs.findIndex((song) => song.id === '28')
+        if (songIndex !== -1 && songs[songIndex].audioUrl !== georgiaAudioUrl) {
+          const updatedSongs = [...songs]
+          // Update only the audioUrl of Georgia's song
+          updatedSongs[songIndex] = {
+            ...updatedSongs[songIndex],
+            audioUrl: georgiaAudioUrl
+          }
+          setSongs(updatedSongs)
+          return
+        }
       }
 
       if (songList && songs.length === 0) {
