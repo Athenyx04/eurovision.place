@@ -117,7 +117,12 @@ function Ranking({ songList }: { songList: Song[] }) {
       }
     }
 
-    const finalCanvas = await html2canvas(element, { canvas, scale, logging })
+    const finalCanvas = await html2canvas(element, {
+      canvas,
+      scale,
+      logging,
+      useCORS: true
+    })
     setShareImage(finalCanvas)
 
     // Here you can implement sharing or downloading based on your requirements
