@@ -28,7 +28,7 @@ function ShareCard({
       } ${gridColumn === 1 ? 'border-r-4 border-r-liberty' : ''}`}
       style={{ gridColumn, gridRowStart }}
     >
-      <div className={`relative shrink-0 w-1/5`}>
+      <div className={`relative w-1/5 shrink-0`}>
         <img
           className='absolute left-0 top-0 size-full object-cover'
           src={artist.imageUrl}

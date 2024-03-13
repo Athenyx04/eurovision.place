@@ -4,6 +4,7 @@ import {
   DndContext,
   DragOverlay,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors
 } from '@dnd-kit/core'
@@ -46,7 +47,7 @@ const Load = () => (
 function Ranking({ songList }: { songList: Song[] }) {
   const { songs, setSongs } = useSortingStore()
   const hasHydrated = useSortingStore((state) => state._hasHydrated)
-  const sensors = useSensors(useSensor(PointerSensor))
+  const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor))
   const [activeId, setActiveId] = useState<string | number | null>(null)
   const [activeItem, setActiveItem] = useState<Song | null>(null)
   const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
