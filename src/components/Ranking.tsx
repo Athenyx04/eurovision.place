@@ -194,6 +194,8 @@ function Ranking({ songList }: { songList: Song[] }) {
     if (hasHydrated && songs) {
       // CDN update logic
       const cdnRoute = `${CLOUDFRONT_DOMAIN}/imgs/` // Replace with your actual CDN route
+      const georgiaAudioUrl =
+        'https://p.scdn.co/mp3-preview/8c02deb99dd0e99954e00d13266c36d8b71bc347'
       if (songs.length > 0 && !songs[0].artist.imageUrl.includes(cdnRoute)) {
         const updatedSongs = songs.map((song) => ({
           ...song,
