@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
-import type { Artist, Country } from '../lib/data.ts'
+import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
 import PlayPauseButton from './PlayPauseButton.tsx'
 
 interface Props {
@@ -76,7 +76,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
         <div className='flex min-w-0 flex-col'>
           <div className='flex items-center gap-2 font-bold'>
             <img
-              src={`/flags/${country.code.toLowerCase()}.png`}
+              src={`${CLOUDFRONT_DOMAIN}/flags/${country.code.toLowerCase()}.png`}
               alt={country.name}
               className='w-6 rounded-md'
             />
