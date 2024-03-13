@@ -1,4 +1,4 @@
-import type { Artist, Country } from '../lib/data.ts'
+import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
 import PlayPauseButton from './PlayPauseButton.tsx'
 
 interface Props {
@@ -24,7 +24,7 @@ const SongScreen = ({ artist, title, country, audioUrl, onVote }: Props) => {
           <p className='text-lg font-light'>{artist.name}</p>
           <p className='mt-1 flex items-center gap-2 text-sm font-semibold'>
             <img
-              src={`/flags/${country.code.toLowerCase()}.png`}
+              src={`${CLOUDFRONT_DOMAIN}/flags/${country.code.toLowerCase()}.png`}
               alt={country.name}
               className='w-8 rounded-md'
             />

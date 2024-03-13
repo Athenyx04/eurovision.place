@@ -11,7 +11,7 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
 
-import type { Song } from '../lib/data.ts'
+import { CLOUDFRONT_DOMAIN, type Song } from '../lib/data.ts'
 import { useSortingStore } from '../store/sortingStore.ts'
 import ShareContainer from './ShareContainer.tsx'
 import SongCard from './SongCard.tsx'
@@ -117,7 +117,12 @@ function Ranking({ songList }: { songList: Song[] }) {
       }
     }
 
-    const finalCanvas = await html2canvas(element, { canvas, scale, logging })
+    const finalCanvas = await html2canvas(element, {
+      canvas,
+      scale,
+      logging,
+      useCORS: true
+    })
     setShareImage(finalCanvas)
 
     // Here you can implement sharing or downloading based on your requirements
@@ -187,6 +192,21 @@ function Ranking({ songList }: { songList: Song[] }) {
 
   useEffect(() => {
     if (hasHydrated && songs) {
+      // CDN update logic
+      const cdnRoute = `${CLOUDFRONT_DOMAIN}/imgs/` // Replace with your actual CDN route
+      if (songs.length > 0 && !songs[0].artist.imageUrl.includes(cdnRoute)) {
+        const updatedSongs = songs.map((song) => ({
+          ...song,
+          artist: {
+            ...song.artist,
+            imageUrl: `${cdnRoute}${song.artist.imageUrl.split('/').pop()}`
+          }
+        }))
+        console.log('Updated songs:', updatedSongs)
+        setSongs(updatedSongs) // Update the songs array in the store
+        return // Return early as we've just updated the data
+      }
+
       if (songList && songs.length === 0) {
         setSongs(songList)
         return

@@ -1,3 +1,5 @@
+export const CLOUDFRONT_DOMAIN = 'https://d9b4wd4n2m1ts.cloudfront.net'
+
 export interface Artist {
   id: string
   name: string
@@ -34,7 +36,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '2',
           name: 'Angelina Mango',
-          imageUrl: './imgs/it.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/it.webp`
         },
         country: {
           code: 'IT',
@@ -49,7 +51,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '4',
           name: 'Silvester Belt',
-          imageUrl: './imgs/lt.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/lt.webp`
         },
         country: {
           code: 'LT',
@@ -64,7 +66,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '24',
           name: 'Kaleen',
-          imageUrl: './imgs/at.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/at.webp`
         },
         country: {
           code: 'AT',
@@ -79,7 +81,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '36',
           name: 'Nemo',
-          imageUrl: './imgs/ch.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/ch.webp`
         },
         country: {
           code: 'CH',
@@ -94,7 +96,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '18',
           name: 'LUNA',
-          imageUrl: './imgs/pl.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/pl.webp`
         },
         country: {
           code: 'PL',
@@ -109,7 +111,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '1',
           name: 'Nebulossa',
-          imageUrl: './imgs/es.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/es.webp`
         },
         country: {
           code: 'ES',
@@ -124,7 +126,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '7',
           name: 'Aiko',
-          imageUrl: './imgs/cz.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/cz.webp`
         },
         country: {
           code: 'CZ',
@@ -139,7 +141,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '32',
           name: 'Joost Klein',
-          imageUrl: './imgs/nl.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/nl.webp`
         },
         country: {
           code: 'NL',
@@ -154,7 +156,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '12',
           name: 'Bambie Thug',
-          imageUrl: './imgs/ie.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/ie.webp`
         },
         country: {
           code: 'IE',
@@ -169,7 +171,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '3',
           name: 'Windows95man',
-          imageUrl: './imgs/fi.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/fi.webp`
         },
         country: {
           code: 'FI',
@@ -184,7 +186,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '6',
           name: 'Mustii',
-          imageUrl: './imgs/be.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/be.webp`
         },
         country: {
           code: 'BE',
@@ -199,7 +201,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '21',
           name: 'Megara',
-          imageUrl: './imgs/sm.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/sm.webp`
         },
         country: {
           code: 'SM',
@@ -214,7 +216,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '20',
           name: 'alyona alyona & Jerry Heil',
-          imageUrl: './imgs/ua.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/ua.webp`
         },
         country: {
           code: 'UA',
@@ -229,7 +231,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '37',
           name: 'Olly Alexander',
-          imageUrl: './imgs/gb.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/gb.webp`
         },
         country: {
           code: 'GB',
@@ -244,7 +246,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '10',
           name: 'Slimane',
-          imageUrl: './imgs/fr.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/fr.webp`
         },
         country: {
           code: 'FR',
@@ -259,7 +261,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '19',
           name: 'Raiven',
-          imageUrl: './imgs/si.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/si.webp`
         },
         country: {
           code: 'SI',
@@ -274,7 +276,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '8',
           name: 'SABA',
-          imageUrl: './imgs/dk.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/dk.webp`
         },
         country: {
           code: 'DK',
@@ -289,7 +291,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '9',
           name: '5miinust & Puuluup',
-          imageUrl: './imgs/ee.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/ee.webp`
         },
         country: {
           code: 'EE',
@@ -304,7 +306,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '34',
           name: 'Teya Dora',
-          imageUrl: './imgs/rs.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/rs.webp`
         },
         country: {
           code: 'RS',
@@ -319,7 +321,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '14',
           name: 'TALI',
-          imageUrl: './imgs/lu.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/lu.webp`
         },
         country: {
           code: 'LU',
@@ -334,7 +336,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '11',
           name: 'Isaak',
-          imageUrl: './imgs/de.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/de.webp`
         },
         country: {
           code: 'DE',
@@ -349,7 +351,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '27',
           name: 'Silia Kapsis',
-          imageUrl: './imgs/cy.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/cy.webp`
         },
         country: {
           code: 'CY',
@@ -364,7 +366,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '26',
           name: 'Baby Lasagna',
-          imageUrl: './imgs/hr.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/hr.webp`
         },
         country: {
           code: 'HR',
@@ -379,7 +381,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '16',
           name: 'Natalia Barbu',
-          imageUrl: './imgs/md.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/md.webp`
         },
         country: {
           code: 'MD',
@@ -394,7 +396,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '17',
           name: 'Gåte',
-          imageUrl: './imgs/no.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/no.webp`
         },
         country: {
           code: 'NO',
@@ -409,7 +411,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '5',
           name: 'Besa',
-          imageUrl: './imgs/al.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/al.webp`
         },
         country: {
           code: 'AL',
@@ -424,7 +426,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '15',
           name: 'Sarah Bonnici',
-          imageUrl: './imgs/mt.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/mt.webp`
         },
         country: {
           code: 'MT',
@@ -438,7 +440,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '13',
           name: 'Dons',
-          imageUrl: './imgs/lv.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/lv.webp`
         },
         country: {
           code: 'LV',
@@ -453,7 +455,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '30',
           name: 'Hera Björk',
-          imageUrl: './imgs/is.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/is.webp`
         },
         country: {
           code: 'IS',
@@ -468,7 +470,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '29',
           name: 'Marina Satti',
-          imageUrl: './imgs/gr.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/gr.webp`
         },
         country: {
           code: 'GR',
@@ -483,7 +485,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '28',
           name: 'Nutsa Buzaladze',
-          imageUrl: './imgs/ge.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/ge.webp`
         },
         country: {
           code: 'GE',
@@ -510,9 +512,9 @@ export const playlists: Playlist[] = [
       //   id: "22",
       //   title: "TBA",
       //   artist: {
-      //     id: "0",
-      //     name: "Ladaniva",
-      //     imageUrl: "./imgs/alt.webp",
+      //     id: "22",
+      //     name: "LADANIVA",
+      //     imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/am.webp`,
       //   },
       //   country: {
       //     code: "AM",
@@ -526,7 +528,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '23',
           name: 'Electric Fields',
-          imageUrl: './imgs/au.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/au.webp`
         },
         country: {
           code: 'AU',
@@ -555,7 +557,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '33',
           name: 'Iolanda',
-          imageUrl: './imgs/pt.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/pt.webp`
         },
         country: {
           code: 'PT',
@@ -570,7 +572,7 @@ export const playlists: Playlist[] = [
         artist: {
           id: '35',
           name: 'Marcus & Martinus',
-          imageUrl: './imgs/se.webp'
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/se.webp`
         },
         country: {
           code: 'SE',
