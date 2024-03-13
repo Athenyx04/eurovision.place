@@ -43,8 +43,8 @@ function ShareCard({
             30deg,
             transparent 20%,
             transparent 40%,
-            rgba(255, 255, 255, ${position === 1 ? '0.8' : position === 2 ? '0.8' : position === 3 ? '0.4' : '0.25'}) 50%,
-            rgba(255, 255, 255, ${position === 1 ? '0.8' : position === 2 ? '0.8' : position === 3 ? '0.4' : '0.25'}) 55%,
+            rgba(255, 255, 255, ${position === 1 ? '0.5' : position === 2 ? '0.6' : position === 3 ? '0.4' : '0.25'}) 50%,
+            rgba(255, 255, 255, ${position === 1 ? '0.5' : position === 2 ? '0.6' : position === 3 ? '0.4' : '0.25'}) 55%,
             transparent 70%,
             transparent 100%
           )`
