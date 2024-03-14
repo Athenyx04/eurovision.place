@@ -12,7 +12,7 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable'
 import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
 
-import { CLOUDFRONT_DOMAIN, type Song } from '../lib/data.ts'
+import { type Song } from '../lib/data.ts'
 import { useSortingStore } from '../store/sortingStore.ts'
 import ShareContainer from './ShareContainer.tsx'
 import SongCard from './SongCard.tsx'
@@ -45,12 +45,13 @@ const Load = () => (
 )
 
 function Ranking({ songList }: { songList: Song[] }) {
-  const { songs, setSongs } = useSortingStore()
+  const { sortedSongIds, setSongIds } = useSortingStore()
   const hasHydrated = useSortingStore((state) => state._hasHydrated)
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor))
   const [activeId, setActiveId] = useState<string | number | null>(null)
   const [activeItem, setActiveItem] = useState<Song | null>(null)
   const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
+  const [songs, setSongs] = useState<Song[]>([])
 
   function handleSelectRanking(ranking: string) {
     triggerScreenshot(ranking)
@@ -181,8 +182,10 @@ function Ranking({ songList }: { songList: Song[] }) {
     if (active.id !== over.id) {
       const oldIndex = songs.findIndex((song) => song.id === active.id)
       const newIndex = songs.findIndex((song) => song.id === over.id)
-      const newArray = arrayMove(songs, oldIndex, newIndex)
-      setSongs(newArray)
+      const newSongsArray = arrayMove(songs, oldIndex, newIndex)
+      const newSongIdsArray = arrayMove(sortedSongIds, oldIndex, newIndex)
+      setSongs(newSongsArray)
+      setSongIds(newSongIdsArray)
     }
   }
 
@@ -192,50 +195,34 @@ function Ranking({ songList }: { songList: Song[] }) {
   }, [])
 
   useEffect(() => {
-    if (hasHydrated && songs) {
-      // CDN update logic
-      const cdnRoute = `${CLOUDFRONT_DOMAIN}/imgs/`
-      const georgiaAudioUrl =
-        'https://p.scdn.co/mp3-preview/8c02deb99dd0e99954e00d13266c36d8b71bc347'
-      if (songs.length > 0 && !songs[0].artist.imageUrl.includes(cdnRoute)) {
-        const updatedSongs = songs.map((song) => ({
-          ...song,
-          artist: {
-            ...song.artist,
-            imageUrl: `${cdnRoute}${song.artist.imageUrl.split('/').pop()}`
-          }
-        }))
-        setSongs(updatedSongs)
-        return
-      } else if (songs.length > 0) {
-        // Check if Georgia's song exists and needs an update
-        const songIndex = songs.findIndex((song) => song.id === '28')
-        if (songIndex !== -1 && songs[songIndex].audioUrl !== georgiaAudioUrl) {
-          const updatedSongs = [...songs]
-          // Update only the audioUrl of Georgia's song
-          updatedSongs[songIndex] = {
-            ...updatedSongs[songIndex],
-            audioUrl: georgiaAudioUrl
-          }
-          setSongs(updatedSongs)
-          return
-        }
-      }
-
-      if (songList && songs.length === 0) {
-        setSongs(songList)
+    if (hasHydrated && sortedSongIds) {
+      if (songList && sortedSongIds.length === 0) {
+        setSongIds(songList.map((song) => song.id))
         return
       }
-      const currentSongIds = new Set(songs.map((song) => song.id))
-      const newSongIds = songList.filter((song) => !currentSongIds.has(song.id))
+      const newSongs = songList.filter(
+        (song) => !sortedSongIds.includes(song.id)
+      )
+      const newSongIds = newSongs.map((song) => song.id)
+      const orderedSongIds = [...sortedSongIds, ...newSongIds]
 
       if (newSongIds.length > 0) {
-        setSongs([...songs, ...newSongIds])
+        setSongIds(orderedSongIds)
+      }
+
+      const orderedSongs = orderedSongIds
+        .map((id) => {
+          return songList.find((song) => song.id === id)
+        })
+        .filter((song): song is Song => song !== undefined)
+
+      if (orderedSongs) {
+        setSongs(orderedSongs)
       }
     }
   }, [songList, hasHydrated])
 
-  if (!hasHydrated || !songList) {
+  if (!hasHydrated || !songList || songs.length === 0) {
     return (
       <div className='flex grow items-center justify-center'>
         <Load />
@@ -243,7 +230,7 @@ function Ranking({ songList }: { songList: Song[] }) {
     )
   }
 
-  if (!songs || songs?.length === 0) {
+  if (!sortedSongIds || sortedSongIds?.length === 0) {
     return (
       <div className='flex h-full flex-col items-center justify-center'>
         <h2 className='text-2xl text-gray-500'>No ranking has been found.</h2>
