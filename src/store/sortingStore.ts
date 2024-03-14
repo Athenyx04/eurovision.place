@@ -6,6 +6,7 @@ import type { Song } from '../lib/data'
 interface SortingStore {
   songs: Song[]
 
+  sortedSongIds: string[]
   // Stores indexes of the songs to be sorted.
   // Initially, it contains a single array with indexes representing all songs.
   sortedIndexes: number[][]
@@ -29,6 +30,7 @@ interface SortingStore {
   finishFlag: boolean
   _hasHydrated: boolean
   setSongs: (songs: Song[]) => void
+  setSongIds: (sortedSongIds: string[]) => void
   setHasHydrated: (state: boolean) => void
 
   // Prepares the list for sorting.
@@ -43,6 +45,7 @@ export const useSortingStore = create<SortingStore>()(
   persist(
     (set) => ({
       songs: [],
+      sortedSongIds: [],
       sortedIndexes: [],
       segmentParents: [],
       totalSize: 0,
@@ -57,6 +60,10 @@ export const useSortingStore = create<SortingStore>()(
 
       setSongs: (songs) => {
         set({ songs })
+      },
+
+      setSongIds: (sortedSongIds) => {
+        set({ sortedSongIds })
       },
 
       setHasHydrated: (state: boolean) => {
@@ -211,7 +218,7 @@ export const useSortingStore = create<SortingStore>()(
             const nextRight = currentComparisonRight - 2
             const finishFlag = nextLeft < 0
 
-            // If finish flag is true, sorting is complete, create the sorted songs array
+            // If finish flag is true, sorting is complete, create the sorted songs array and delete sortedSongIds for regeneration
             if (finishFlag) {
               const sortedSongs = newSortedIndexes[0].map(
                 (index) => state.songs?.[index]
@@ -226,7 +233,8 @@ export const useSortingStore = create<SortingStore>()(
                 comparisonHeadRight: 0,
                 finishSize: newFinishSize,
                 finishFlag: finishFlag,
-                songs: sortedSongs
+                songs: sortedSongs,
+                sortedSongIds: []
               }
             }
 
@@ -258,10 +266,19 @@ export const useSortingStore = create<SortingStore>()(
     {
       name: 'sorting-store',
       partialize: (state) => ({
-        songs: state.songs
+        songs: state.songs,
+        sortedSongIds: state.sortedSongIds
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
+          if (
+            state.songs &&
+            state.songs.length > 0 &&
+            state.sortedSongIds.length === 0
+          ) {
+            const songIds = state.songs.map((song) => song.id)
+            state.setSongIds(songIds)
+          }
           state.setHasHydrated(true)
         }
       }
