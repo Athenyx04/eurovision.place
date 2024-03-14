@@ -418,7 +418,7 @@ export const playlists: Playlist[] = [
           name: 'Albania'
         },
         audioUrl:
-          'https://p.scdn.co/mp3-preview/26c5f55dd590f2043a7caf9698a74259940772a7'
+          'https://p.scdn.co/mp3-preview/cb28cbb33387f7765da43b7193d21ca068d68219'
       },
       {
         id: '15',
@@ -432,7 +432,8 @@ export const playlists: Playlist[] = [
           code: 'MT',
           name: 'Malta'
         },
-        audioUrl: ''
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/19e672681da624bad492a6c7ebf1181e021a9696'
       },
       {
         id: '13',
@@ -495,18 +496,18 @@ export const playlists: Playlist[] = [
           'https://p.scdn.co/mp3-preview/8c02deb99dd0e99954e00d13266c36d8b71bc347'
       },
       // {
-      //   id: "31",
-      //   title: "Hurricane",
+      //   id: '31',
+      //   title: 'Hurricane',
       //   artist: {
-      //     id: "31",
-      //     name: "Eden Golan",
-      //     imageUrl: "./imgs/alt.webp",
+      //     id: '31',
+      //     name: 'Eden Golan',
+      //     imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/il.webp`
       //   },
       //   country: {
-      //     code: "IL",
-      //     name: "Israel",
+      //     code: 'IL',
+      //     name: 'Israel'
       //   },
-      //   audioUrl: "",
+      //   audioUrl: ''
       // },
       {
         id: '22',
