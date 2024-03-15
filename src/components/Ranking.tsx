@@ -38,7 +38,6 @@ function Ranking({ songList }: { songList: Song[] }) {
   const [songs, setSongs] = useState<Song[]>([])
   const [filteredSongs, setFilteredSongs] = useState<Song[]>([])
   const [viewGroup, setViewGroup] = useState<string>('')
-  const [filteredEntryes, setFilteredEntryes] = useState<string[]>(['Israel'])
   const [entryValues, setEntryValues] = useState<OptionType[]>([])
   const [rankingTitle, setRankingTitle] = useState<string>('My Eurovision 2024')
   const { filteredEntries, setFilteredEntries } = useFilterStore((state) => ({
@@ -239,11 +238,11 @@ function Ranking({ songList }: { songList: Song[] }) {
         return !filteredEntries.includes(song.country.name)
       })
 
-      if (filteredSongs) {
+      if (filteredSongs.length > 0) {
         setFilteredSongs(filteredSongs)
       }
     }
-  }, [viewGroup])
+  }, [viewGroup, filteredEntries])
 
   if (!hasHydrated || !songList || songs.length === 0) {
     return (
