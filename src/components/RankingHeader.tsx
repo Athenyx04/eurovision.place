@@ -87,7 +87,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                 value={viewGroup}
                 onValueChange={(value) => setViewGroup(value)}
               >
-                <div className='flex w-full gap-4'>
+                <div className='flex w-full gap-2'>
                   <ToggleGroupItem
                     value='big5'
                     size={'text'}
@@ -110,7 +110,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     <span>Semifinal 2</span>
                   </ToggleGroupItem>
                 </div>
-                <div className='flex w-full gap-4'>
+                <div className='flex w-full gap-2'>
                   <ToggleGroupItem
                     value='nordics'
                     size={'text'}
