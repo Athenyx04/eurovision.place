@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import type { Song } from '../lib/data'
+import { useFilterStore } from '../store/filterStore.ts'
 import { usePlayerStore } from '../store/playerStore.ts'
 import { useSortingStore } from '../store/sortingStore.ts'
 import SongScreen from './SongScreen.tsx'
@@ -20,17 +21,25 @@ function BattlePair({ songList }: { songList: Song[] }) {
   } = useSortingStore()
   const hasHydrated = useSortingStore((state) => state._hasHydrated)
 
+  const { filteredEntries } = useFilterStore()
+  const hasFilterHydrated = useFilterStore((state) => state._hasHydrated)
+
   const { setIsPlaying } = usePlayerStore()
 
   useEffect(() => {
-    if (songList) {
+    if (songList && hasFilterHydrated) {
       setSongs(songList)
-      initList(songList)
+      const filteredSongs = songList.filter((song) => {
+        // Check against the country.name property of each song
+        return !filteredEntries.includes(song.country.name)
+      })
+      initList(filteredSongs)
     }
-  }, [songList])
+  }, [songList, hasFilterHydrated])
 
   useEffect(() => {
     useSortingStore.persist.rehydrate()
+    useFilterStore.persist.rehydrate()
   }, [])
 
   const firstCardIndex =

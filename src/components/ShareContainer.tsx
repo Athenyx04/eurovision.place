@@ -22,13 +22,17 @@ function ShareContainer({
       : songs.length % 2 === 0
         ? headerHeight + songCardHeight * (numRows + 1)
         : headerHeight + songCardHeight * numRows
-  const width = height === 'auto' ? 400 : height < 400 ? 400 : height
+  const width = height === 'auto' ? 400 : height < 800 ? 800 : height
   const gridTemplateColumns =
     songs.length < 11
       ? 'repeat(1, minmax(0, 1fr))'
       : 'repeat(2, minmax(0, 1fr))'
   const gridColumn = songs.length < 11 ? 'span 1 / span 1' : 'span 2 / span 2'
   const additionalRows = songs.length % 2 !== 0 ? 1 : 2
+
+  if (songs.length < 1) {
+    return null
+  }
 
   if (songs.length < 11) {
     return (
