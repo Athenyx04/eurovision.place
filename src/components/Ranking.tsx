@@ -310,18 +310,21 @@ function Ranking({ songList }: { songList: Song[] }) {
                 >
                   <ToggleGroupItem
                     value='big5'
+                    size={'text'}
                     aria-label='Toggle Big 5 & Host'
                   >
                     <span>Big 5 & Host</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value='semiOne'
+                    size={'text'}
                     aria-label='Toggle Semifinal 1'
                   >
                     <span>Semifinal 1</span>
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value='semiTwo'
+                    size={'text'}
                     aria-label='Toggle Semifinal 2'
                   >
                     <span>Semifinal 2</span>
