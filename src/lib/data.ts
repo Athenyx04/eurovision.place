@@ -574,21 +574,21 @@ export const playlists: Playlist[] = [
         audioUrl:
           'https://p.scdn.co/mp3-preview/606433c98fd1f294980ac69de0225e21dc5c0e02'
       },
-      // {
-      //   id: "25",
-      //   title: "TBA",
-      //   artist: {
-      //     id: "25",
-      //     name: "Fahree",
-      //     imageUrl: "./imgs/alt.webp",
-      //   },
-      //   country: {
-      //     code: "AZ",
-      //     name: "Azerbaijan",
-      //   },
-      //   groups: ["Semifinal 1"],
-      //   audioUrl: "",
-      // },
+      {
+        id: '25',
+        title: 'Özünlə Apar',
+        artist: {
+          id: '25',
+          name: 'FAHREE feat. Ilkin Dovlatov',
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/az.webp`
+        },
+        country: {
+          code: 'AZ',
+          name: 'Azerbaijan'
+        },
+        groups: ['Semifinal 1'],
+        audioUrl: ''
+      },
       {
         id: '33',
         title: 'Grito',
