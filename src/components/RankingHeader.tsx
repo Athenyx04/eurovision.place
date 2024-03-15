@@ -1,5 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react'
-
 import { Button } from './ui/button.tsx'
 import {
   Dialog,
@@ -20,7 +18,7 @@ interface RankingHeaderProps {
   entryValues: OptionType[]
   filteredEntries: string[]
   setViewGroup: (value: string) => void
-  setFilteredEntries: Dispatch<SetStateAction<string[]>>
+  setFilteredEntries: (prevState: string[]) => void
   handleSelectRanking: (ranking: string) => void
 }
 

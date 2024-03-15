@@ -80,7 +80,9 @@ export const useSortingStore = create<SortingStore>()(
         * @param {Song[]} songs - The list of songs to be sorted.
         */
       initList: (songs) => {
-        const totalSongs = songs.length
+        // Filter out Israel
+        const filteredSongs = songs.filter((song) => song.id !== '31')
+        const totalSongs = filteredSongs.length
 
         // Create an array of song indexes
         const initialSortedIndexes = Array.from(Array(totalSongs).keys())
@@ -117,7 +119,7 @@ export const useSortingStore = create<SortingStore>()(
 
         // Update state once all divisions are complete
         set({
-          songs,
+          songs: filteredSongs,
           sortedIndexes: tempSortedIndexes,
           segmentParents: tempSegmentParents,
           totalSize,
