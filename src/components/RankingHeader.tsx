@@ -79,6 +79,16 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
               </DialogDescription>
             </DialogHeader>
             <div className='flex flex-col gap-1'>
+              <span className='text-sm font-bold text-eerie'>
+                Filtered entries
+              </span>
+              <MultiSelect
+                options={entryValues}
+                selected={filteredEntries}
+                onChange={setFilteredEntries}
+              />
+            </div>
+            <div className='flex flex-col gap-1'>
               <span className='text-sm font-bold text-eerie'>Groups</span>
               <ToggleGroup
                 type='single'
@@ -134,16 +144,6 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                   </ToggleGroupItem>
                 </div>
               </ToggleGroup>
-            </div>
-            <div className='flex flex-col gap-1'>
-              <span className='text-sm font-bold text-eerie'>
-                Filtered entries
-              </span>
-              <MultiSelect
-                options={entryValues}
-                selected={filteredEntries}
-                onChange={setFilteredEntries}
-              />
             </div>
             <DialogFooter className='gap-4'>
               <DialogClose asChild>
