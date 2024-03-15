@@ -27,6 +27,8 @@ import {
   DialogTitle,
   DialogTrigger
 } from './ui/dialog.tsx'
+import { MultiSelect, type OptionType } from './ui/multiSelect.tsx'
+import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group.tsx'
 
 const Load = () => (
   <svg
@@ -52,6 +54,9 @@ function Ranking({ songList }: { songList: Song[] }) {
   const [activeItem, setActiveItem] = useState<Song | null>(null)
   const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
   const [songs, setSongs] = useState<Song[]>([])
+  const [viewGroup, setViewGroup] = useState<string>('')
+  const [filteredEntries, setFilteredEntries] = useState<string[]>(['Israel'])
+  const [entryValues, setEntryValues] = useState<OptionType[]>([])
 
   function handleSelectRanking(ranking: string) {
     triggerScreenshot(ranking)
@@ -196,6 +201,13 @@ function Ranking({ songList }: { songList: Song[] }) {
 
   useEffect(() => {
     if (hasHydrated && sortedSongIds) {
+      const allEntries = songList.map((song) => song.country)
+      const optionEntries = allEntries.map((entry) => ({
+        label: entry.name,
+        value: entry.name
+      }))
+      setEntryValues(optionEntries)
+
       if (songList && sortedSongIds.length === 0) {
         setSongIds(songList.map((song) => song.id))
         return
@@ -245,7 +257,94 @@ function Ranking({ songList }: { songList: Song[] }) {
     <div className='flex w-full flex-col'>
       <div className='flex items-center p-4'>
         <h1 className='font-extrabold'>My Eurovision 2024</h1>
-        <div className='ml-auto flex flex-col gap-2'>
+        <div className='ml-auto flex gap-4'>
+          <Dialog>
+            <DialogTrigger>
+              <div
+                className={
+                  'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-white hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='16'
+                  height='16'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.7'
+                  stroke='#111827'
+                  fill='none'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <path d='M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 6l8 0' />
+                  <path d='M16 6l4 0' />
+                  <path d='M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 12l2 0' />
+                  <path d='M10 12l10 0' />
+                  <path d='M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 18l11 0' />
+                  <path d='M19 18l1 0' />
+                </svg>
+                <span className='hidden text-sm font-bold text-eerie md:flex'>
+                  Filter
+                </span>
+              </div>
+            </DialogTrigger>
+            <DialogContent className='text-eerie'>
+              <DialogHeader>
+                <DialogTitle>Filter your ranking</DialogTitle>
+                <DialogDescription>
+                  Select which filters you want to apply to your ranking.
+                </DialogDescription>
+              </DialogHeader>
+              <div className='flex flex-col gap-1'>
+                <span className='text-sm font-bold text-eerie'>Groups</span>
+                <ToggleGroup
+                  type='single'
+                  variant='outline'
+                  className='flex justify-normal gap-2'
+                  value={viewGroup}
+                  onValueChange={(value) => setViewGroup(value)}
+                >
+                  <ToggleGroupItem
+                    value='big5'
+                    aria-label='Toggle Big 5 & Host'
+                  >
+                    <span>Big 5 & Host</span>
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    value='semiOne'
+                    aria-label='Toggle Semifinal 1'
+                  >
+                    <span>Semifinal 1</span>
+                  </ToggleGroupItem>
+                  <ToggleGroupItem
+                    value='semiTwo'
+                    aria-label='Toggle Semifinal 2'
+                  >
+                    <span>Semifinal 2</span>
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
+              <div className='flex flex-col gap-1'>
+                <span className='text-sm font-bold text-eerie'>
+                  Filtered entries
+                </span>
+                <MultiSelect
+                  options={entryValues}
+                  selected={filteredEntries}
+                  onChange={setFilteredEntries}
+                />
+              </div>
+              <DialogFooter className='gap-4'>
+                <DialogClose asChild>
+                  <Button onClick={() => {}}>Save</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
           <Dialog>
             <DialogTrigger>
               <div
@@ -259,7 +358,7 @@ function Ranking({ songList }: { songList: Song[] }) {
                   height='16'
                   viewBox='0 0 24 24'
                   fill='none'
-                  stroke='#000'
+                  stroke='#111827'
                   strokeWidth='2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
