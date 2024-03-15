@@ -1,5 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react'
-
 import { Button } from './ui/button.tsx'
 import {
   Dialog,
@@ -20,7 +18,7 @@ interface RankingHeaderProps {
   entryValues: OptionType[]
   filteredEntries: string[]
   setViewGroup: (value: string) => void
-  setFilteredEntries: Dispatch<SetStateAction<string[]>>
+  setFilteredEntries: (prevState: string[]) => void
   handleSelectRanking: (ranking: string) => void
 }
 
@@ -78,7 +76,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                 Select which filters you want to apply to your ranking.
               </DialogDescription>
             </DialogHeader>
-            <div className='flex flex-col gap-1'>
+            <div className='flex flex-col gap-2'>
               <span className='text-sm font-bold text-eerie'>
                 Filtered entries
               </span>
@@ -88,8 +86,8 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                 onChange={setFilteredEntries}
               />
             </div>
-            <div className='flex flex-col gap-1'>
-              <span className='text-sm font-bold text-eerie'>Groups</span>
+            <div className='flex flex-col gap-2'>
+              <span className='text-sm font-bold text-eerie'>Group</span>
               <ToggleGroup
                 type='single'
                 variant='outline'
@@ -102,6 +100,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='big5'
                     size={'text'}
                     aria-label='Toggle Big 5 + Host'
+                    className='flex grow'
                   >
                     <span>Big 5 + Host</span>
                   </ToggleGroupItem>
@@ -109,6 +108,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='semiOne'
                     size={'text'}
                     aria-label='Toggle Semifinal 1'
+                    className='flex grow'
                   >
                     <span>Semifinal 1</span>
                   </ToggleGroupItem>
@@ -116,6 +116,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='semiTwo'
                     size={'text'}
                     aria-label='Toggle Semifinal 2'
+                    className='flex grow'
                   >
                     <span>Semifinal 2</span>
                   </ToggleGroupItem>
@@ -125,6 +126,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='nordics'
                     size={'text'}
                     aria-label='Toggle Nordics'
+                    className='flex grow'
                   >
                     <span>Nordics</span>
                   </ToggleGroupItem>
@@ -132,6 +134,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='baltics'
                     size={'text'}
                     aria-label='Toggle Baltics'
+                    className='flex grow'
                   >
                     <span>Baltics</span>
                   </ToggleGroupItem>
@@ -139,6 +142,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                     value='balkans'
                     size={'text'}
                     aria-label='Toggle Balkans'
+                    className='flex grow'
                   >
                     <span>Balkans</span>
                   </ToggleGroupItem>
@@ -147,7 +151,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
             </div>
             <DialogFooter className='gap-4'>
               <DialogClose asChild>
-                <Button onClick={() => {}}>Save</Button>
+                <Button>Close</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>

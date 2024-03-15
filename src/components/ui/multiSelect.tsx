@@ -22,7 +22,7 @@ export type OptionType = {
 interface MultiSelectProps {
   options: OptionType[]
   selected: string[]
-  onChange: React.Dispatch<React.SetStateAction<string[]>>
+  onChange: (prevState: string[]) => void
   className?: string
 }
 

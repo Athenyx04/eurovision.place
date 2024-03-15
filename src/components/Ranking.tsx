@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
 
 import { type Song } from '../lib/data.ts'
+import { useFilterStore } from '../store/filterStore.ts'
 import { useSortingStore } from '../store/sortingStore.ts'
 import RankingHeader from './RankingHeader.tsx'
 import RankingSongList from './RankingSongList.tsx'
@@ -37,9 +38,12 @@ function Ranking({ songList }: { songList: Song[] }) {
   const [songs, setSongs] = useState<Song[]>([])
   const [filteredSongs, setFilteredSongs] = useState<Song[]>([])
   const [viewGroup, setViewGroup] = useState<string>('')
-  const [filteredEntries, setFilteredEntries] = useState<string[]>(['Israel'])
   const [entryValues, setEntryValues] = useState<OptionType[]>([])
   const [rankingTitle, setRankingTitle] = useState<string>('My Eurovision 2024')
+  const { filteredEntries, setFilteredEntries } = useFilterStore((state) => ({
+    filteredEntries: state.filteredEntries,
+    setFilteredEntries: state.setFilteredEntries
+  }))
 
   function handleSelectRanking(ranking: string) {
     triggerScreenshot(ranking)
@@ -188,6 +192,8 @@ function Ranking({ songList }: { songList: Song[] }) {
         setSongs(orderedSongs)
       }
 
+      console.log('filteredEntries', filteredEntries)
+
       const filteredSongs = orderedSongs.filter((song) => {
         // Check against the country.name property of each song
         return !filteredEntries.includes(song.country.name)
@@ -232,11 +238,11 @@ function Ranking({ songList }: { songList: Song[] }) {
         return !filteredEntries.includes(song.country.name)
       })
 
-      if (filteredSongs) {
+      if (filteredSongs.length > 0) {
         setFilteredSongs(filteredSongs)
       }
     }
-  }, [filteredEntries, viewGroup])
+  }, [viewGroup, filteredEntries])
 
   if (!hasHydrated || !songList || songs.length === 0) {
     return (

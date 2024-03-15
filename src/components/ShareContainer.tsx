@@ -30,6 +30,10 @@ function ShareContainer({
   const gridColumn = songs.length < 11 ? 'span 1 / span 1' : 'span 2 / span 2'
   const additionalRows = songs.length % 2 !== 0 ? 1 : 2
 
+  if (songs.length < 1) {
+    return null
+  }
+
   if (songs.length < 11) {
     return (
       <div
