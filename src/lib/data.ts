@@ -16,6 +16,7 @@ export interface Song {
   title: string
   artist: Artist
   country: Country
+  groups: string[]
   audioUrl: string
 }
 
@@ -42,6 +43,7 @@ export const playlists: Playlist[] = [
           code: 'IT',
           name: 'Italy'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/30d0318fb9390a0760632d45df42bdb9505c7a04'
       },
@@ -57,6 +59,7 @@ export const playlists: Playlist[] = [
           code: 'LT',
           name: 'Lithuania'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/58f6dcc8d9504cbc574aea7ccdaebef5aee616e4'
       },
@@ -72,6 +75,7 @@ export const playlists: Playlist[] = [
           code: 'AT',
           name: 'Austria'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/35a1c0b5c8d9918d620e1e6e551309468ec15432?cid=8701b86cc5714dbaba06f075ea5c4745'
       },
@@ -87,6 +91,7 @@ export const playlists: Playlist[] = [
           code: 'CH',
           name: 'Switzerland'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/e2cef9b3f240bcef7771b1e8b0edc2d6e17e8635'
       },
@@ -102,6 +107,7 @@ export const playlists: Playlist[] = [
           code: 'PL',
           name: 'Poland'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/141694f25b972ad32930e8f5b3e9a3aad2ed83e4'
       },
@@ -117,6 +123,7 @@ export const playlists: Playlist[] = [
           code: 'ES',
           name: 'Spain'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/9282f511673c6ef9466ac9ae3226c5567cc10e0f'
       },
@@ -132,6 +139,7 @@ export const playlists: Playlist[] = [
           code: 'CZ',
           name: 'Czechia'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/9a880b10fce03fcbb548495e00e92491b05cddd2'
       },
@@ -147,6 +155,7 @@ export const playlists: Playlist[] = [
           code: 'NL',
           name: 'Netherlands'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/212bf69504040f28afc9bf6cee27c7795d963f3c'
       },
@@ -162,6 +171,7 @@ export const playlists: Playlist[] = [
           code: 'IE',
           name: 'Ireland'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/49fde0058f2cf8ca85f6dcabf529e56643e9d8f5'
       },
@@ -177,6 +187,7 @@ export const playlists: Playlist[] = [
           code: 'FI',
           name: 'Finland'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/005801d73892012d798b1020f04f2709a48f0739'
       },
@@ -192,6 +203,7 @@ export const playlists: Playlist[] = [
           code: 'BE',
           name: 'Belgium'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/2bff619e3979e8b8b08c9282b15b0b42580b3842'
       },
@@ -207,6 +219,7 @@ export const playlists: Playlist[] = [
           code: 'SM',
           name: 'San Marino'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/0dd06ce62f44a10ed35a9c14114d78d9ed1de28f'
       },
@@ -222,6 +235,7 @@ export const playlists: Playlist[] = [
           code: 'UA',
           name: 'Ukraine'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/8465d47338a7aa21397aa565eebfe24c2f561fb4'
       },
@@ -237,6 +251,7 @@ export const playlists: Playlist[] = [
           code: 'GB',
           name: 'United Kingdom'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/8bb33c85bba957840c1f6539db12c649b39d9f07'
       },
@@ -252,6 +267,7 @@ export const playlists: Playlist[] = [
           code: 'FR',
           name: 'France'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/ad89fa428c447ac3926785c0c56fd9e6af4641e5'
       },
@@ -267,6 +283,7 @@ export const playlists: Playlist[] = [
           code: 'SI',
           name: 'Slovenia'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/54e8a258fe9a3a4131b013d5d23bdd88848faa3e'
       },
@@ -282,6 +299,7 @@ export const playlists: Playlist[] = [
           code: 'DK',
           name: 'Denmark'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/6dd4a0dafe301fad848c1ad1b685b400e756ebdc'
       },
@@ -297,6 +315,7 @@ export const playlists: Playlist[] = [
           code: 'EE',
           name: 'Estonia'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/4e300cd4d44729f6c874ac8aaa841f4c41971702'
       },
@@ -312,6 +331,7 @@ export const playlists: Playlist[] = [
           code: 'RS',
           name: 'Serbia'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/61ce3a423bb1ded421b2148fa3e53e7bb972f53a'
       },
@@ -327,6 +347,7 @@ export const playlists: Playlist[] = [
           code: 'LU',
           name: 'Luxembourg'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/338a9e8fc79e721ef67fd4dc8ac8b8d7fc52abba'
       },
@@ -342,6 +363,7 @@ export const playlists: Playlist[] = [
           code: 'DE',
           name: 'Germany'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/a8471549e28c5388b2b2760725e25ec55cff8395'
       },
@@ -357,6 +379,7 @@ export const playlists: Playlist[] = [
           code: 'CY',
           name: 'Cyprus'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/1bd07c733544c350e5c849a85009aa2dfc555a74'
       },
@@ -372,6 +395,7 @@ export const playlists: Playlist[] = [
           code: 'HR',
           name: 'Croatia'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/ae09dedf617df294dc767e51396a085e158c54c4'
       },
@@ -387,6 +411,7 @@ export const playlists: Playlist[] = [
           code: 'MD',
           name: 'Moldova'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/639e961474e1eb8f24ab11cea8c7cb9300a95f50'
       },
@@ -402,6 +427,7 @@ export const playlists: Playlist[] = [
           code: 'NO',
           name: 'Norway'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/6f2df3586fdb897955cae0cc35a88c1fb93b28e4'
       },
@@ -417,6 +443,7 @@ export const playlists: Playlist[] = [
           code: 'AL',
           name: 'Albania'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/cb28cbb33387f7765da43b7193d21ca068d68219'
       },
@@ -432,6 +459,7 @@ export const playlists: Playlist[] = [
           code: 'MT',
           name: 'Malta'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/19e672681da624bad492a6c7ebf1181e021a9696'
       },
@@ -447,6 +475,7 @@ export const playlists: Playlist[] = [
           code: 'LV',
           name: 'Latvia'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/4e49f11f042ddee7c36a9d6041594d59ad54ba64'
       },
@@ -462,6 +491,7 @@ export const playlists: Playlist[] = [
           code: 'IS',
           name: 'Iceland'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/c0bdea115967a84838331f013a9243bc1bcd2511'
       },
@@ -477,6 +507,7 @@ export const playlists: Playlist[] = [
           code: 'GR',
           name: 'Greece'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/8045da7e62384a51b05f5ee1b7881c2048757fd6'
       },
@@ -492,23 +523,25 @@ export const playlists: Playlist[] = [
           code: 'GE',
           name: 'Georgia'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/8c02deb99dd0e99954e00d13266c36d8b71bc347'
       },
-      // {
-      //   id: '31',
-      //   title: 'Hurricane',
-      //   artist: {
-      //     id: '31',
-      //     name: 'Eden Golan',
-      //     imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/il.webp`
-      //   },
-      //   country: {
-      //     code: 'IL',
-      //     name: 'Israel'
-      //   },
-      //   audioUrl: ''
-      // },
+      {
+        id: '31',
+        title: 'Hurricane',
+        artist: {
+          id: '31',
+          name: 'Eden Golan',
+          imageUrl: `${CLOUDFRONT_DOMAIN}/imgs/il.webp`
+        },
+        country: {
+          code: 'IL',
+          name: 'Israel'
+        },
+        groups: ['Semifinal 2'],
+        audioUrl: ''
+      },
       {
         id: '22',
         title: 'Jako',
@@ -521,6 +554,7 @@ export const playlists: Playlist[] = [
           code: 'AM',
           name: 'Armenia'
         },
+        groups: ['Semifinal 2'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/2d43fe264f0f57b62996f3bccbde74c1f7731cc5'
       },
@@ -536,6 +570,7 @@ export const playlists: Playlist[] = [
           code: 'AU',
           name: 'Australia'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/606433c98fd1f294980ac69de0225e21dc5c0e02'
       },
@@ -551,6 +586,7 @@ export const playlists: Playlist[] = [
       //     code: "AZ",
       //     name: "Azerbaijan",
       //   },
+      //   groups: ["Semifinal 1"],
       //   audioUrl: "",
       // },
       {
@@ -565,6 +601,7 @@ export const playlists: Playlist[] = [
           code: 'PT',
           name: 'Portugal'
         },
+        groups: ['Semifinal 1'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/ee4d2cb4f31e1f65a4038ed4806808e525ce0376'
       },
@@ -580,6 +617,7 @@ export const playlists: Playlist[] = [
           code: 'SE',
           name: 'Sweden'
         },
+        groups: ['Big 5 & Host'],
         audioUrl:
           'https://p.scdn.co/mp3-preview/b0f8146b036f3b5ef6d5abf877dea327bfe6c606'
       }
