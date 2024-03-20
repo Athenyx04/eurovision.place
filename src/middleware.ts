@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import { defineMiddleware } from 'astro:middleware'
 import { verifyRequestOrigin } from 'lucia'
 

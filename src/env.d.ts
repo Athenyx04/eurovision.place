@@ -1,9 +1,8 @@
 /// <reference types="astro/client" />
-import type { Session, User } from 'lucia'
-
 declare namespace App {
+  import type { Session, User } from 'lucia'
   interface Locals {
-    session: Session | null
     user: User | null
+    session: Session | null
   }
 }
