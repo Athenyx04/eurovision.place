@@ -6,7 +6,7 @@ import { adapter } from './db/client'
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
     attributes: {
-      // secure: true
+      secure: import.meta.env.ENV === 'dev' ? false : true
     }
   },
   getUserAttributes: (attributes) => {
