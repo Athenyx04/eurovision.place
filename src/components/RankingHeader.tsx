@@ -1,4 +1,4 @@
-import { Button } from './ui/button.tsx'
+import { Button } from './ui/button'
 import {
   Dialog,
   DialogClose,
@@ -8,9 +8,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger
-} from './ui/dialog.tsx'
-import { MultiSelect, type OptionType } from './ui/multiSelect.tsx'
-import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group.tsx'
+} from './ui/dialog'
+import { MultiSelect, type OptionType } from './ui/multiSelect'
+import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group'
 
 interface RankingHeaderProps {
   title: string

@@ -1,4 +1,4 @@
-import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
+import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data'
 
 interface Props {
   position: number

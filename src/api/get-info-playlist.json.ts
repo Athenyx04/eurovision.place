@@ -1,4 +1,4 @@
-import { playlists } from '../lib/data.ts'
+import { playlists } from '../lib/data'
 
 interface Request {
   url: string

@@ -1,7 +1,7 @@
 import './ShareContainer.module.css'
 
-import type { Song } from '../lib/data.ts'
-import ShareCard from './ShareCard.tsx'
+import type { Song } from '../lib/data'
+import ShareCard from './ShareCard'
 
 function ShareContainer({
   id,

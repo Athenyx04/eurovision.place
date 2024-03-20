@@ -1,5 +1,5 @@
-import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
-import PlayPauseButton from './PlayPauseButton.tsx'
+import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data'
+import PlayPauseButton from './PlayPauseButton'
 
 interface Props {
   artist: Artist

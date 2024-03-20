@@ -1,7 +1,7 @@
 import { generateCodeVerifier, generateState } from 'arctic'
 import type { APIContext } from 'astro'
 
-import { twitter } from '../../../auth.ts'
+import { twitter } from '../../../auth'
 
 export async function GET(context: APIContext): Promise<Response> {
   const state = generateState()

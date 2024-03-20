@@ -1,7 +1,7 @@
 import { Twitter } from 'arctic'
 import { Lucia } from 'lucia'
 
-import { adapter } from './db/client.ts'
+import { adapter } from './db/client'
 
 export const lucia = new Lucia(adapter, {
   sessionCookie: {
