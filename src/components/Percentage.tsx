@@ -1,4 +1,4 @@
-import { useSortingStore } from '../store/sortingStore.ts'
+import { useSortingStore } from '../store/sortingStore'
 
 function Percentage() {
   const { finishSize, totalSize } = useSortingStore()

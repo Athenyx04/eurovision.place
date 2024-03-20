@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
 import type { Song } from '../lib/data'
-import { useFilterStore } from '../store/filterStore.ts'
-import { usePlayerStore } from '../store/playerStore.ts'
-import { useSortingStore } from '../store/sortingStore.ts'
-import SongScreen from './SongScreen.tsx'
+import { useFilterStore } from '../store/filterStore'
+import { usePlayerStore } from '../store/playerStore'
+import { useSortingStore } from '../store/sortingStore'
+import SongScreen from './SongScreen'
 
 function BattlePair({ songList }: { songList: Song[] }) {
   const {

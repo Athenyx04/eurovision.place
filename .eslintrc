@@ -33,7 +33,10 @@
       ],
       "extends": [
         "plugin:tailwindcss/recommended",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
       ],
       "parserOptions": {
         "project": "./tsconfig.json"

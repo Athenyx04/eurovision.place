@@ -1,4 +1,4 @@
-import { Button } from './ui/button.tsx'
+import { Button } from './ui/button'
 import {
   Dialog,
   DialogClose,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from './ui/dialog.tsx'
+} from './ui/dialog'
 
 interface ShareDialogProps {
   shareImage: HTMLCanvasElement | null

@@ -20,12 +20,14 @@ import Percentage from './Percentage.tsx'
 <FullScreenMenu withCloseButton />
 
 <script>
-  const menuIcon = document.getElementById('menuIcon')
-  const floatingMenu = document.getElementById('floatingMenu')
-  const fullScreenMenu = document.getElementById('fullScreenMenu')
+  import { $ } from '../lib/dom-selector'
+
   const body = document.body
-  const mainContainer = document.getElementById('main')
-  const closeButton = document.getElementById('closeButton')
+  const menuIcon = $('#menuIcon')
+  const floatingMenu = $('#floatingMenu')
+  const fullScreenMenu = $('#fullScreenMenu')
+  const mainContainer = $('#main')
+  const closeButton = $('#closeButton')
 
   function toggleMenu() {
     const menuOpen = fullScreenMenu?.classList.contains('menu-active')

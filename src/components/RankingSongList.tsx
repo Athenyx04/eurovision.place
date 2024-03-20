@@ -11,8 +11,8 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 
-import type { Song } from '../lib/data.ts'
-import SongCard from './SongCard.tsx'
+import type { Song } from '../lib/data'
+import SongCard from './SongCard'
 
 interface RankingSongListProps {
   songs: Song[]
