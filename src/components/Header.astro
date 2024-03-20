@@ -37,12 +37,14 @@ import TextLogo from './TextLogo.astro'
 <FullScreenMenu />
 
 <script>
-  const menuButton = document.getElementById('menuButton')
-  const menuIcon = document.getElementById('menuIcon')
-  const closeIcon = document.getElementById('closeIcon')
-  const fullScreenMenu = document.getElementById('fullScreenMenu')
+  import { $ } from '../lib/dom-selector'
+
   const body = document.body
-  const mainContainer = document.getElementById('main')
+  const menuButton = $('#menuButton')
+  const menuIcon = $('#menuIcon')
+  const closeIcon = $('#closeIcon')
+  const fullScreenMenu = $('#fullScreenMenu')
+  const mainContainer = $('#main')
 
   menuButton?.addEventListener('click', () => {
     const isMenuOpen = fullScreenMenu?.classList.contains('menu-active')

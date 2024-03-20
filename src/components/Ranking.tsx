@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
 
 import { type Song } from '../lib/data.ts'
+import { $ } from 'src/lib/dom-selector.ts'
 import { useFilterStore } from '../store/filterStore.ts'
 import { useSortingStore } from '../store/sortingStore.ts'
 import RankingHeader from './RankingHeader.tsx'
@@ -50,7 +51,7 @@ function Ranking({ songList }: { songList: Song[] }) {
   }
 
   async function triggerScreenshot(elementId: string) {
-    const element = document.getElementById(elementId)
+    const element = $('#' + elementId)
 
     if (!element) {
       console.error('Element not found:', elementId)
