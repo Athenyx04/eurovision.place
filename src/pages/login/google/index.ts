@@ -1,16 +1,16 @@
 import { generateCodeVerifier, generateState } from 'arctic'
 import type { APIContext } from 'astro'
 
-import { twitter } from '../../../auth'
+import { google } from '../../../auth'
 
 export async function GET(context: APIContext): Promise<Response> {
   const state = generateState()
   const codeVerifier = generateCodeVerifier()
-  const url = await twitter.createAuthorizationURL(state, codeVerifier, {
-    scopes: ['users.read', 'tweet.read']
+  const url = await google.createAuthorizationURL(state, codeVerifier, {
+    scopes: ['profile']
   })
 
-  context.cookies.set('twitter_oauth_state', state, {
+  context.cookies.set('google_oauth_state', state, {
     secure: import.meta.env.ENV === 'dev' ? false : true,
     path: '/',
     maxAge: 60 * 10,
@@ -18,7 +18,7 @@ export async function GET(context: APIContext): Promise<Response> {
     sameSite: 'lax'
   })
 
-  context.cookies.set('twitter_oauth_code_verifier', codeVerifier, {
+  context.cookies.set('google_oauth_code_verifier', codeVerifier, {
     secure: import.meta.env.ENV === 'dev' ? false : true,
     path: '/',
     maxAge: 60 * 10,

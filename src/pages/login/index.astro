@@ -1,0 +1,38 @@
+---
+import BackgroundGradient from '../../components/BackgroundGradient.astro'
+import Disclaimer from '../../components/Disclaimer.astro'
+import GoogleIcon from '../../components/GoogleIcon.astro'
+import XIcon from '../../components/XIcon.astro'
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout title='Eurovision Place'>
+  <BackgroundGradient />
+  <div class='flex grow flex-col'>
+    <Disclaimer />
+    <div class='flex grow flex-col items-center justify-center'>
+      <h1
+        class='mb-4 px-4 text-center text-4xl font-semibold xl:mb-8 xl:text-6xl'
+      >
+        Sign in to eurovision.place
+      </h1>
+      <p class='mb-10 max-w-3xl px-8 text-center xl:mb-16 xl:text-lg'>
+        If you wish to save the rankings you create, as well as share your
+        points with the community, you will need to sign in. We currently
+        support Google and X.
+      </p>
+      <div class='flex flex-col justify-center gap-4'>
+        <a
+          href='/login/google'
+          class='inline-flex h-14 w-full items-center justify-between gap-4 rounded-full bg-slate-200 px-10 font-bold text-liberty shadow-md transition-transform hover:scale-105'
+          ><GoogleIcon /> Continue with Google</a
+        >
+        <a
+          href='/login/twitter'
+          class='inline-flex h-14 w-full items-center justify-between gap-4 rounded-full bg-eerie px-10 font-bold text-slate-200 shadow-md transition-transform hover:scale-105'
+          ><XIcon /> Continue with X</a
+        >
+      </div>
+    </div>
+  </div>
+</Layout>

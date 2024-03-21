@@ -2,16 +2,20 @@ import { OAuth2RequestError } from 'arctic'
 import type { APIContext } from 'astro'
 import { generateId } from 'lucia'
 
-import { lucia, twitter } from '../../../auth'
-import { createUserBySocialId, getUserIdBySocialId } from '../../../db/client'
+import { google, lucia } from '../../../auth'
+import {
+  createUserBySocialId,
+  getUserIdBySocialId,
+  setNationalityAndYearOfBirthById
+} from '../../../db/client'
 
 export async function GET(context: APIContext): Promise<Response> {
   const code = context.url.searchParams.get('code')
   const state = context.url.searchParams.get('state')
 
-  const storedState = context.cookies.get('twitter_oauth_state')?.value ?? null
+  const storedState = context.cookies.get('google_oauth_state')?.value ?? null
   const storedCodeVerifier =
-    context.cookies.get('twitter_oauth_code_verifier')?.value ?? null
+    context.cookies.get('google_oauth_code_verifier')?.value ?? null
 
   if (!code || !storedState || !storedCodeVerifier || state !== storedState) {
     return new Response(null, {
@@ -20,23 +24,21 @@ export async function GET(context: APIContext): Promise<Response> {
   }
 
   try {
-    const tokens = await twitter.validateAuthorizationCode(
+    const tokens = await google.validateAuthorizationCode(
       code,
       storedCodeVerifier
     )
-    const twitterUserResponse = await fetch(
-      'https://api.twitter.com/2/users/me?user.fields=id,name,profile_image_url',
+    const googleUserResponse = await fetch(
+      'https://openidconnect.googleapis.com/v1/userinfo',
       {
         headers: {
           Authorization: `Bearer ${tokens.accessToken}`
         }
       }
     )
-    const twitterUserObject = await twitterUserResponse.json()
-    const twitterUser: TwitterUser = twitterUserObject.data
+    const googleUser: GoogleUser = await googleUserResponse.json()
 
-    console.log(twitterUser)
-    const existingUser = await getUserIdBySocialId(twitterUser.id, 'twitter')
+    const existingUser = await getUserIdBySocialId(googleUser.sub, 'google')
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser, {})
@@ -52,11 +54,12 @@ export async function GET(context: APIContext): Promise<Response> {
     const userId = generateId(15)
     await createUserBySocialId(
       userId,
-      'twitter',
-      twitterUser.id,
-      twitterUser.name,
-      twitterUser.profile_image_url
+      'google',
+      googleUser.sub,
+      googleUser.given_name,
+      googleUser.picture
     )
+    await setNationalityAndYearOfBirthById(userId, 'ES', '1999')
 
     const session = await lucia.createSession(userId, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
@@ -78,8 +81,10 @@ export async function GET(context: APIContext): Promise<Response> {
   }
 }
 
-interface TwitterUser {
-  id: string
+interface GoogleUser {
+  sub: string
   name: string
-  profile_image_url: string
+  given_name: string
+  picture: string
+  locale: string
 }
