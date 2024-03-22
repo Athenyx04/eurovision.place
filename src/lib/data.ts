@@ -587,7 +587,8 @@ export const playlists: Playlist[] = [
           name: 'Azerbaijan'
         },
         groups: ['Semifinal 1'],
-        audioUrl: ''
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/93a879b4e1d02b1e392084ffd016ab0719da8953'
       },
       {
         id: '33',

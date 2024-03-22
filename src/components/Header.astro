@@ -1,4 +1,5 @@
 ---
+import AccountDropdown from './AccountDropdown.tsx'
 import FullScreenMenu from './FullScreenMenu.astro'
 import LoginIcon from './LoginIcon.astro'
 import NavigationLinks from './NavigationLinks.astro'
@@ -34,27 +35,29 @@ const picture_uri = user?.picture_uri
       <NavigationLinks />
     </nav>
   </div>
-  <a href='/login' class='flex items-center sm:ml-auto'>
+  <div class='flex items-center sm:ml-auto'>
     {
       !user && (
-        <div class='flex items-center gap-2 text-eerie'>
+        <a href='/login' class='flex items-center gap-2 text-eerie'>
           <span class='hidden text-sm text-eerie sm:flex'>Sign In</span>
           <LoginIcon />
-        </div>
+        </a>
       )
     }
     {
       user && (
-        <div class='flex items-center gap-2'>
-          <span class='hidden text-sm text-eerie sm:flex'>{name}</span>
-          <img
-            src={picture_uri}
-            class='size-9 rounded-full border-2 border-liberty'
-          />
-        </div>
+        <AccountDropdown client:load>
+          <div class='flex items-center gap-2'>
+            <span class='hidden text-sm text-eerie sm:flex'>{name}</span>
+            <img
+              src={picture_uri}
+              class='size-9 rounded-full border-2 border-liberty'
+            />
+          </div>
+        </AccountDropdown>
       )
     }
-  </a>
+  </div>
 </header>
 <FullScreenMenu />
 
