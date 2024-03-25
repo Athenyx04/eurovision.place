@@ -52,3 +52,76 @@ export const setNationalityAndYearOfBirthById = async (
     args: [nationality, yearOfBirth, id]
   })
 }
+
+export const getEditionDetailsByEditionId = async (editionId: string) => {
+  const response = await db.execute({
+    sql: 'SELECT e.name AS eventName, ed.id AS editionId, ed.year AS editionName FROM edition ed JOIN event e ON ed.event_id = e.id WHERE ed.id = ?',
+    args: [editionId]
+  })
+
+  return response.rows
+}
+
+export const getEditionIdByEventNameAndEditionName = async (
+  eventName: string,
+  editionName: string
+) => {
+  const response = await db.execute({
+    sql: 'SELECT ed.id AS editionId FROM edition ed JOIN event e ON ed.event_id = e.id WHERE e.name = ? AND ed.year = ?',
+    args: [eventName, editionName]
+  })
+
+  return response.rows[0]?.editionId
+}
+
+export const getEntriesByEditionId = async (editionId: string) => {
+  const response = await db.execute({
+    sql: `SELECT 
+      e.song_id AS id, 
+      e.edition_id AS editionId, 
+      e.country, 
+      s.title, 
+      s.picture_uri AS pictureUri, 
+      s.audio_uri AS audioUri, 
+      a.name AS artistName,
+      GROUP_CONCAT(g.name) AS categories  
+      FROM entry e 
+      JOIN song s ON e.song_id = s.id 
+      JOIN artist a ON s.artist_id = a.id 
+      LEFT JOIN entry_group eg ON e.song_id = eg.song_id AND e.edition_id = eg.edition_id 
+      LEFT JOIN group_category g ON eg.group_id = g.id
+      WHERE e.edition_id = ?
+      GROUP BY e.song_id, e.edition_id, e.country, s.title, s.picture_uri, s.audio_uri, a.name`,
+    args: [editionId]
+  })
+
+  return response.rows
+}
+
+export const getRankingByUserIdAndEditionId = async (
+  userId: string,
+  editionId: string
+) => {
+  const response = await db.execute({
+    sql: 'SELECT r.positions FROM ranking r WHERE r.user_id = ? AND r.edition_id = ?',
+    args: [userId, editionId]
+  })
+
+  return response.rows[0]?.positions
+}
+
+export const setRankingByUserIdAndEditionId = async (
+  userId: string,
+  editionId: number,
+  positions: string
+) => {
+  try {
+    await db.execute({
+      sql: 'INSERT INTO ranking (user_id, edition_id, positions) VALUES (?, ?, ?) ON CONFLICT (user_id, edition_id) DO UPDATE SET positions = excluded.positions',
+      args: [userId, editionId, positions]
+    })
+    return { success: true }
+  } catch (error) {
+    return { success: false, error }
+  }
+}

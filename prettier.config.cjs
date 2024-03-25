@@ -1,6 +1,10 @@
 /** @type {import("prettier").Config} */
 module.exports = {
-  ...require('prettier-config-standard'),
+  semi: false,
+  singleQuote: true,
+  trailingComma: 'none',
+  jsxSingleQuote: true,
+  printWidth: 80,
   plugins: [require.resolve('prettier-plugin-astro')],
   overrides: [
     {
