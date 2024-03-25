@@ -36,7 +36,7 @@ function NationalitySelect({ value }: { value: string }) {
         <SelectValue placeholder='Nationality' />
       </SelectTrigger>
       <SelectContent>
-        {Object.entries(alphabeticCountries).map(([_i, [code, country]]) => (
+        {Object.entries(alphabeticCountries).map(([, [code, country]]) => (
           <SelectItem key={code} value={code}>
             {country.name}
           </SelectItem>

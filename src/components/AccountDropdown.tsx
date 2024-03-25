@@ -18,7 +18,7 @@ function AccountDropdown({ children }: { children: React.ReactNode }) {
           <a href='/account/settings'>Settings</a>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <form method='POST' action='api/signout'>
+          <form method='POST' action='/api/signout'>
             <button>Sign out</button>
           </form>
         </DropdownMenuItem>
