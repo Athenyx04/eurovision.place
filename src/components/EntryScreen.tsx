@@ -8,7 +8,7 @@ type Props = {
   onVote?: () => void
 }
 
-const SongScreen = ({ entry, onVote }: Props) => {
+const EntryScreen = ({ entry, onVote }: Props) => {
   const { title, artistName, country, pictureUri, audioUri } = entry
   const t = useTranslations('en')
 
@@ -43,4 +43,4 @@ const SongScreen = ({ entry, onVote }: Props) => {
   )
 }
 
-export default SongScreen
+export default EntryScreen

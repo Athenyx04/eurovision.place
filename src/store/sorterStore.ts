@@ -266,7 +266,7 @@ export const useSorterStore = create<SorterStore>()(
       }
     }),
     {
-      name: 'sorter-store',
+      name: 'sorterStore',
       partialize: (state) => ({
         sortedEntriesIds: state.sortedEntriesIds
       }),
