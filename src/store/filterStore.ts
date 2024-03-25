@@ -21,7 +21,7 @@ export const useFilterStore = create<FilterStore>()(
       }
     }),
     {
-      name: 'filter-store',
+      name: 'filterStore',
       partialize: (state) => ({
         filteredEntries: state.filteredEntries
       }),
