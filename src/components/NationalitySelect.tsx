@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { countries } from 'countries-list'
 
 import {
@@ -8,13 +9,11 @@ import {
   SelectValue
 } from './ui/select'
 
-function NationalitySelect({ value }: { value: string }) {
+function NationalitySelect({ initialValue }: { initialValue: string }) {
+  const [value, setValue] = useState(initialValue)
   const alphabeticCountries = Object.entries(countries).sort((a, b) =>
     a[1].name.localeCompare(b[1].name)
   )
-
-  const countryCodes = Object.keys(countries)
-  console.log(countryCodes)
 
   // Add an empty option for selecting no country
   alphabeticCountries.unshift([
@@ -31,13 +30,13 @@ function NationalitySelect({ value }: { value: string }) {
   ])
 
   return (
-    <Select value={value}>
-      <SelectTrigger className='w-[360px] bg-eerie'>
+    <Select value={value} onValueChange={setValue}>
+      <SelectTrigger className='min-w-80 bg-eerie'>
         <SelectValue placeholder='Nationality' />
       </SelectTrigger>
       <SelectContent>
         {Object.entries(alphabeticCountries).map(([, [code, country]]) => (
-          <SelectItem key={code} value={code}>
+          <SelectItem key={code} value={code} className='truncate'>
             {country.name}
           </SelectItem>
         ))}

@@ -65,7 +65,7 @@ export async function GET(context: APIContext): Promise<Response> {
       sessionCookie.value,
       sessionCookie.attributes
     )
-    return context.redirect('/')
+    return context.redirect('/account/settings')
   } catch (error) {
     if (error instanceof OAuth2RequestError) {
       return new Response(null, {
