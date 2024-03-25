@@ -1,20 +1,26 @@
-import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data'
+import { useTranslations } from 'src/i18n/utils'
 
-interface Props {
+import { CLOUDFRONT_DOMAIN } from '../lib/data'
+
+type Props = {
   position: number
-  artist: Artist
-  country: Country
+  artistName: string
+  country: string
+  pictureUri: string
   gridColumn: string | number
   gridRowStart?: number | ''
 }
 
 function ShareCard({
   position,
-  artist,
+  artistName,
+  pictureUri,
   country,
   gridColumn = 'span 1 / span 1',
   gridRowStart
 }: Props) {
+  const t = useTranslations('en')
+
   return (
     <div
       className={`flex min-w-0 select-none ${
@@ -28,11 +34,11 @@ function ShareCard({
       } ${gridColumn === 1 ? 'border-r-4 border-r-liberty' : ''}`}
       style={{ gridColumn, gridRowStart }}
     >
-      <div className={`relative w-1/5 shrink-0`}>
+      <div className={'relative w-1/5 shrink-0'}>
         <img
           className='absolute left-0 top-0 size-full object-cover'
-          src={artist.imageUrl}
-          alt={artist.name}
+          src={`${CLOUDFRONT_DOMAIN}${pictureUri}`}
+          alt={artistName}
         />
         <div className='pb-[100%}'></div>
       </div>
@@ -56,11 +62,13 @@ function ShareCard({
         <div className='flex min-w-0 grow flex-col'>
           <div className='flex grow items-center gap-3 font-bold'>
             <img
-              src={`${CLOUDFRONT_DOMAIN}/flags/${country.code.toLowerCase()}.png`}
-              alt={country.name}
+              src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+              // @ts-expect-error - ${country} is a database country code
+              alt={t(`country.${country}`)}
               className='w-6 rounded-md'
             />
-            <span className=''>{country.name.toUpperCase()}</span>
+            {/* @ts-expect-error - ${country} is a database country code */}
+            <span className=''>{t(`country.${country}`).toUpperCase()}</span>
           </div>
         </div>
       </div>

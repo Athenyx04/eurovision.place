@@ -1,9 +1,0 @@
----
-import BattlePair from '../components/BattlePair.tsx'
-import FloatingHeaderLayout from '../layouts/FloatingHeaderLayout.astro'
-import { playlists } from '../lib/data.ts'
----
-
-<FloatingHeaderLayout title='Sorter | Eurovision Place'>
-  <BattlePair client:load songList={playlists[0].songs} />
-</FloatingHeaderLayout>

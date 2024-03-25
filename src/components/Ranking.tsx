@@ -2,11 +2,12 @@ import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'src/i18n/utils'
+import { useSorterStore } from 'src/store/sorterStore'
 
-import { type Song } from '../lib/data'
+import { type EntryDetails } from '../lib/data'
 import { $ } from '../lib/dom-selector'
 import { useFilterStore } from '../store/filterStore'
-import { useSortingStore } from '../store/sortingStore'
 import RankingHeader from './RankingHeader'
 import RankingSongList from './RankingSongList'
 import ShareContainer from './ShareContainer'
@@ -29,15 +30,15 @@ const Load = () => (
   </svg>
 )
 
-function Ranking({ songList }: { songList: Song[] }) {
-  const { sortedSongIds, setSongIds } = useSortingStore()
-  const hasHydrated = useSortingStore((state) => state._hasHydrated)
+function Ranking({ songList }: { songList: EntryDetails[] }) {
+  const { sortedEntriesIds, setEntriesIds } = useSorterStore()
+  const hasHydrated = useSorterStore((state) => state._hasHydrated)
 
   const [activeId, setActiveId] = useState<string | number | null>(null)
-  const [activeItem, setActiveItem] = useState<Song | null>(null)
+  const [activeItem, setActiveItem] = useState<EntryDetails | null>(null)
   const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
-  const [songs, setSongs] = useState<Song[]>([])
-  const [filteredSongs, setFilteredSongs] = useState<Song[]>([])
+  const [songs, setSongs] = useState<EntryDetails[]>([])
+  const [filteredSongs, setFilteredSongs] = useState<EntryDetails[]>([])
   const [viewGroup, setViewGroup] = useState<string>('')
   const [entryValues, setEntryValues] = useState<OptionType[]>([])
   const [rankingTitle, setRankingTitle] = useState<string>('My Eurovision 2024')
@@ -45,6 +46,8 @@ function Ranking({ songList }: { songList: Song[] }) {
     filteredEntries: state.filteredEntries,
     setFilteredEntries: state.setFilteredEntries
   }))
+  const [positions, setPositions] = useState<number[]>([])
+  const t = useTranslations('en')
 
   function handleSelectRanking(ranking: string) {
     triggerScreenshot(ranking)
@@ -69,18 +72,27 @@ function Ranking({ songList }: { songList: Song[] }) {
       console.error('Canvas context not found')
       return
     }
+
     const originalDrawImage = ctx.drawImage
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ctx.drawImage = function (...args: any[]) {
-      let image = args[0]
-      let sx, sy, sw, sh, dx, dy, dw, dh
+      const image = args[0]
+      let sx
+      let sy
+      let sw
+      let sh
+      let dx
+      let dy
+      let dw
+      let dh
 
       if (args.length === 3) {
-        ;[dx, dy] = args.slice(1)
+        [dx, dy] = args.slice(1)
       } else if (args.length === 5) {
-        ;[dx, dy, dw, dh] = args.slice(1)
+        [dx, dy, dw, dh] = args.slice(1)
       } else if (args.length === 9) {
-        ;[sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
+        [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
       }
 
       if (image instanceof HTMLImageElement && args.length === 9) {
@@ -96,18 +108,7 @@ function Ranking({ songList }: { songList: Song[] }) {
       }
 
       if (args.length === 9) {
-        return originalDrawImage.call(
-          ctx,
-          image,
-          sx,
-          sy,
-          sw,
-          sh,
-          dx,
-          dy,
-          dw,
-          dh
-        )
+        originalDrawImage.call(ctx, image, sx, sy, sw, sh, dx, dy, dw, dh)
       }
     }
 
@@ -152,59 +153,83 @@ function Ranking({ songList }: { songList: Song[] }) {
 
     // Save the new songs order to the sortedSongIds store
     const newSongIds = newSongs.map((song) => song.id)
-    setSongIds(newSongIds)
+    setEntriesIds(newSongIds)
+
+    // Post the new order to the server
+    fetch('/api/setRanking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        editionId: '1',
+        ranking: newSongIds
+      })
+    })
+      .then((response) => {
+        if (response.ok || response.status === 401) {
+          return
+        } else {
+          throw new Error('Failed to set ranking.')
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   useEffect(() => {
-    useSortingStore.persist.rehydrate()
+    async function getUserPositions() {
+      const response = await fetch('/api/userRanking.json?editionId=1')
+      const data = await response.json()
+      const positions = data.result?.split(',').map(Number) as number[]
+      if (!positions) {
+        if (sortedEntriesIds.length > 0) {
+          setPositions(sortedEntriesIds)
+        } else {
+          setEntriesIds(songList.map((song) => song.id))
+          setPositions(songList.map((song) => song.id))
+        }
+      } else {
+        setPositions(positions)
+        setEntriesIds(positions)
+      }
+    }
+
+    getUserPositions()
+    useSorterStore.persist.rehydrate()
     setActiveItem(songs?.find((song) => song.id === activeId) ?? null)
   }, [])
 
   useEffect(() => {
-    if (hasHydrated && sortedSongIds && filteredEntries) {
-      const allEntries = songList.map((song) => song.country)
-      const optionEntries = allEntries.map((entry) => ({
-        label: entry.name,
-        value: entry.name
-      }))
-      setEntryValues(optionEntries)
+    let initialEntryOrder: EntryDetails[] = []
 
-      if (songList && sortedSongIds.length === 0) {
-        setSongIds(songList.map((song) => song.id))
-        return
-      }
-      const newSongs = songList.filter(
-        (song) => !sortedSongIds.includes(song.id)
-      )
-      const newSongIds = newSongs.map((song) => song.id)
-      const orderedSongIds = [...sortedSongIds, ...newSongIds]
-
-      if (newSongIds.length > 0) {
-        setSongIds(orderedSongIds)
-      }
-
-      const orderedSongs = orderedSongIds
-        .map((id) => {
-          return songList.find((song) => song.id === id)
-        })
-        .filter((song): song is Song => song !== undefined)
-
-      if (orderedSongs) {
-        setSongs(orderedSongs)
-      }
-
-      console.log('filteredEntries', filteredEntries)
-
-      const filteredSongs = orderedSongs.filter((song) => {
-        // Check against the country.name property of each song
-        return !filteredEntries.includes(song.country.name)
-      })
-
-      if (filteredSongs) {
-        setFilteredSongs(filteredSongs)
-      }
+    if (positions && positions.length > 0) {
+      initialEntryOrder = positions
+        .map((position) => songList.find((song) => song.id === position))
+        .filter((song): song is EntryDetails => song !== undefined)
     }
-  }, [songList, hasHydrated])
+
+    const optionEntries = songList.map((entry) => ({
+      // @ts-expect-error - ${entry.country} is a database country code
+      label: t(`country.${entry.country}`),
+      value: entry.id.toString()
+    }))
+    setEntryValues(optionEntries)
+
+    setSongs(initialEntryOrder)
+
+    if (filteredEntries.length === 0) {
+      setFilteredSongs(initialEntryOrder)
+      return
+    }
+
+    // FilteredEntries is an array of song ids
+    const filteredSongs = initialEntryOrder.filter(
+      (song) => !filteredEntries.includes(song.id.toString())
+    )
+    setFilteredSongs(filteredSongs)
+  }, [songList, positions])
 
   useEffect(() => {
     if (songs && filteredEntries) {
@@ -222,26 +247,21 @@ function Ranking({ songList }: { songList: Song[] }) {
                   : viewGroup === 'balkans'
                     ? 'Balkans'
                     : null
-      let filteredSongs = songs
+
+      let filteredSongs = songs.filter(
+        (song) => !filteredEntries.includes(song.id.toString())
+      )
 
       if (group) {
-        filteredSongs = songs.filter((song) => {
-          // Check against the country.name property of each song
-          return song.groups.includes(group)
-        })
+        filteredSongs = filteredSongs.filter((song) =>
+          song.categories.includes(group)
+        )
         setRankingTitle(`My ${group} 2024`)
       } else {
         setRankingTitle('My Eurovision 2024')
       }
 
-      filteredSongs = filteredSongs.filter((song) => {
-        // Check against the country.name property of each song
-        return !filteredEntries.includes(song.country.name)
-      })
-
-      if (filteredSongs.length > 0) {
-        setFilteredSongs(filteredSongs)
-      }
+      setFilteredSongs(filteredSongs)
     }
   }, [viewGroup, filteredEntries])
 
@@ -249,17 +269,6 @@ function Ranking({ songList }: { songList: Song[] }) {
     return (
       <div className='flex grow items-center justify-center'>
         <Load />
-      </div>
-    )
-  }
-
-  if (!sortedSongIds || sortedSongIds?.length === 0) {
-    return (
-      <div className='flex h-full flex-col items-center justify-center'>
-        <h2 className='text-2xl text-gray-500'>No ranking has been found.</h2>
-        <h3 className='text-gray-500'>
-          Please use the sorter once first to load the list.
-        </h3>
       </div>
     )
   }

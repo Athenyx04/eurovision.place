@@ -1,0 +1,39 @@
+---
+import Battler from 'src/components/Battler'
+import {
+  getEditionIdByEventNameAndEditionName,
+  getEntriesByEditionId
+} from 'src/db/client'
+import FloatingHeaderLayout from 'src/layouts/FloatingHeaderLayout.astro'
+import type { EntryDetails } from 'src/lib/data'
+const { eventNamePath, editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventName = eventNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+const editionId = await getEditionIdByEventNameAndEditionName(
+  eventName ?? '',
+  editionName ?? ''
+)
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<FloatingHeaderLayout
+  title=`${eventName} ${editionName} Sorter | Eurovision Place`
+>
+  <Battler client:load songList={entries} />
+</FloatingHeaderLayout>
