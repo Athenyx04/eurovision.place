@@ -63,7 +63,7 @@ function MultiSelect({
                   handleUnselect(item)
                 }}
               >
-                {item}
+                {options.find((option) => option.value === item)?.label}
                 <X className='ml-1 size-3 text-eerie hover:text-eerie/80' />
               </Badge>
             ))}
