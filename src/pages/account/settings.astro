@@ -7,9 +7,11 @@ const user = Astro.locals.user
 if (!user) {
   return Astro.redirect('/login')
 }
+
+const username = user?.name
 ---
 
-<Layout title='Eurovision Place'>
+<Layout title=`${username} | Eurovision Place`>
   <BackgroundGradient />
   <div class='flex grow flex-col'>
     <div class='flex grow flex-col items-center justify-center'>
