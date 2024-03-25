@@ -1,16 +1,12 @@
 ---
 import BackgroundGradient from '../../components/BackgroundGradient.astro'
 import Layout from '../../layouts/Layout.astro'
-import NationalitySelect from '../../components/NationalitySelect'
-import { Input } from '../../components/ui/input'
+import { SettingsForm } from '@/components/SettingsForm'
 
 const user = Astro.locals.user
 if (!user) {
   return Astro.redirect('/login')
 }
-const name = user?.name
-const nationality = user?.nationality
-const yearOfBirth = user?.year_of_birth
 ---
 
 <Layout title='Eurovision Place'>
@@ -26,45 +22,7 @@ const yearOfBirth = user?.year_of_birth
         You can adjust your user settings here. This includes changing your
         display name, nationality and year of birth.
       </p>
-      <div class='flex flex-col justify-center gap-4 max-w-lg px-5 w-full'>
-        <div class='flex flex-col gap-2'>
-          <label for='display-name'> Display name </label>
-          <Input
-            type='text'
-            id='display-name'
-            placeholder='Display name'
-            className='bg-eerie'
-            value={name}
-          />
-        </div>
-        <div class='flex flex-col gap-2'>
-          <label for='year-of-birth'>
-            Year of birth
-            <span class='text-xs ml-1'> (optional) </span>
-          </label>
-          <Input
-            type='number'
-            id='year-of-birth'
-            placeholder='Year of birth'
-            className='bg-eerie'
-            min='1900'
-            max='2024'
-            value={yearOfBirth}
-          />
-        </div>
-        <div class='flex flex-col gap-2'>
-          <label for='nationality'>
-            Nationality
-            <span class='text-xs ml-1'> (optional) </span>
-          </label>
-          <NationalitySelect client:load initialValue={nationality} />
-        </div>
-        <div
-          class='mt-4 inline-flex h-14 w-full items-center justify-between gap-4 rounded-full text-eerie px-10 font-bold bg-slate-200 shadow-md transition-transform hover:scale-105'
-        >
-          <button class='h-full w-full'> Save </button>
-        </div>
-      </div>
+      <SettingsForm client:load />
     </div>
   </div>
 </Layout>
