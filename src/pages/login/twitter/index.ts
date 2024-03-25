@@ -11,7 +11,7 @@ export async function GET(context: APIContext): Promise<Response> {
   })
 
   context.cookies.set('twitter_oauth_state', state, {
-    secure: import.meta.env.ENV === 'dev' ? false : true,
+    secure: import.meta.env.ENV !== 'dev',
     path: '/',
     maxAge: 60 * 10,
     httpOnly: true,
@@ -19,7 +19,7 @@ export async function GET(context: APIContext): Promise<Response> {
   })
 
   context.cookies.set('twitter_oauth_code_verifier', codeVerifier, {
-    secure: import.meta.env.ENV === 'dev' ? false : true,
+    secure: import.meta.env.ENV !== 'dev',
     path: '/',
     maxAge: 60 * 10,
     httpOnly: true,

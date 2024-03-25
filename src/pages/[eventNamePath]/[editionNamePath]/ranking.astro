@@ -1,0 +1,38 @@
+---
+import RankingComponent from 'src/components/Ranking'
+import {
+  getEditionIdByEventNameAndEditionName,
+  getEntriesByEditionId
+} from 'src/db/client'
+import Layout from 'src/layouts/Layout.astro'
+import type { EntryDetails } from 'src/lib/data'
+const { eventNamePath, editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventName = eventNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+
+const editionId = await getEditionIdByEventNameAndEditionName(
+  eventName ?? '',
+  editionName ?? ''
+)
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<Layout title=`My ${eventName} ${editionName} | Eurovision Place`>
+  <RankingComponent client:load songList={entries} />
+</Layout>
