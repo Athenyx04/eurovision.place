@@ -31,9 +31,7 @@ function Battler({ songList }: { songList: EntryDetails[] }) {
     if (songList && hasFilterHydrated) {
       setEntries(songList)
       const filteredSongs = songList.filter(
-        (song) =>
-          // Check against the country.name property of each song
-          !filteredEntries.includes(song.country)
+        (song) => !filteredEntries.includes(song.id.toString())
       )
       initList(filteredSongs)
     }

@@ -125,3 +125,29 @@ export const setRankingByUserIdAndEditionId = async (
     return { success: false, error }
   }
 }
+
+export const getSettingsByUserId = async (userId: string) => {
+  const response = await db.execute({
+    sql: 'SELECT u.name AS displayName, u.year_of_birth AS yearOfBirth, u.nationality FROM user u WHERE u.id = ?',
+    args: [userId]
+  })
+
+  return response.rows[0]
+}
+
+export const updateSettingsByUserId = async (
+  userId: string,
+  displayName: string,
+  yearOfBirth: string,
+  nationality: string
+) => {
+  try {
+    await db.execute({
+      sql: 'UPDATE user SET name = ?, year_of_birth = ?, nationality = ? WHERE id = ?',
+      args: [displayName, yearOfBirth, nationality, userId]
+    })
+    return { success: true }
+  } catch (error) {
+    return { success: false, error }
+  }
+}

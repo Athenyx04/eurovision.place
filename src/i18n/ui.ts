@@ -259,7 +259,8 @@ export const ui = {
     'country.YU': 'Yugoslavia',
     'country.ZA': 'South Africa',
     'country.ZM': 'Zambia',
-    'country.ZW': 'Zimbabwe'
+    'country.ZW': 'Zimbabwe',
+    'country.XX': 'None'
   },
   es: {
     'country.AD': 'Andorra',
@@ -514,6 +515,7 @@ export const ui = {
     'country.YU': 'Yugoslavia',
     'country.ZA': 'Sudáfrica',
     'country.ZM': 'Zambia',
-    'country.ZW': 'Zimbabue'
+    'country.ZW': 'Zimbabue',
+    'country.XX': 'Sin nacionalidad'
   }
 } as const

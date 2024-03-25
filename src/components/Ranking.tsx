@@ -184,6 +184,7 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
       if (!response.ok) {
         if (sortedEntriesIds.length > 0) {
           setPositions(sortedEntriesIds)
+          setEntriesIds(sortedEntriesIds)
         } else {
           setEntriesIds(songList.map((song) => song.id))
           setPositions(songList.map((song) => song.id))
@@ -192,24 +193,29 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
       }
       const data = await response.json()
       const positions = data.result?.split(',').map(Number) as number[]
-      console.log('Positions:', positions)
       if (!positions) {
         if (sortedEntriesIds.length > 0) {
           setPositions(sortedEntriesIds)
+          setEntriesIds(sortedEntriesIds)
         } else {
           setEntriesIds(songList.map((song) => song.id))
           setPositions(songList.map((song) => song.id))
         }
+        return
       } else {
         setPositions(positions)
         setEntriesIds(positions)
       }
     }
 
+    if (!hasHydrated) {
+      return
+    }
+
     getUserPositions()
     useSorterStore.persist.rehydrate()
     setActiveItem(songs?.find((song) => song.id === activeId) ?? null)
-  }, [])
+  }, [hasHydrated])
 
   useEffect(() => {
     let initialEntryOrder: EntryDetails[] = []
