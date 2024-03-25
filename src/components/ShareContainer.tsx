@@ -1,7 +1,7 @@
 import './ShareContainer.module.css'
 
-import type { Song } from '../lib/data.ts'
-import ShareCard from './ShareCard.tsx'
+import type { EntryDetails } from '../lib/data'
+import ShareCard from './ShareCard'
 
 function ShareContainer({
   id,
@@ -9,7 +9,7 @@ function ShareContainer({
   title
 }: {
   id: string
-  songs: Song[]
+  songs: EntryDetails[]
   title: string
 }) {
   const headerHeight = 40
@@ -50,16 +50,18 @@ function ShareContainer({
           <h1 className='ml-auto font-extrabold text-eerie'>{title}</h1>
         </div>
         <ShareCard
-          artist={songs[0].artist}
+          artistName={songs[0].artistName}
           country={songs[0].country}
+          pictureUri={songs[0].pictureUri}
           position={1}
           key={songs[0].id}
           gridColumn={gridColumn}
         />
         {songs.slice(1).map((song, index) => (
           <ShareCard
-            artist={song.artist}
+            artistName={song.artistName}
             country={song.country}
+            pictureUri={song.pictureUri}
             position={index + 2}
             key={song.id}
             gridColumn={gridColumn}
@@ -118,8 +120,9 @@ function ShareContainer({
       {/* For songs 1 to half (left column) */}
       {songs.slice(0, Math.ceil(songs.length / 2)).map((song, index) => (
         <ShareCard
-          artist={song.artist}
+          artistName={song.artistName}
           country={song.country}
+          pictureUri={song.pictureUri}
           position={index + 1}
           key={song.id}
           gridColumn={1}
@@ -129,8 +132,9 @@ function ShareContainer({
       {/* For half to end (right column) */}
       {songs.slice(Math.ceil(songs.length / 2)).map((song, index) => (
         <ShareCard
-          artist={song.artist}
+          artistName={song.artistName}
           country={song.country}
+          pictureUri={song.pictureUri}
           position={Math.ceil(songs.length / 2) + index + 1}
           key={song.id}
           gridColumn={2}

@@ -1,17 +1,28 @@
 export const CLOUDFRONT_DOMAIN = 'https://d9b4wd4n2m1ts.cloudfront.net'
 
-export interface Artist {
+export type EntryDetails = {
+  id: number
+  editionId: number
+  country: string
+  title: string
+  pictureUri: string
+  audioUri: string
+  artistName: string
+  categories: string
+}
+
+export type Artist = {
   id: string
   name: string
   imageUrl: string
 }
 
-export interface Country {
+export type Country = {
   code: string
   name: string
 }
 
-export interface Song {
+export type Song = {
   id: string
   title: string
   artist: Artist
@@ -20,7 +31,7 @@ export interface Song {
   audioUrl: string
 }
 
-export interface Playlist {
+export type Playlist = {
   id: string
   title: string
   songs: Song[]
@@ -193,7 +204,7 @@ export const playlists: Playlist[] = [
       },
       {
         id: '6',
-        title: "Before the Party's Over",
+        title: 'Before the Party\'s Over',
         artist: {
           id: '6',
           name: 'Mustii',
@@ -587,7 +598,8 @@ export const playlists: Playlist[] = [
           name: 'Azerbaijan'
         },
         groups: ['Semifinal 1'],
-        audioUrl: ''
+        audioUrl:
+          'https://p.scdn.co/mp3-preview/93a879b4e1d02b1e392084ffd016ab0719da8953'
       },
       {
         id: '33',

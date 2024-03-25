@@ -1,7 +1,7 @@
-import { useSortingStore } from '../store/sortingStore.ts'
+import { useSorterStore } from '../store/sorterStore'
 
 function Percentage() {
-  const { finishSize, totalSize } = useSortingStore()
+  const { finishSize, totalSize } = useSorterStore()
 
   const percentage = totalSize ? ((finishSize / totalSize) * 100).toFixed(0) : 0
 

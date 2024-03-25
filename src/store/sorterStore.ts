@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import type { Song } from '../lib/data'
+import type { EntryDetails } from '../lib/data'
 
-interface SortingStore {
-  songs: Song[]
+type SorterStore = {
+  entries: EntryDetails[]
 
-  sortedSongIds: string[]
+  sortedEntriesIds: number[]
   // Stores indexes of the songs to be sorted.
   // Initially, it contains a single array with indexes representing all songs.
   sortedIndexes: number[][]
@@ -29,23 +29,23 @@ interface SortingStore {
   finishSize: number
   finishFlag: boolean
   _hasHydrated: boolean
-  setSongs: (songs: Song[]) => void
-  setSongIds: (sortedSongIds: string[]) => void
+  setEntries: (entries: EntryDetails[]) => void
+  setEntriesIds: (sortedEntriesIds: number[]) => void
   setHasHydrated: (state: boolean) => void
 
   // Prepares the list for sorting.
   // Initializes several arrays to manage the sorting state,
   // including dividing the songs into segments for comparison.
-  initList: (songs: Song[]) => void
+  initList: (entries: EntryDetails[]) => void
 
   sortList: (flag: boolean) => void
 }
 
-export const useSortingStore = create<SortingStore>()(
+export const useSorterStore = create<SorterStore>()(
   persist(
     (set) => ({
-      songs: [],
-      sortedSongIds: [],
+      entries: [],
+      sortedEntriesIds: [],
       sortedIndexes: [],
       segmentParents: [],
       totalSize: 0,
@@ -58,28 +58,28 @@ export const useSortingStore = create<SortingStore>()(
       finishFlag: false,
       _hasHydrated: false,
 
-      setSongs: (songs) => {
-        set({ songs })
+      setEntries(songs) {
+        set({ entries: songs })
       },
 
-      setSongIds: (sortedSongIds) => {
-        set({ sortedSongIds })
+      setEntriesIds(sortedSongIds) {
+        set({ sortedEntriesIds: sortedSongIds })
       },
 
-      setHasHydrated: (state: boolean) => {
+      setHasHydrated(state: boolean) {
         set({ _hasHydrated: state })
       },
 
       /*
-        * Divides the list of songs into smaller segments (or nodes) 
+        * Divides the list of songs into smaller segments (or nodes)
         * and stores these segments in sortedIndexes. It uses segmentParents to keep
-        * track of the relationship between these segments, mimicking a binary 
-        * tree's structure. Also, sets the initial state for sorting, including the 
+        * track of the relationship between these segments, mimicking a binary
+        * tree's structure. Also, sets the initial state for sorting, including the
         * current segments to be compared and the head positions within those segments.
-  
+
         * @param {Song[]} songs - The list of songs to be sorted.
         */
-      initList: (songs) => {
+      initList(songs) {
         const totalSongs = songs.length
 
         // Create an array of song indexes
@@ -109,6 +109,7 @@ export const useSortingStore = create<SortingStore>()(
             if (leftSegment.length > 1) {
               queue.push(leftSegment)
             }
+
             if (rightSegment.length > 1) {
               queue.push(rightSegment)
             }
@@ -117,7 +118,7 @@ export const useSortingStore = create<SortingStore>()(
 
         // Update state once all divisions are complete
         set({
-          songs,
+          entries: songs,
           sortedIndexes: tempSortedIndexes,
           segmentParents: tempSegmentParents,
           totalSize,
@@ -134,14 +135,14 @@ export const useSortingStore = create<SortingStore>()(
       /*
         * Determines the vote winner based on flag and adds it to comparisonResults.
         * It also increments the comparisonHead for the winning side and the finishSize.
-        * If one of the segments is exhausted, it pulls the remaining items from the 
-        * other segment and merges them with the comparisonResults. 
+        * If one of the segments is exhausted, it pulls the remaining items from the
+        * other segment and merges them with the comparisonResults.
         * When both segments are exhausted, it merges the comparisonResults back
         * into the main array and prepares for the next comparison.
-  
+
         * @param {boolean} flag - The user's preference for the comparison.
         */
-      sortList: (flag: boolean) => {
+      sortList(flag: boolean) {
         set((state) => {
           const {
             sortedIndexes,
@@ -171,6 +172,7 @@ export const useSortingStore = create<SortingStore>()(
             )
             newComparisonHeadLeft += 1
           }
+
           newFinishSize += 1
 
           // Check if we need to pull remaining items from one of the segments
@@ -221,7 +223,7 @@ export const useSortingStore = create<SortingStore>()(
             // If finish flag is true, sorting is complete, create the sorted songs array and delete sortedSongIds for regeneration
             if (finishFlag) {
               const sortedSongs = newSortedIndexes[0].map(
-                (index) => state.songs?.[index]
+                (index) => state.entries?.[index]
               )
               return {
                 ...state,
@@ -232,9 +234,9 @@ export const useSortingStore = create<SortingStore>()(
                 comparisonHeadLeft: 0,
                 comparisonHeadRight: 0,
                 finishSize: newFinishSize,
-                finishFlag: finishFlag,
-                songs: sortedSongs,
-                sortedSongIds: []
+                finishFlag,
+                entries: sortedSongs,
+                sortedEntriesIds: sortedSongs.map((song) => song.id)
               }
             }
 
@@ -248,7 +250,7 @@ export const useSortingStore = create<SortingStore>()(
               comparisonHeadRight: 0,
               finishSize: newFinishSize,
               // Sorting is complete if no more segments to compare
-              finishFlag: finishFlag
+              finishFlag
             }
           }
 
@@ -264,21 +266,12 @@ export const useSortingStore = create<SortingStore>()(
       }
     }),
     {
-      name: 'sorting-store',
+      name: 'sorterStore',
       partialize: (state) => ({
-        songs: state.songs,
-        sortedSongIds: state.sortedSongIds
+        sortedEntriesIds: state.sortedEntriesIds
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          if (
-            state.songs &&
-            state.songs.length > 0 &&
-            state.sortedSongIds.length === 0
-          ) {
-            const songIds = state.songs.map((song) => song.id)
-            state.setSongIds(songIds)
-          }
           state.setHasHydrated(true)
         }
       }

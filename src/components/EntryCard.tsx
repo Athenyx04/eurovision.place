@@ -1,19 +1,19 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { useTranslations } from 'src/i18n/utils'
 
-import { type Artist, CLOUDFRONT_DOMAIN, type Country } from '../lib/data.ts'
-import PlayPauseButton from './PlayPauseButton.tsx'
+import { CLOUDFRONT_DOMAIN, type EntryDetails } from '../lib/data'
+import PlayPauseButton from './PlayPauseButton'
 
-interface Props {
-  id: string
+type Props = {
+  entry: EntryDetails
   position: number
-  title: string
-  artist: Artist
-  country: Country
-  audioUrl: string
 }
 
-function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
+function EntryCard({ entry, position }: Props) {
+  const { id, title, artistName, country, pictureUri, audioUri } = entry
+  const t = useTranslations('en')
+
   const {
     attributes,
     listeners,
@@ -22,7 +22,7 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
     transition,
     isDragging
   } = useSortable({
-    id: id
+    id
   })
 
   const style = {
@@ -62,8 +62,8 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
       >
         <img
           className='absolute left-0 top-0 size-full object-cover'
-          src={artist.imageUrl}
-          alt={artist.name}
+          src={`${CLOUDFRONT_DOMAIN}${pictureUri}`}
+          alt={artistName}
         />
         <div className='pb-[100%}'></div>
       </div>
@@ -87,14 +87,18 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
         <div className='flex min-w-0 flex-col'>
           <div className='flex items-center gap-2 font-bold'>
             <img
-              src={`${CLOUDFRONT_DOMAIN}/flags/${country.code.toLowerCase()}.png`}
-              alt={country.name}
+              src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+              // @ts-expect-error - ${country} is a database country code
+              alt={t(`country.${country}`)}
               className='w-6 rounded-md'
             />
-            <span className='truncate'>{country.name.toUpperCase()}</span>
+            <span className='truncate'>
+              {/* @ts-expect-error - ${country} is a database country code */}
+              {t(`country.${country}`).toUpperCase()}
+            </span>
           </div>
           <span className='truncate text-sm font-light'>{title}</span>
-          <span className='truncate text-sm font-light'>{artist.name}</span>
+          <span className='truncate text-sm font-light'>{artistName}</span>
         </div>
       </div>
       <div
@@ -106,10 +110,10 @@ function SongCard({ id, position, title, artist, country, audioUrl }: Props) {
         ⠿
       </div>
       <div className='mr-4 flex items-center justify-center'>
-        <PlayPauseButton src={audioUrl} />
+        <PlayPauseButton src={audioUri} />
       </div>
     </div>
   )
 }
 
-export default SongCard
+export default EntryCard

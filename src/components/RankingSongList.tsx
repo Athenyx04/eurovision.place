@@ -11,12 +11,12 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext } from '@dnd-kit/sortable'
 
-import type { Song } from '../lib/data.ts'
-import SongCard from './SongCard.tsx'
+import type { EntryDetails } from '../lib/data'
+import EntryCard from './EntryCard'
 
-interface RankingSongListProps {
-  songs: Song[]
-  activeItem: Song | null
+type RankingSongListProps = {
+  songs: EntryDetails[]
+  activeItem: EntryDetails | null
   onDragEnd: (event: DragEndEvent) => void
   onDragStart: (event: DragStartEvent) => void
 }
@@ -39,27 +39,15 @@ const RankingSongList: React.FC<RankingSongListProps> = ({
       <SortableContext items={songs.map((song) => song.id)}>
         <div className={'grid w-full md:grid-cols-2 xl:grid-cols-6'}>
           {songs.map((song, index) => (
-            <SongCard
-              id={song.id}
-              artist={song.artist}
-              country={song.country}
-              position={index + 1}
-              title={song.title}
-              audioUrl={song.audioUrl}
-              key={song.id}
-            />
+            <EntryCard entry={song} position={index + 1} key={song.id} />
           ))}
         </div>
       </SortableContext>
       <DragOverlay>
         {activeItem ? (
-          <SongCard
-            id={activeItem.id}
-            artist={activeItem.artist ?? {}}
-            country={activeItem.country ?? {}}
+          <EntryCard
+            entry={activeItem}
             position={songs.findIndex((song) => song.id === activeItem.id) + 1}
-            title={activeItem.title ?? ''}
-            audioUrl={activeItem.audioUrl ?? ''}
           />
         ) : null}
       </DragOverlay>

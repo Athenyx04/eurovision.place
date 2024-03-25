@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface FilterStore {
+type FilterStore = {
   filteredEntries: string[]
   _hasHydrated: boolean
   setFilteredEntries: (filteredEntries: string[]) => void
@@ -11,16 +11,17 @@ interface FilterStore {
 export const useFilterStore = create<FilterStore>()(
   persist(
     (set) => ({
-      filteredEntries: ['Israel'],
+      filteredEntries: ['32'],
       _hasHydrated: false,
-      setFilteredEntries: (filteredEntries: string[]) =>
-        set({ filteredEntries }),
-      setHasHydrated: (state: boolean) => {
+      setFilteredEntries(filteredEntries: string[]) {
+        set({ filteredEntries })
+      },
+      setHasHydrated(state: boolean) {
         set({ _hasHydrated: state })
       }
     }),
     {
-      name: 'filter-store',
+      name: 'filterStore',
       partialize: (state) => ({
         filteredEntries: state.filteredEntries
       }),

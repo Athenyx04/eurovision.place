@@ -1,4 +1,4 @@
-import { usePlayerStore } from '../store/playerStore.ts'
+import { usePlayerStore } from '../store/playerStore'
 
 const Play = () => (
   <svg role='img' aria-hidden='true' width='16' viewBox='0 0 16 16'>

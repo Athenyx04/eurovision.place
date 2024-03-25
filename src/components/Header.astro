@@ -1,8 +1,13 @@
 ---
-import Avatar from './Avatar.astro'
+import AccountDropdown from './AccountDropdown.tsx'
 import FullScreenMenu from './FullScreenMenu.astro'
+import LoginIcon from './LoginIcon.astro'
 import NavigationLinks from './NavigationLinks.astro'
 import TextLogo from './TextLogo.astro'
+
+const user = Astro.locals.user
+const name = user?.name
+const picture_uri = user?.picture_uri
 ---
 
 <style>
@@ -31,18 +36,40 @@ import TextLogo from './TextLogo.astro'
     </nav>
   </div>
   <div class='flex items-center sm:ml-auto'>
-    <Avatar />
+    {
+      !user && (
+        <a href='/login' class='flex items-center gap-2 text-eerie'>
+          <span class='hidden text-sm text-eerie sm:flex'>Sign In</span>
+          <LoginIcon />
+        </a>
+      )
+    }
+    {
+      user && (
+        <AccountDropdown client:load>
+          <div class='flex items-center gap-2'>
+            <span class='hidden text-sm text-eerie sm:flex'>{name}</span>
+            <img
+              src={picture_uri}
+              class='size-9 rounded-full border-2 border-liberty'
+            />
+          </div>
+        </AccountDropdown>
+      )
+    }
   </div>
 </header>
 <FullScreenMenu />
 
 <script>
-  const menuButton = document.getElementById('menuButton')
-  const menuIcon = document.getElementById('menuIcon')
-  const closeIcon = document.getElementById('closeIcon')
-  const fullScreenMenu = document.getElementById('fullScreenMenu')
+  import { $ } from '../lib/dom-selector'
+
   const body = document.body
-  const mainContainer = document.getElementById('main')
+  const menuButton = $('#menuButton')
+  const menuIcon = $('#menuIcon')
+  const closeIcon = $('#closeIcon')
+  const fullScreenMenu = $('#fullScreenMenu')
+  const mainContainer = $('#main')
 
   menuButton?.addEventListener('click', () => {
     const isMenuOpen = fullScreenMenu?.classList.contains('menu-active')

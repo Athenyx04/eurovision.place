@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-import { usePlayerStore } from '../store/playerStore.ts'
+import { usePlayerStore } from '../store/playerStore'
 
 function Player() {
   const { isPlaying, currentTrack, setIsPlaying, setIsLoading } =

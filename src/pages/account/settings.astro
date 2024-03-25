@@ -1,0 +1,29 @@
+---
+import BackgroundGradient from '../../components/BackgroundGradient.astro'
+import Layout from '../../layouts/Layout.astro'
+import { SettingsForm } from '@/components/SettingsForm'
+
+const user = Astro.locals.user
+if (!user) {
+  return Astro.redirect('/login')
+}
+---
+
+<Layout title='Eurovision Place'>
+  <BackgroundGradient />
+  <div class='flex grow flex-col'>
+    <div class='flex grow flex-col items-center justify-center'>
+      <h1
+        class='mb-4 px-4 text-center text-2xl font-semibold xl:mb-8 xl:text-4xl'
+      >
+        Adjust user settings
+      </h1>
+      <p class='mb-4 max-w-3xl px-8 text-center xl:mb-12 xl:text-lg'>
+        You can adjust your user settings here. This includes changing your
+        display name, nationality and year of birth, which are mostly relevant
+        for global leaderboards.
+      </p>
+      <SettingsForm client:load />
+    </div>
+  </div>
+</Layout>
