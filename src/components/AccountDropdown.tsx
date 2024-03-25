@@ -14,14 +14,18 @@ function AccountDropdown({ children }: { children: React.ReactNode }) {
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <a href='/account/settings'>Settings</a>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <form method='POST' action='/api/signout'>
-            <button>Sign out</button>
-          </form>
-        </DropdownMenuItem>
+        <a href='/account/settings'>
+          <DropdownMenuItem className='cursor-pointer'>
+            Settings
+          </DropdownMenuItem>
+        </a>
+        <form method='POST' action='/api/signout'>
+          <button className='w-full'>
+            <DropdownMenuItem className='cursor-pointer'>
+              Sign out
+            </DropdownMenuItem>
+          </button>
+        </form>
       </DropdownMenuContent>
     </DropdownMenu>
   )

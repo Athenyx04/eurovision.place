@@ -181,8 +181,18 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
   useEffect(() => {
     async function getUserPositions() {
       const response = await fetch('/api/userRanking.json?editionId=1')
+      if (!response.ok) {
+        if (sortedEntriesIds.length > 0) {
+          setPositions(sortedEntriesIds)
+        } else {
+          setEntriesIds(songList.map((song) => song.id))
+          setPositions(songList.map((song) => song.id))
+        }
+        return
+      }
       const data = await response.json()
       const positions = data.result?.split(',').map(Number) as number[]
+      console.log('Positions:', positions)
       if (!positions) {
         if (sortedEntriesIds.length > 0) {
           setPositions(sortedEntriesIds)

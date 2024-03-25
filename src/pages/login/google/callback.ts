@@ -3,11 +3,7 @@ import type { APIContext } from 'astro'
 import { generateId } from 'lucia'
 
 import { google, lucia } from '../../../auth'
-import {
-  createUserBySocialId,
-  getUserIdBySocialId,
-  setNationalityAndYearOfBirthById
-} from '../../../db/client'
+import { createUserBySocialId, getUserIdBySocialId } from '../../../db/client'
 
 export async function GET(context: APIContext): Promise<Response> {
   const code = context.url.searchParams.get('code')
@@ -59,7 +55,6 @@ export async function GET(context: APIContext): Promise<Response> {
       googleUser.given_name,
       googleUser.picture
     )
-    await setNationalityAndYearOfBirthById(userId, 'ES', '1999')
 
     const session = await lucia.createSession(userId, {})
     const sessionCookie = lucia.createSessionCookie(session.id)
@@ -68,7 +63,7 @@ export async function GET(context: APIContext): Promise<Response> {
       sessionCookie.value,
       sessionCookie.attributes
     )
-    return context.redirect('/')
+    return context.redirect('/account/settings')
   } catch (error) {
     if (error instanceof OAuth2RequestError) {
       return new Response(null, {
