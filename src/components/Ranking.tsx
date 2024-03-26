@@ -145,6 +145,8 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
     const newFilteredSongs = arrayMove(filteredSongs, oldIndex, newIndex)
     setFilteredSongs(newFilteredSongs)
 
+    console.log('newFilteredSongs', newFilteredSongs)
+
     // Apply the new order to the original songs array (filteredSongs is a subset of songs)
     const originalOriginIndex = songs.findIndex((song) => song.id === active.id)
     const originalOverIndex = songs.findIndex((song) => song.id === over.id)
@@ -218,6 +220,13 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
   }, [hasHydrated])
 
   useEffect(() => {
+    const optionEntries = songList.map((entry) => ({
+      // @ts-expect-error - ${entry.country} is a database country code
+      label: t(`country.${entry.country}`),
+      value: entry.id.toString()
+    }))
+    setEntryValues(optionEntries)
+
     let initialEntryOrder: EntryDetails[] = []
 
     if (positions && positions.length > 0) {
@@ -226,12 +235,18 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
         .filter((song): song is EntryDetails => song !== undefined)
     }
 
-    const optionEntries = songList.map((entry) => ({
-      // @ts-expect-error - ${entry.country} is a database country code
-      label: t(`country.${entry.country}`),
-      value: entry.id.toString()
-    }))
-    setEntryValues(optionEntries)
+    // Array of the ids of all songs in the song list
+    const allEntries = songList.map((entry) => entry.id)
+
+    // If there are songs in the song list that are not in the positions array, add them to the end
+    const missingEntries = allEntries.filter(
+      (entry) => !positions.includes(entry)
+    )
+    initialEntryOrder.push(
+      ...missingEntries
+        .map((entry) => songList.find((song) => song.id === entry))
+        .filter((song): song is EntryDetails => song !== undefined)
+    )
 
     setSongs(initialEntryOrder)
 
@@ -244,6 +259,7 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
     const filteredSongs = initialEntryOrder.filter(
       (song) => !filteredEntries.includes(song.id.toString())
     )
+
     setFilteredSongs(filteredSongs)
   }, [songList, positions])
 
