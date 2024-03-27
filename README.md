@@ -11,7 +11,8 @@ Welcome to **eurovision.place**, a passion project born out of love for the Euro
 
 ## Built With
 
-- **Astro with React**: For dynamic UI components.
+- **Astro** for a clear structure with high performance and improved SEO.
+- **React** for my dynamic Astro islands, so I can use my favourite UI components.
 - **Server-Side Rendering** approach, deployed on Vercel for optimal performance.
 - **SQLite Database** hosted on Turso.io for robust data management.
 - **AWS S3 and CloudFront** for fast and reliable image hosting.
