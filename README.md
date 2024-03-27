@@ -37,7 +37,7 @@ The project is structured to facilitate easy navigation and contribution, ensuri
 │   │   └── api/           # Serverless functions or API logic
 │   ├── store/             # State management
 │   ├── auth.ts            # Authentication setup
-│   ├── env.d.ts           # TypeScript definitions for environment variables
+│   ├── env.d.ts           # TypeScript definitions for Astro namespace variables
 │   ├── globals.css        # Global CSS styles
 │   └── middleware.ts      # Middleware for handling requests
 ├── test/
@@ -55,7 +55,7 @@ To set up eurovision.place locally:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/eurovision.place.git
+git clone https://github.com/Athenyx04/eurovision.place.git
 ```
 
 2. Navigate to the project directory and install dependencies:
@@ -91,7 +91,13 @@ To run this project, you will need to add the following environment variables to
 
 ## Contributing
 
-Contributions are welcome and appreciated! Whether it's bug fixes, feature additions, or improvements in documentation, your help is invaluable to making eurovision.place better for everyone. Please see the contribution guidelines for more details on how to contribute.
+Contributions are welcome and appreciated! Whether it's bug fixes, feature additions, or improvements in documentation, your help is invaluable to making eurovision.place better for everyone. If you have suggestions for improvements or new features, feel free to:
+
+- Fork the repository.
+- Create a new branch (git checkout -b feature/AmazingFeature).
+- Commit your changes (git commit -m 'feat: Add some AmazingFeature').
+- Push to the branch (git push origin feature/AmazingFeature).
+- Open a pull request.
 
 ## License
 
