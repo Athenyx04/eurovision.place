@@ -77,7 +77,7 @@ export const useSorterStore = create<SorterStore>()(
         * tree's structure. Also, sets the initial state for sorting, including the
         * current segments to be compared and the head positions within those segments.
 
-        * @param {Song[]} songs - The list of songs to be sorted.
+        * @param {EntryDetails[]} songs - The list of songs to be sorted.
         */
       initList(songs) {
         const totalSongs = songs.length
