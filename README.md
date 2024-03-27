@@ -105,5 +105,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Inspired by Mr. Gerbear's sorter.
+- Inspired by [Mr. Gerbear's sorter](https://esc.gerbear.com/sorter2023.htm).
+- Learnt a lot of useful things for this project from [midudev](https://github.com/midudev) and his community.
 - Thanks to the entire Eurovision community for their passion and support.
