@@ -208,7 +208,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                 </DialogDescription>
               </DialogHeader>
               <div className='space-y-2'>
-                <span className='text-sm font-bold text-eerie'>Country</span>
+                <span className='text-sm font-bold text-eerie'>By country</span>
                 <Select
                   value={country}
                   onValueChange={(value) => {
@@ -231,7 +231,9 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                 </Select>
               </div>
               <div className='space-y-2'>
-                <span className='text-sm font-bold text-eerie'>Age Group</span>
+                <span className='text-sm font-bold text-eerie'>
+                  By age group
+                </span>
                 <ToggleGroup
                   type='single'
                   variant='outline'
