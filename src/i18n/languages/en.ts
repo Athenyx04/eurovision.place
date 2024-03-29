@@ -254,5 +254,6 @@ export const ui: ITranslationKeys = {
   'country.ZA': 'South Africa',
   'country.ZM': 'Zambia',
   'country.ZW': 'Zimbabwe',
+  'country.ZZ': 'All countries',
   'country.XX': 'None'
 }

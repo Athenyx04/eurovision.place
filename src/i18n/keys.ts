@@ -252,5 +252,6 @@ export interface ITranslationKeys {
   'country.ZA': string
   'country.ZM': string
   'country.ZW': string
+  'country.ZZ': string
   'country.XX': string
 }

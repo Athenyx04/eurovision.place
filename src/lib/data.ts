@@ -9,4 +9,9 @@ export type EntryDetails = {
   audioUri: string
   artistName: string
   categories: string
+  score?: number
+}
+
+export type RankingResponse = {
+  positions: string
 }
