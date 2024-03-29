@@ -1,4 +1,3 @@
-import html2canvas from 'html2canvas'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'src/i18n/utils'
 
@@ -7,10 +6,7 @@ import {
   type EntryDetails,
   type RankingResponse
 } from '../lib/data'
-import { $ } from '../lib/dom-selector'
 import { useFilterStore } from '../store/filterStore'
-import ShareContainer from './ShareContainer'
-import ShareDialog from './ShareDialog'
 import { type OptionType } from './ui/multiSelect'
 import LeaderboardSongList from './LeaderboardSongList'
 import LeaderboardHeader from './LeaderboardHeader'
@@ -34,7 +30,6 @@ const Load = () => (
 function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   const hasHydrated = useFilterStore((state) => state._hasHydrated)
 
-  const [shareImage, setShareImage] = useState<HTMLCanvasElement | null>(null)
   const [songs, setSongs] = useState<EntryDetails[]>([])
   const [filteredSongs, setFilteredSongs] = useState<EntryDetails[]>([])
   const [viewGroup, setViewGroup] = useState<string>('')
@@ -54,78 +49,6 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
     setFilteredEntries: state.setFilteredEntries
   }))
   const t = useTranslations('en')
-
-  function handleSelectRanking(ranking: string) {
-    triggerScreenshot(ranking)
-  }
-
-  async function triggerScreenshot(elementId: string) {
-    const element = $('#' + elementId)
-
-    if (!element) {
-      console.error('Element not found:', elementId)
-      return
-    }
-
-    const scale = 2
-    const canvas = document.createElement('canvas')
-    const logging = false
-    canvas.width = element.offsetWidth * scale
-    canvas.height = element.offsetHeight * scale
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) {
-      console.error('Canvas context not found')
-      return
-    }
-
-    const originalDrawImage = ctx.drawImage
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ctx.drawImage = function (...args: any[]) {
-      const image = args[0]
-      let sx
-      let sy
-      let sw
-      let sh
-      let dx
-      let dy
-      let dw
-      let dh
-
-      if (args.length === 3) {
-        [dx, dy] = args.slice(1)
-      } else if (args.length === 5) {
-        [dx, dy, dw, dh] = args.slice(1)
-      } else if (args.length === 9) {
-        [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
-      }
-
-      if (image instanceof HTMLImageElement && args.length === 9) {
-        if (sw / dw < sh / dh) {
-          const originalDh = dh
-          dh = sh * (dw / sw)
-          dy += (originalDh - dh) / 2
-        } else {
-          const originalDw = dw
-          dw = sw * (dh / sh)
-          dx += (originalDw - dw) / 2
-        }
-      }
-
-      if (args.length === 9) {
-        originalDrawImage.call(ctx, image, sx, sy, sw, sh, dx, dy, dw, dh)
-      }
-    }
-
-    const finalCanvas = await html2canvas(element, {
-      canvas,
-      scale,
-      logging,
-      useCORS: true
-    })
-    setShareImage(finalCanvas)
-  }
 
   useEffect(() => {
     async function getAllPositions() {
@@ -279,7 +202,6 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
         setScoringFunction={setScoringFunction}
         setAgeGroup={setAgeGroup}
         setCountry={setCountry}
-        handleSelectRanking={handleSelectRanking}
       />
       {isLoading && (
         <div className='flex grow items-center justify-center'>
@@ -302,20 +224,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
         </div>
       )}
       {filteredSongs.length !== 0 && !isLoading && (
-        <>
-          <LeaderboardSongList songs={filteredSongs} />
-          <ShareContainer
-            id='shareAll'
-            songs={filteredSongs}
-            title={rankingTitle}
-          />
-          <ShareContainer
-            id='share10'
-            songs={filteredSongs.slice(0, 10)}
-            title={`${rankingTitle} Top 10`}
-          />
-          <ShareDialog shareImage={shareImage} setShareImage={setShareImage} />
-        </>
+        <LeaderboardSongList songs={filteredSongs} />
       )}
     </div>
   )
