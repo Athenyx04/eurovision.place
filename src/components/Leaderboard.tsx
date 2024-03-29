@@ -108,7 +108,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   }, [songList])
 
   useEffect(() => {
-    if (!fetchedPositions.length) {
+    if (!fetchedPositions.length && !isLoading) {
       return
     }
 
