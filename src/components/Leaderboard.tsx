@@ -45,7 +45,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   const [scoringFunction, setScoringFunction] = useState<'linear' | 'esc'>(
     'linear'
   )
-  const [ageGroup, setAgeGroup] = useState<AgeGroup>('')
+  const [ageGroup, setAgeGroup] = useState<AgeGroup>('all')
   const [country, setCountry] = useState<string>('ZZ')
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [fetchedPositions, setFetchedPositions] = useState<number[][]>([])
@@ -134,7 +134,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
       if (country !== 'ZZ') {
         url.searchParams.append('nationality', country)
       }
-      if (ageGroup !== '') {
+      if (ageGroup !== 'all') {
         url.searchParams.append('ageGroup', ageGroup)
       }
       const response = await fetch(url)

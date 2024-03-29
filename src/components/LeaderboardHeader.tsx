@@ -77,7 +77,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   ])
 
   const ageGroupColours: Record<AgeGroup, string> = {
-    '': '#111827',
+    all: '#111827',
     '0-15': '#76c043',
     '16-22': '#55bf9a',
     '23-29': '#09aae0',
@@ -99,7 +99,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
           {t(`country.${country}`)}
         </Badge>
         <Badge className='flex gap-1 items-center text-slate-200 border-2 border-liberty'>
-          {ageGroup !== '' && (
+          {ageGroup !== 'all' && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='12'
@@ -111,7 +111,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
               <path d='M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z' />
             </svg>
           )}
-          {ageGroup !== '' ? `${ageGroup} years old` : 'All age groups'}
+          {ageGroup !== 'all' ? `${ageGroup} years old` : 'All age groups'}
         </Badge>
         <Badge className='text-slate-200 border-2 border-liberty'>
           {rankingCount} {rankingCount === 1 ? 'ranking' : 'rankings'}
