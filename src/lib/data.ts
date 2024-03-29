@@ -15,3 +15,13 @@ export type EntryDetails = {
 export type RankingResponse = {
   positions: string
 }
+
+export type AgeGroup =
+  | ''
+  | '0-15'
+  | '16-22'
+  | '23-29'
+  | '30-44'
+  | '45-59'
+  | '60-74'
+  | '75+'

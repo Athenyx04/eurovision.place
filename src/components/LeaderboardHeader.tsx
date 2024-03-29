@@ -1,4 +1,5 @@
 import { Button } from './ui/button'
+import { Badge } from './ui/badge'
 import {
   Dialog,
   DialogClose,
@@ -20,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue
 } from './ui/select'
+import type { AgeGroup } from '@/lib/data'
 
 interface LeaderboardHeaderProps {
   title: string
@@ -28,12 +30,13 @@ interface LeaderboardHeaderProps {
   filteredEntries: string[]
   scoringFunction: 'linear' | 'esc'
   country: string
-  ageGroup: string
+  ageGroup: AgeGroup
+  rankingCount: number
   setViewGroup: (value: string) => void
   setFilteredEntries: (prevState: string[]) => void
   setScoringFunction: (value: 'linear' | 'esc') => void
   setCountry: (value: string) => void
-  setAgeGroup: (value: string) => void
+  setAgeGroup: (value: AgeGroup) => void
   handleSelectRanking: (ranking: string) => void
 }
 
@@ -45,6 +48,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   scoringFunction,
   country,
   ageGroup,
+  rankingCount,
   setViewGroup,
   setFilteredEntries,
   setScoringFunction,
@@ -72,13 +76,47 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
     }
   ])
 
+  const ageGroupColours: Record<AgeGroup, string> = {
+    '': '#111827',
+    '0-15': '#76c043',
+    '16-22': '#55bf9a',
+    '23-29': '#09aae0',
+    '30-44': '#804f9f',
+    '45-59': '#d94599',
+    '60-74': '#ed3e23',
+    '75+': '#f6931d'
+  }
+
+  const currentPath = window.location.pathname
+  const rankingPath = currentPath.replace(/\/leaderboard$/, '/ranking')
+
   return (
-    <div className='flex flex-col items-center px-4 pt-4'>
+    <div className='flex flex-col items-center px-4 pt-4 shadow-xl'>
       <h1 className='font-extrabold'>{title}</h1>
-      <h2 className='text-sm font-light'>
-        {/* @ts-expect-error - code value is in list */}
-        {t(`country.${country}`)} · {ageGroup}
-      </h2>
+      <div className='text-sm font-light flex items-center text-center pt-2 gap-2'>
+        <Badge className='text-slate-200 border-2 border-liberty'>
+          {/* @ts-expect-error - code value is in list */}
+          {t(`country.${country}`)}
+        </Badge>
+        <Badge className='flex gap-1 items-center text-slate-200 border-2 border-liberty'>
+          {ageGroup !== '' && (
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='12'
+              height='12'
+              viewBox='0 0 24 24'
+              fill={ageGroupColours[ageGroup]}
+            >
+              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+              <path d='M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z' />
+            </svg>
+          )}
+          {ageGroup !== '' ? `${ageGroup} years old` : 'All age groups'}
+        </Badge>
+        <Badge className='text-slate-200 border-2 border-liberty'>
+          {rankingCount} {rankingCount === 1 ? 'ranking' : 'rankings'}
+        </Badge>
+      </div>
       <div className='flex w-full gap-4 py-4 pb-4'>
         <Button
           onClick={() => setScoringFunction('linear')}
@@ -101,6 +139,35 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
           Top 10's
         </Button>
         <div className='ml-auto flex gap-4'>
+          <button>
+            <a href={rankingPath}>
+              <div
+                className={
+                  'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-eerie hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+                }
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='16'
+                  height='16'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <path d='M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0' />
+                  <path d='M6 21v-2a4 4 0 0 1 4 -4h.5' />
+                  <path d='M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z' />
+                </svg>
+                <span className='hidden text-sm font-bold text-eerie md:flex'>
+                  My ranking
+                </span>
+              </div>
+            </a>
+          </button>
           <Dialog>
             <DialogTrigger>
               <div
@@ -145,7 +212,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
               <div className='space-y-2'>
                 <span className='text-sm font-bold text-eerie'>Country</span>
                 <Select
-                  value={'ZZ'}
+                  value={country}
                   onValueChange={(value) => {
                     setCountry(value)
                   }}
@@ -171,13 +238,13 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   type='single'
                   variant='outline'
                   className='flex flex-wrap justify-between gap-1'
-                  value={viewGroup}
-                  onValueChange={(value) => setAgeGroup(value)}
+                  value={ageGroup}
+                  onValueChange={(value) => setAgeGroup(value as AgeGroup)}
                 >
                   <ToggleGroupItem
                     value='0-15'
                     size={'text'}
-                    aria-label='Toggle Big 5 + Host'
+                    aria-label='Toggle 0-15 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -196,7 +263,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='16-22'
                     size={'text'}
-                    aria-label='Toggle Semifinal 1'
+                    aria-label='Toggle 16-22 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -215,7 +282,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='23-29'
                     size={'text'}
-                    aria-label='Toggle Semifinal 2'
+                    aria-label='Toggle 23-29 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -234,7 +301,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='30-44'
                     size={'text'}
-                    aria-label='Toggle Nordics'
+                    aria-label='Toggle 30-44 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -253,7 +320,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='45-59'
                     size={'text'}
-                    aria-label='Toggle Baltics'
+                    aria-label='Toggle 45-59 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -272,7 +339,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='60-74'
                     size={'text'}
-                    aria-label='Toggle Balkans'
+                    aria-label='Toggle 60-74 years old age group'
                     className='flex-auto items-center justify-between w-1/3 max-h-12 p-2'
                     style={{ maxWidth: 'calc(33.333% - 0.25rem)' }}
                   >
@@ -291,7 +358,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   <ToggleGroupItem
                     value='75+'
                     size={'text'}
-                    aria-label='Toggle Balkans'
+                    aria-label='Toggle 75+ years old age group'
                     className='flex-auto items-center gap-6 w-full max-h-12 p-2'
                   >
                     <svg

@@ -152,11 +152,41 @@ export const updateSettingsByUserId = async (
   }
 }
 
-export const getAllRankingsByEditionId = async (editionId: string) => {
-  const response = await db.execute({
-    sql: 'SELECT r.positions FROM ranking r WHERE r.edition_id = ?',
-    args: [editionId]
-  })
+export const getAllRankingsByEditionId = async (
+  editionId: string,
+  nationality?: string,
+  ageGroup?: string
+) => {
+  let sql =
+    'SELECT r.positions FROM ranking r JOIN user u on r.user_id = u.id WHERE r.edition_id = ?'
+
+  const args = [editionId]
+
+  if (nationality) {
+    sql += ' AND u.nationality = ?'
+    args.push(nationality)
+  }
+
+  if (ageGroup) {
+    const currentYear = new Date().getFullYear()
+    const ageRanges = {
+      '0-15': [currentYear - 15, currentYear],
+      '16-22': [currentYear - 22, currentYear - 16],
+      '23-29': [currentYear - 29, currentYear - 23],
+      '30-44': [currentYear - 44, currentYear - 30],
+      '45-59': [currentYear - 59, currentYear - 45],
+      '60-74': [currentYear - 74, currentYear - 60],
+      '75+': [0, currentYear - 75]
+    }
+    const range = ageRanges[ageGroup]
+
+    if (range) {
+      sql += ' AND u.year_of_birth BETWEEN ? AND ?'
+      args.push(range[0], range[1])
+    }
+  }
+
+  const response = await db.execute({ sql, args })
 
   return response.rows
 }

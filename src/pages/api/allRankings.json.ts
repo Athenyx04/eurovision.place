@@ -4,6 +4,8 @@ import { getAllRankingsByEditionId } from 'src/db/client'
 export async function GET({ request }: APIContext): Promise<Response> {
   const queryParams = new URL(request.url).searchParams
   const editionId = queryParams.get('editionId')
+  const nationality = queryParams.get('nationality')
+  const ageGroup = queryParams.get('ageGroup')
 
   if (!editionId) {
     return new Response(
@@ -16,7 +18,11 @@ export async function GET({ request }: APIContext): Promise<Response> {
     )
   }
 
-  const result = await getAllRankingsByEditionId(editionId)
+  const result = await getAllRankingsByEditionId(
+    editionId,
+    nationality ?? undefined,
+    ageGroup ?? undefined
+  )
 
   if (!result) {
     return new Response(null, {

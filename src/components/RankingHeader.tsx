@@ -31,10 +31,76 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
   setFilteredEntries,
   handleSelectRanking
 }) => {
+  const currentPath = window.location.pathname
+  const leaderboardPath = currentPath.replace(/\/ranking$/, '/leaderboard')
+  const sorterPath = currentPath.replace(/\/ranking$/, '/sorter')
+
   return (
-    <div className='flex items-center p-4'>
+    <div className='flex flex-col items-center p-4 shadow-xl'>
       <h1 className='font-extrabold'>{title}</h1>
-      <div className='ml-auto flex gap-4'>
+      <div className='text-sm font-light flex items-center text-center pt-2 gap-6'>
+        <button>
+          <a href={sorterPath}>
+            <div
+              className={
+                'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-eerie hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+              }
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='16'
+                height='16'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                <path d='M4 15l3 3l3 -3' />
+                <path d='M7 6v12' />
+                <path d='M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-4z' />
+                <path d='M17 14l-3.5 6h7z' />
+              </svg>
+              <span className='hidden text-sm font-bold text-eerie md:flex'>
+                Sorter
+              </span>
+            </div>
+          </a>
+        </button>
+        <button>
+          <a href={leaderboardPath}>
+            <div
+              className={
+                'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-eerie hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+              }
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='16'
+                height='16'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                <path d='M21 12a9 9 0 1 0 -9.679 8.974' />
+                <path d='M3.6 9h16.8' />
+                <path d='M3.6 15h6.9' />
+                <path d='M11.5 3a17 17 0 0 0 0 18' />
+                <path d='M12.5 3a16.983 16.983 0 0 1 2.556 8.136' />
+                <path d='M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z' />
+              </svg>
+              <span className='hidden text-sm font-bold text-eerie md:flex'>
+                Leaderboards
+              </span>
+            </div>
+          </a>
+        </button>
         <Dialog>
           <DialogTrigger>
             <div
