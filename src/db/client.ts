@@ -1,5 +1,6 @@
 import { createClient } from '@libsql/client'
 import { LibSQLAdapter } from '@lucia-auth/adapter-sqlite'
+import { AgeGroup } from '../lib/data'
 
 const db = createClient({
   url: import.meta.env.DATABASE_URL ?? '',
@@ -155,7 +156,7 @@ export const updateSettingsByUserId = async (
 export const getAllRankingsByEditionId = async (
   editionId: string,
   nationality?: string,
-  ageGroup?: string
+  ageGroup?: AgeGroup
 ) => {
   let sql =
     'SELECT r.positions FROM ranking r JOIN user u on r.user_id = u.id WHERE r.edition_id = ?'
@@ -169,7 +170,7 @@ export const getAllRankingsByEditionId = async (
 
   if (ageGroup) {
     const currentYear = new Date().getFullYear()
-    const ageRanges = {
+    const ageRanges: Record<Partial<AgeGroup>, number[]> = {
       '0-15': [currentYear - 15, currentYear],
       '16-22': [currentYear - 22, currentYear - 16],
       '23-29': [currentYear - 29, currentYear - 23],
