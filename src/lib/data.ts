@@ -9,4 +9,19 @@ export type EntryDetails = {
   audioUri: string
   artistName: string
   categories: string
+  score?: number
 }
+
+export type RankingResponse = {
+  positions: string
+}
+
+export type AgeGroup =
+  | 'all'
+  | '0-15'
+  | '16-22'
+  | '23-29'
+  | '30-44'
+  | '45-59'
+  | '60-74'
+  | '75+'
