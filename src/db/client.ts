@@ -151,3 +151,12 @@ export const updateSettingsByUserId = async (
     return { success: false, error }
   }
 }
+
+export const getAllRankingsByEditionId = async (editionId: string) => {
+  const response = await db.execute({
+    sql: 'SELECT r.positions FROM ranking r WHERE r.edition_id = ?',
+    args: [editionId]
+  })
+
+  return response.rows
+}
