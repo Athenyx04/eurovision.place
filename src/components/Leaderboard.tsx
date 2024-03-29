@@ -44,6 +44,8 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   const [country, setCountry] = useState<string>('ZZ')
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [fetchedPositions, setFetchedPositions] = useState<number[][]>([])
+  const [filteredPositions, setFilteredPositions] = useState<number[][]>([])
+  const [filteredEntriesCount, setFilteredEntriesCount] = useState<number>(0)
   const { filteredEntries, setFilteredEntries } = useFilterStore((state) => ({
     filteredEntries: state.filteredEntries,
     setFilteredEntries: state.setFilteredEntries
@@ -80,6 +82,23 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   }, [hasHydrated, country, ageGroup])
 
   useEffect(() => {
+    if (!hasHydrated) {
+      return
+    }
+
+    const updatedFilteredPositions = fetchedPositions.map((ranking) =>
+      ranking.filter((songId) => !filteredEntries.includes(songId.toString()))
+    )
+    const filteredEntriesOfSongList = songList.filter((entry) =>
+      filteredEntries.includes(entry.id.toString())
+    )
+    const filteredEntriesCount = filteredEntriesOfSongList.length
+
+    setFilteredEntriesCount(filteredEntriesCount)
+    setFilteredPositions(updatedFilteredPositions)
+  }, [filteredEntries, fetchedPositions])
+
+  useEffect(() => {
     const optionEntries = songList.map((entry) => ({
       // @ts-expect-error - ${entry.country} is a database country code
       label: t(`country.${entry.country}`),
@@ -90,6 +109,10 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
 
   useEffect(() => {
     if (!fetchedPositions.length) {
+      return
+    }
+
+    if (!filteredPositions.length) {
       setFilteredSongs([])
       setIsLoading(false)
       return
@@ -105,7 +128,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
     )
 
     // Determine the total number of unique songs
-    const totalSongs = songList.length
+    const totalSongs = songList.length - filteredEntriesCount
     const scoresESC = [12, 10, 8, 7, 6, 5, 4, 3, 2, 1]
 
     // Step 2: Assign points based on user rankings
@@ -113,7 +136,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
 
     if (scoringFunction === 'esc') {
       // ESC scoring system
-      fetchedPositions.forEach((ranking) => {
+      filteredPositions.forEach((ranking) => {
         ranking.forEach((songId, index) => {
           if (index >= scoresESC.length) {
             return
@@ -123,7 +146,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
       })
     } else if (scoringFunction === 'linear') {
       // Linear decay function
-      fetchedPositions.forEach((ranking) => {
+      filteredPositions.forEach((ranking) => {
         ranking.forEach((songId, index) => {
           points[songId] += Math.round(totalSongs - index)
         })
@@ -140,9 +163,9 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
       .sort((a, b) => b.score - a.score) as EntryDetails[]
 
     setSongs(sortedEntries)
-    setFilteredSongs(sortedEntries)
+
     setIsLoading(false)
-  }, [scoringFunction, fetchedPositions])
+  }, [scoringFunction, filteredPositions])
 
   useEffect(() => {
     if (songs && filteredEntries) {
@@ -176,7 +199,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
 
       setFilteredSongs(filteredSongs)
     }
-  }, [viewGroup, filteredEntries])
+  }, [viewGroup, filteredEntries, songs])
 
   if (!hasHydrated || !songList) {
     return (
