@@ -168,10 +168,10 @@ export const getAllRankingsByEditionId = async (
     args.push(nationality)
   }
 
-  if (ageGroup && ageGroup !== '') {
+  if (ageGroup && ageGroup !== 'all') {
     const currentYear = new Date().getFullYear()
     const ageRanges: Record<AgeGroup, number[]> = {
-      '': [0, currentYear],
+      all: [0, currentYear],
       '0-15': [currentYear - 15, currentYear],
       '16-22': [currentYear - 22, currentYear - 16],
       '23-29': [currentYear - 29, currentYear - 23],

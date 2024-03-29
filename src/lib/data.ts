@@ -17,7 +17,7 @@ export type RankingResponse = {
 }
 
 export type AgeGroup =
-  | ''
+  | 'all'
   | '0-15'
   | '16-22'
   | '23-29'
