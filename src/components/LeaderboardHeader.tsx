@@ -37,7 +37,6 @@ interface LeaderboardHeaderProps {
   setScoringFunction: (value: 'linear' | 'esc') => void
   setCountry: (value: string) => void
   setAgeGroup: (value: AgeGroup) => void
-  handleSelectRanking: (ranking: string) => void
 }
 
 const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
@@ -53,8 +52,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   setFilteredEntries,
   setScoringFunction,
   setCountry,
-  setAgeGroup,
-  handleSelectRanking
+  setAgeGroup
 }) => {
   const t = useTranslations('en')
 
@@ -239,7 +237,11 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   variant='outline'
                   className='flex flex-wrap justify-between gap-1'
                   value={ageGroup}
-                  onValueChange={(value) => setAgeGroup(value as AgeGroup)}
+                  onValueChange={(value) => {
+                    value === ''
+                      ? setAgeGroup('all')
+                      : setAgeGroup(value as AgeGroup)
+                  }}
                 >
                   <ToggleGroupItem
                     value='0-15'
@@ -451,62 +453,6 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
               <DialogFooter className='gap-4'>
                 <DialogClose asChild>
                   <Button>Close</Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-          <Dialog>
-            <DialogTrigger>
-              <div
-                className={
-                  'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-white hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
-                }
-              >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='16'
-                  height='16'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='#111827'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
-                  <path d='M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path>
-                  <path d='M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path>
-                  <path d='M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path>
-                  <path d='M8.7 10.7l6.6 -3.4'></path>
-                  <path d='M8.7 13.3l6.6 3.4'></path>
-                </svg>
-                <span className='hidden text-sm font-bold text-eerie md:flex'>
-                  Share
-                </span>
-              </div>
-            </DialogTrigger>
-            <DialogContent className='text-eerie'>
-              <DialogHeader>
-                <DialogTitle>Share your ranking</DialogTitle>
-                <DialogDescription>
-                  Select which ranking you want to generate as an image (Screen
-                  may freeze for a few seconds while generating).
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter className='gap-4'>
-                {(viewGroup === 'semiOne' ||
-                  viewGroup === 'semiTwo' ||
-                  viewGroup === '') && (
-                  <DialogClose asChild>
-                    <Button onClick={() => handleSelectRanking('share10')}>
-                      Top 10
-                    </Button>
-                  </DialogClose>
-                )}
-                <DialogClose asChild>
-                  <Button onClick={() => handleSelectRanking('shareAll')}>
-                    Full Top
-                  </Button>
                 </DialogClose>
               </DialogFooter>
             </DialogContent>
