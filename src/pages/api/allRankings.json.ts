@@ -1,5 +1,6 @@
 import type { APIContext } from 'astro'
 import { getAllRankingsByEditionId } from 'src/db/client'
+import { type AgeGroup } from '../../lib/data'
 
 export async function GET({ request }: APIContext): Promise<Response> {
   const queryParams = new URL(request.url).searchParams
@@ -21,7 +22,7 @@ export async function GET({ request }: APIContext): Promise<Response> {
   const result = await getAllRankingsByEditionId(
     editionId,
     nationality ?? undefined,
-    ageGroup ?? undefined
+    (ageGroup as AgeGroup) ?? undefined
   )
 
   if (!result) {

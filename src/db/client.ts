@@ -1,6 +1,6 @@
 import { createClient } from '@libsql/client'
 import { LibSQLAdapter } from '@lucia-auth/adapter-sqlite'
-import { AgeGroup } from '../lib/data'
+import { type AgeGroup } from '../lib/data'
 
 const db = createClient({
   url: import.meta.env.DATABASE_URL ?? '',
@@ -168,9 +168,10 @@ export const getAllRankingsByEditionId = async (
     args.push(nationality)
   }
 
-  if (ageGroup) {
+  if (ageGroup && ageGroup !== '') {
     const currentYear = new Date().getFullYear()
-    const ageRanges: Record<Partial<AgeGroup>, number[]> = {
+    const ageRanges: Record<AgeGroup, number[]> = {
+      '': [0, currentYear],
       '0-15': [currentYear - 15, currentYear],
       '16-22': [currentYear - 22, currentYear - 16],
       '23-29': [currentYear - 29, currentYear - 23],
@@ -183,7 +184,7 @@ export const getAllRankingsByEditionId = async (
 
     if (range) {
       sql += ' AND u.year_of_birth BETWEEN ? AND ?'
-      args.push(range[0], range[1])
+      args.push(range[0].toString(), range[1].toString())
     }
   }
 
