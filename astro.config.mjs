@@ -17,6 +17,11 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['oslo']
     }
+  },
+  redirects: {
+    '/ranking': '/eurovision/2024/ranking',
+    '/sorter': '/eurovision/2024/sorter',
+    '/leaderboard': '/eurovision/2024/leaderboard'
   }
 })
 //
