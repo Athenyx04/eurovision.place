@@ -1,11 +1,11 @@
 ---
-import Battler from 'src/components/Battler'
+import Battler from '../../../../components/Battler'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
-} from 'src/db/client'
-import FloatingHeaderLayout from 'src/layouts/FloatingHeaderLayout.astro'
-import type { EntryDetails } from 'src/lib/data'
+} from '../../../../db/client'
+import FloatingHeaderLayout from '../../../../layouts/FloatingHeaderLayout.astro'
+import type { EntryDetails } from '../../../../lib/data'
 const { editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
