@@ -60,16 +60,22 @@ function ShareCard({
       </div>
       <div className='flex min-w-0 grow flex-row items-center py-3'>
         <div className='flex min-w-0 grow flex-col'>
-          <div className='flex grow items-center gap-3 font-bold'>
-            <img
-              src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
-              // @ts-expect-error - ${country} is a database country code
-              alt={t(`country.${country}`)}
-              className='w-6 rounded-md'
-            />
-            {/* @ts-expect-error - ${country} is a database country code */}
-            <span className=''>{t(`country.${country}`).toUpperCase()}</span>
-          </div>
+          {country !== null ? (
+            <div className='flex grow items-center gap-3 font-bold'>
+              <img
+                src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+                // @ts-expect-error - ${country} is a database country code
+                alt={t(`country.${country}`)}
+                className='w-6 rounded-md'
+              />
+              {/* @ts-expect-error - ${country} is a database country code */}
+              <span className=''>{t(`country.${country}`).toUpperCase()}</span>
+            </div>
+          ) : (
+            <div className='flex grow items-center gap-3 font-bold'>
+              <span className=''>{artistName.toUpperCase()}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

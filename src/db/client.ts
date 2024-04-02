@@ -75,6 +75,20 @@ export const getEditionIdByEventNameAndEditionName = async (
   return response.rows[0]?.editionId
 }
 
+export const getEditionIdByEventCountryAndEditionName = async (
+  eventName: string,
+  editionName: string
+) => {
+  const response = await db.execute({
+    sql: 'SELECT ed.id AS editionId FROM edition ed JOIN event e ON ed.event_id = e.id WHERE e.country = ? AND ed.year = ?',
+    args: [eventName, editionName]
+  })
+
+  console.log(eventName, editionName, response)
+
+  return response.rows[0]?.editionId
+}
+
 export const getEntriesByEditionId = async (editionId: string) => {
   const response = await db.execute({
     sql: `SELECT 
@@ -189,6 +203,24 @@ export const getAllRankingsByEditionId = async (
   }
 
   const response = await db.execute({ sql, args })
+
+  return response.rows
+}
+
+export const getAllNationalFinals = async () => {
+  const response = await db.execute({
+    sql: `SELECT 
+      e.id AS editionId,
+      e.name AS eventName, 
+      e.country AS eventCountry, 
+      ed.year AS editionYear, 
+      ed.event_id AS eventId
+      FROM edition ed 
+      JOIN event e ON ed.event_id = e.id 
+      WHERE ed.event_id != 1 
+      ORDER BY ed.year DESC, e.name ASC`,
+    args: []
+  })
 
   return response.rows
 }
