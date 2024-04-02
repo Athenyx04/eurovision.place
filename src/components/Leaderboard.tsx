@@ -27,7 +27,13 @@ const Load = () => (
   </svg>
 )
 
-function Leaderboard({ songList }: { songList: EntryDetails[] }) {
+function Leaderboard({
+  songList,
+  editionId
+}: {
+  songList: EntryDetails[]
+  editionId: string
+}) {
   const hasHydrated = useFilterStore((state) => state._hasHydrated)
 
   const [songs, setSongs] = useState<EntryDetails[]>([])
@@ -55,7 +61,7 @@ function Leaderboard({ songList }: { songList: EntryDetails[] }) {
   useEffect(() => {
     async function getAllPositions() {
       const url = new URL('/api/allRankings.json', window.location.href)
-      url.searchParams.append('editionId', '1')
+      url.searchParams.append('editionId', editionId)
       if (country !== 'ZZ') {
         url.searchParams.append('nationality', country)
       }

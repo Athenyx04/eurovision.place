@@ -34,5 +34,9 @@ if (editionId) {
 ---
 
 <Layout title=`My ${eventName} ${editionName} | Eurovision Place`>
-  <RankingComponent client:load songList={entries} />
+  <RankingComponent
+    client:load
+    songList={entries}
+    editionId={editionId.toString()}
+  />
 </Layout>

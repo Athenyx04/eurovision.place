@@ -30,7 +30,13 @@ const Load = () => (
   </svg>
 )
 
-function Ranking({ songList }: { songList: EntryDetails[] }) {
+function Ranking({
+  songList,
+  editionId
+}: {
+  songList: EntryDetails[]
+  editionId: string
+}) {
   const { sortedEntriesIds, setEntriesIds } = useSorterStore()
   const hasHydrated = useSorterStore((state) => state._hasHydrated)
 
@@ -88,11 +94,11 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
       let dh
 
       if (args.length === 3) {
-        [dx, dy] = args.slice(1)
+        ;[dx, dy] = args.slice(1)
       } else if (args.length === 5) {
-        [dx, dy, dw, dh] = args.slice(1)
+        ;[dx, dy, dw, dh] = args.slice(1)
       } else if (args.length === 9) {
-        [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
+        ;[sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
       }
 
       if (image instanceof HTMLImageElement && args.length === 9) {
@@ -164,7 +170,7 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        editionId: '1',
+        editionId: editionId,
         ranking: newSongIds
       })
     })
@@ -182,7 +188,9 @@ function Ranking({ songList }: { songList: EntryDetails[] }) {
 
   useEffect(() => {
     async function getUserPositions() {
-      const response = await fetch('/api/userRanking.json?editionId=1')
+      const url = new URL('/api/userRanking.json', window.location.href)
+      url.searchParams.append('editionId', editionId)
+      const response = await fetch(url)
       if (!response.ok) {
         if (sortedEntriesIds.length > 0) {
           setPositions(sortedEntriesIds)

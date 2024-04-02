@@ -1,20 +1,19 @@
 ---
-import Battler from 'src/components/Battler'
+import RankingComponent from 'src/components/Ranking'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
 } from 'src/db/client'
-import FloatingHeaderLayout from 'src/layouts/FloatingHeaderLayout.astro'
+import Layout from 'src/layouts/Layout.astro'
 import type { EntryDetails } from 'src/lib/data'
-const { eventNamePath, editionNamePath } = Astro.params
+const { editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
-const eventName = eventNamePath
-  ?.replace(/-/g, ' ')
-  .replace(/\b\w/g, (l) => l.toUpperCase())
+const eventName = 'Euromovidas'
 const editionName = editionNamePath
   ?.replace(/-/g, ' ')
   .replace(/\b\w/g, (l) => l.toUpperCase())
+
 const editionId = await getEditionIdByEventNameAndEditionName(
   eventName ?? '',
   editionName ?? ''
@@ -32,8 +31,10 @@ if (editionId) {
 }
 ---
 
-<FloatingHeaderLayout
-  title=`${eventName} ${editionName} Sorter | Eurovision Place`
->
-  <Battler client:load songList={entries} editionId={editionId.toString()} />
-</FloatingHeaderLayout>
+<Layout title='Tu ránking para el movidas | Eurovision Place'>
+  <RankingComponent
+    client:load
+    songList={entries}
+    editionId={editionId.toString()}
+  />
+</Layout>
