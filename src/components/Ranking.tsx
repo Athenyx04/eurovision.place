@@ -94,11 +94,11 @@ function Ranking({
       let dh
 
       if (args.length === 3) {
-        ;[dx, dy] = args.slice(1)
+        [dx, dy] = args.slice(1)
       } else if (args.length === 5) {
-        ;[dx, dy, dw, dh] = args.slice(1)
+        [dx, dy, dw, dh] = args.slice(1)
       } else if (args.length === 9) {
-        ;[sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
+        [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1)
       }
 
       if (image instanceof HTMLImageElement && args.length === 9) {

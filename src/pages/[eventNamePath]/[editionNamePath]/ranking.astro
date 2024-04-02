@@ -1,11 +1,11 @@
 ---
-import RankingComponent from '../../../components/Ranking'
+import RankingComponent from '../../../components/Ranking.tsx'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
-} from '../../../db/client'
+} from '../../../db/client.ts'
 import Layout from '../../../layouts/Layout.astro'
-import type { EntryDetails } from '../../../lib/data'
+import type { EntryDetails } from '../../../lib/data.ts'
 const { eventNamePath, editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces

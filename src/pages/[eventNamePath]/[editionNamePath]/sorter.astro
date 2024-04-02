@@ -1,11 +1,11 @@
 ---
-import Battler from '../../../components/Battler'
+import Battler from '../../../components/Battler.tsx'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
-} from '../../../db/client'
+} from '../../../db/client.ts'
 import FloatingHeaderLayout from '../../../layouts/FloatingHeaderLayout.astro'
-import type { EntryDetails } from '../../../lib/data'
+import type { EntryDetails } from '../../../lib/data.ts'
 const { eventNamePath, editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
