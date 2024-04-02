@@ -6,14 +6,21 @@ import Layout from 'src/layouts/Layout.astro'
 
 const allEditions = await getAllNationalFinals()
 
-const editionsByYear = allEditions.reduce((acc, edition) => {
-  const year = edition.editionYear
-  if (!acc[year]) {
-    acc[year] = []
-  }
-  acc[year].push(edition)
-  return acc
-}, {})
+const editionsByYear = allEditions.reduce(
+  (acc: Record<string, typeof allEditions>, edition) => {
+    const year = edition.editionYear?.toString()
+    if (!year) {
+      return acc
+    }
+
+    if (!acc[year]) {
+      acc[year] = []
+    }
+    acc[year].push(edition)
+    return acc
+  },
+  {}
+)
 
 console.log(editionsByYear)
 ---
