@@ -24,16 +24,18 @@ const EntryScreen = ({ entry, onVote }: Props) => {
         >
           <h1 className='text-2xl font-extrabold tracking-tight'>{title}</h1>
           <p className='text-lg font-light'>{artistName}</p>
-          <p className='mt-1 flex items-center gap-2 text-sm font-semibold'>
-            <img
-              src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
-              // @ts-expect-error - ${country} is a database country code
-              alt={t(`country.${country}`)}
-              className='w-8 rounded-md'
-            />
-            {/* @ts-expect-error - ${country} is a database country code */}
-            {t(`country.${country}`)}
-          </p>
+          {country && (
+            <p className='mt-1 flex items-center gap-2 text-sm font-semibold'>
+              <img
+                src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+                // @ts-expect-error - ${country} is a database country code
+                alt={t(`country.${country}`)}
+                className='w-8 rounded-md'
+              />
+              {/* @ts-expect-error - ${country} is a database country code */}
+              {t(`country.${country}`)}
+            </p>
+          )}
         </div>
         <div className='flex items-center justify-center'>
           <PlayPauseButton src={audioUri} size='lg' />

@@ -1,7 +1,7 @@
 ---
-import LeaderboardComponent from 'src/components/Leaderboard'
+import RankingComponent from 'src/components/Ranking'
 import {
-  getEditionIdByEventNameAndEditionName,
+  getEditionIdByEventCountryAndEditionName,
   getEntriesByEditionId
 } from 'src/db/client'
 import Layout from 'src/layouts/Layout.astro'
@@ -9,15 +9,20 @@ import type { EntryDetails } from 'src/lib/data'
 const { eventNamePath, editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
-const eventName = eventNamePath
-  ?.replace(/-/g, ' ')
-  .replace(/\b\w/g, (l) => l.toUpperCase())
+const eventName = eventNamePath?.toUpperCase()
+
 const editionName = editionNamePath
   ?.replace(/-/g, ' ')
   .replace(/\b\w/g, (l) => l.toUpperCase())
 
-const editionId = await getEditionIdByEventNameAndEditionName(
-  eventName ?? '',
+if (!eventName || !editionName) {
+  return Astro.redirect('/404')
+} else if (eventName === 'EUROVISION' || eventName === 'EU') {
+  return Astro.redirect(`/eurovision/${editionNamePath}/ranking`)
+}
+
+const editionId = await getEditionIdByEventCountryAndEditionName(
+  eventName === 'EUROVISION' ? 'EU' : eventName ?? '',
   editionName ?? ''
 )
 
@@ -33,6 +38,10 @@ if (editionId) {
 }
 ---
 
-<Layout title=`${eventName} ${editionName} Leaderboards | Eurovision Place`>
-  <LeaderboardComponent client:load songList={entries} />
+<Layout title=`My ${eventName} ${editionName} | Eurovision Place`>
+  <RankingComponent
+    client:load
+    songList={entries}
+    editionId={editionId.toString()}
+  />
 </Layout>

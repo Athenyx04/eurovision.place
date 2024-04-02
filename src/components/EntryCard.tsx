@@ -36,7 +36,7 @@ function EntryCard({ entry, position }: Props) {
 
   return (
     <div
-      className={`flex min-w-0 select-none ${
+      className={`flex min-w-0 min-h-[82px] select-none ${
         position === 1
           ? 'bg-[#ffcf40] text-eerie md:col-span-2 xl:col-span-6'
           : position === 2
@@ -85,20 +85,28 @@ function EntryCard({ entry, position }: Props) {
       </div>
       <div className='flex min-w-0 flex-row items-center py-2'>
         <div className='flex min-w-0 flex-col'>
-          <div className='flex items-center gap-2 font-bold'>
-            <img
-              src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
-              // @ts-expect-error - ${country} is a database country code
-              alt={t(`country.${country}`)}
-              className='w-6 rounded-md'
-            />
-            <span className='truncate'>
-              {/* @ts-expect-error - ${country} is a database country code */}
-              {t(`country.${country}`).toUpperCase()}
-            </span>
-          </div>
-          <span className='truncate text-sm font-light'>{title}</span>
-          <span className='truncate text-sm font-light'>{artistName}</span>
+          {country && (
+            <div className='flex items-center gap-2 font-bold'>
+              <img
+                src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+                // @ts-expect-error - ${country} is a database country code
+                alt={t(`country.${country}`)}
+                className='w-6 rounded-md'
+              />
+              <span className='truncate'>
+                {/* @ts-expect-error - ${country} is a database country code */}
+                {t(`country.${country}`).toUpperCase()}
+              </span>
+            </div>
+          )}
+          <span
+            className={`truncate ${country ? 'text-sm font-light' : 'font-bold'}`}
+          >
+            {country ? title : artistName.toUpperCase()}
+          </span>
+          <span className='truncate text-sm font-light'>
+            {country ? artistName : title}
+          </span>
         </div>
       </div>
       <div
