@@ -100,7 +100,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
             src='https://www.euromovidas.com/wp-content/uploads/2021/09/logo_euro_movidas-1.png'
             className='w-28'
           />
-          <h1 className='font-extrabold'>{title}</h1>
+          <h1 className='font-extrabold truncate'>{title}</h1>
         </div>
       ) : (
         <h1 className='font-extrabold'>{title}</h1>
