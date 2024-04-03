@@ -1,0 +1,35 @@
+---
+import Battler from '../../../../components/Battler.tsx'
+import {
+  getEditionIdByEventNameAndEditionName,
+  getEntriesByEditionId
+} from '../../../../db/client.ts'
+import FloatingHeaderLayout from '../../../../layouts/FloatingHeaderLayout.astro'
+import type { EntryDetails } from '../../../../lib/data.ts'
+const { editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventName = 'Euromovidas'
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+const editionId = await getEditionIdByEventNameAndEditionName(
+  eventName ?? '',
+  editionName ?? ''
+)
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<FloatingHeaderLayout title='El Sorter del Movidas | Eurovision Place'>
+  <Battler client:load songList={entries} editionId={editionId.toString()} />
+</FloatingHeaderLayout>

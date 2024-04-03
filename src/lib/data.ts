@@ -25,3 +25,11 @@ export type AgeGroup =
   | '45-59'
   | '60-74'
   | '75+'
+
+export type CommunityVariant = {
+  disableLeaderboard?: boolean
+  customRankingTitle?: string
+  customLeaderboardTitle?: string
+  customSorterTitle?: string
+  customColor?: string
+}

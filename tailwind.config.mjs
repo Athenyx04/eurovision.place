@@ -40,7 +40,8 @@ export default {
       colors: {
         liberty: '#5365a6',
         eerie: '#111827',
-        platinum: '#e5e5e5'
+        platinum: '#e5e5e5',
+        euromovidas: '#d62821'
       }
     }
   },

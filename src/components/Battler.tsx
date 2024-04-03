@@ -6,7 +6,13 @@ import { useFilterStore } from '../store/filterStore'
 import { usePlayerStore } from '../store/playerStore'
 import EntryScreen from './EntryScreen'
 
-function Battler({ songList }: { songList: EntryDetails[] }) {
+function Battler({
+  songList,
+  editionId
+}: {
+  songList: EntryDetails[]
+  editionId: string
+}) {
   const {
     entries,
     sortedIndexes,
@@ -67,7 +73,7 @@ function Battler({ songList }: { songList: EntryDetails[] }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        editionId: '1',
+        editionId: editionId,
         ranking: sortedEntriesIds
       })
     })
