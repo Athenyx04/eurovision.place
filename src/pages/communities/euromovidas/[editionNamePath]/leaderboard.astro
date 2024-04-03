@@ -1,0 +1,44 @@
+---
+import LeaderboardComponent from '../../../../components/Leaderboard.tsx'
+import {
+  getEditionIdByEventNameAndEditionName,
+  getEntriesByEditionId
+} from '../../../../db/client.ts'
+import Layout from '../../../../layouts/Layout.astro'
+import type { EntryDetails } from '../../../../lib/data.ts'
+const { editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventName = 'Euromovidas'
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+
+const editionId = await getEditionIdByEventNameAndEditionName(
+  eventName ?? '',
+  editionName ?? ''
+)
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<Layout title='El Ránking de la Comunidad | Eurovision Place'>
+  <LeaderboardComponent
+    client:load
+    songList={entries}
+    editionId={editionId.toString()}
+    communityVariant={{
+      disableLeaderboard: true,
+      customColor: 'bg-euromovidas'
+    }}
+  />
+</Layout>

@@ -1,3 +1,4 @@
+import type { CommunityVariant } from '../lib/data'
 import { Button } from './ui/button'
 import {
   Dialog,
@@ -17,6 +18,7 @@ interface RankingHeaderProps {
   viewGroup: string
   entryValues: OptionType[]
   filteredEntries: string[]
+  communityVariant?: CommunityVariant
   setViewGroup: (value: string) => void
   setFilteredEntries: (prevState: string[]) => void
   handleSelectRanking: (ranking: string) => void
@@ -27,6 +29,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
   viewGroup,
   entryValues,
   filteredEntries,
+  communityVariant,
   setViewGroup,
   setFilteredEntries,
   handleSelectRanking
@@ -36,8 +39,20 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
   const sorterPath = currentPath.replace(/\/ranking$/, '/sorter')
 
   return (
-    <div className='flex flex-col items-center p-4 shadow-xl'>
-      <h1 className='font-extrabold'>{title}</h1>
+    <div
+      className={`flex flex-col items-center p-4 shadow-xl ${communityVariant?.customColor ? communityVariant?.customColor : 'bg-eerie'}`}
+    >
+      {communityVariant?.customColor ? (
+        <div className='flex gap-6 py-2'>
+          <img
+            src='https://www.euromovidas.com/wp-content/uploads/2021/09/logo_euro_movidas-1.png'
+            className='w-28'
+          />
+          <h1 className='font-extrabold'>{title}</h1>
+        </div>
+      ) : (
+        <h1 className='font-extrabold'>{title}</h1>
+      )}
       <div className='text-sm font-light flex items-center text-center pt-2 gap-6'>
         <button>
           <a href={sorterPath}>
@@ -69,38 +84,40 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
             </div>
           </a>
         </button>
-        <button>
-          <a href={leaderboardPath}>
-            <div
-              className={
-                'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-eerie hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
-              }
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='16'
-                height='16'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+        {communityVariant?.disableLeaderboard ? null : (
+          <button>
+            <a href={leaderboardPath}>
+              <div
+                className={
+                  'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-eerie hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+                }
               >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path d='M21 12a9 9 0 1 0 -9.679 8.974' />
-                <path d='M3.6 9h16.8' />
-                <path d='M3.6 15h6.9' />
-                <path d='M11.5 3a17 17 0 0 0 0 18' />
-                <path d='M12.5 3a16.983 16.983 0 0 1 2.556 8.136' />
-                <path d='M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z' />
-              </svg>
-              <span className='hidden text-sm font-bold text-eerie md:flex'>
-                Leaderboards
-              </span>
-            </div>
-          </a>
-        </button>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='16'
+                  height='16'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <path d='M21 12a9 9 0 1 0 -9.679 8.974' />
+                  <path d='M3.6 9h16.8' />
+                  <path d='M3.6 15h6.9' />
+                  <path d='M11.5 3a17 17 0 0 0 0 18' />
+                  <path d='M12.5 3a16.983 16.983 0 0 1 2.556 8.136' />
+                  <path d='M18 22l3.35 -3.284a2.143 2.143 0 0 0 .005 -3.071a2.242 2.242 0 0 0 -3.129 -.006l-.224 .22l-.223 -.22a2.242 2.242 0 0 0 -3.128 -.006a2.143 2.143 0 0 0 -.006 3.071l3.355 3.296z' />
+                </svg>
+                <span className='hidden text-sm font-bold text-eerie md:flex'>
+                  Leaderboards
+                </span>
+              </div>
+            </a>
+          </button>
+        )}
         <Dialog>
           <DialogTrigger>
             <div

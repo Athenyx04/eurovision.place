@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue
 } from './ui/select'
-import type { AgeGroup } from '@/lib/data'
+import type { AgeGroup, CommunityVariant } from '@/lib/data'
 
 interface LeaderboardHeaderProps {
   title: string
@@ -32,6 +32,7 @@ interface LeaderboardHeaderProps {
   country: string
   ageGroup: AgeGroup
   rankingCount: number
+  communityVariant?: CommunityVariant
   setViewGroup: (value: string) => void
   setFilteredEntries: (prevState: string[]) => void
   setScoringFunction: (value: 'linear' | 'esc') => void
@@ -48,6 +49,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   country,
   ageGroup,
   rankingCount,
+  communityVariant,
   setViewGroup,
   setFilteredEntries,
   setScoringFunction,
@@ -89,8 +91,20 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   const rankingPath = currentPath.replace(/\/leaderboard$/, '/ranking')
 
   return (
-    <div className='flex flex-col items-center px-4 pt-4 shadow-xl'>
-      <h1 className='font-extrabold'>{title}</h1>
+    <div
+      className={`flex flex-col items-center px-4 pt-4 shadow-xl ${communityVariant?.customColor ? communityVariant?.customColor : 'bg-eerie'}`}
+    >
+      {communityVariant?.customColor ? (
+        <div className='flex gap-6 py-2'>
+          <img
+            src='https://www.euromovidas.com/wp-content/uploads/2021/09/logo_euro_movidas-1.png'
+            className='w-28'
+          />
+          <h1 className='font-extrabold truncate'>{title}</h1>
+        </div>
+      ) : (
+        <h1 className='font-extrabold'>{title}</h1>
+      )}
       <div className='text-sm font-light flex items-center text-center pt-2 gap-2'>
         <Badge className='text-slate-200 border-2 border-liberty'>
           {/* @ts-expect-error - code value is in list */}
