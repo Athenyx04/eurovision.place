@@ -259,33 +259,59 @@ function Leaderboard({
             <path d='M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0' />
             <path d='M8 11v-4a4 4 0 1 1 8 0v4' />
           </svg>
-          <p className='text-center'>
-            Leaderboards are currently disabled for this community
-          </p>
+          <div className='px-4 text-center'>
+            <span className='font-light '>
+              Las clasificaciones generales se habilitarán durante el próximo
+              directo
+            </span>
+            <a
+              href='https://www.twitch.tv/euromovidas'
+              target='_blank'
+              className='flex items-center justify-center gap-2 bg-eerie p-2 underline'
+            >
+              <span className='font-light'>Twitch de Euromovidas</span>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='16'
+                height='16'
+                viewBox='0 0 24 24'
+                strokeWidth='1.5'
+                stroke='#ffffff'
+                fill='none'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
+                <path d='M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0'></path>
+                <path d='M15 9l-6 6'></path>
+                <path d='M15 15v-6h-6'></path>
+              </svg>
+            </a>
+          </div>
         </div>
       )}
       {!filteredSongs.length &&
         !isLoading &&
         !communityVariant?.disableLeaderboard && (
-          <div className='flex flex-col gap-4 w-full grow items-center justify-center text-slate-200'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='80'
-              height='80'
-              viewBox='0 0 24 24'
-              fill='currentColor'
-            >
-              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-              <path d='M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z' />
-            </svg>
-            <p>There are no rankings with the selected filters</p>
-          </div>
-        )}
+        <div className='flex flex-col gap-4 w-full grow items-center justify-center text-slate-200'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='80'
+            height='80'
+            viewBox='0 0 24 24'
+            fill='currentColor'
+          >
+            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+            <path d='M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z' />
+          </svg>
+          <p>There are no rankings with the selected filters</p>
+        </div>
+      )}
       {filteredSongs.length !== 0 &&
         !isLoading &&
         !communityVariant?.disableLeaderboard && (
-          <LeaderboardSongList songs={filteredSongs} />
-        )}
+        <LeaderboardSongList songs={filteredSongs} />
+      )}
     </div>
   )
 }
