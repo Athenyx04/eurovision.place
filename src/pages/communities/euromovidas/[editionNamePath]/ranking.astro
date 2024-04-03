@@ -31,10 +31,14 @@ if (editionId) {
 }
 ---
 
-<Layout title='Tu ránking para el movidas | Eurovision Place'>
+<Layout title='Mi Ránking para el Movidas | Eurovision Place'>
   <RankingComponent
     client:load
     songList={entries}
     editionId={editionId.toString()}
+    communityVariant={{
+      disableLeaderboard: false,
+      customColor: 'bg-euromovidas'
+    }}
   />
 </Layout>

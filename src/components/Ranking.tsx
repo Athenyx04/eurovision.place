@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'src/i18n/utils'
 import { useSorterStore } from 'src/store/sorterStore'
 
-import { type EntryDetails } from '../lib/data'
+import { type CommunityVariant, type EntryDetails } from '../lib/data'
 import { $ } from '../lib/dom-selector'
 import { useFilterStore } from '../store/filterStore'
 import RankingHeader from './RankingHeader'
@@ -32,10 +32,12 @@ const Load = () => (
 
 function Ranking({
   songList,
-  editionId
+  editionId,
+  communityVariant
 }: {
   songList: EntryDetails[]
   editionId: string
+  communityVariant?: CommunityVariant
 }) {
   const { sortedEntriesIds, setEntriesIds } = useSorterStore()
   const hasHydrated = useSorterStore((state) => state._hasHydrated)
@@ -323,6 +325,7 @@ function Ranking({
         setFilteredEntries={setFilteredEntries}
         setViewGroup={setViewGroup}
         handleSelectRanking={handleSelectRanking}
+        communityVariant={communityVariant}
       />
       <RankingSongList
         activeItem={activeItem}
