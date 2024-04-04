@@ -218,6 +218,7 @@ export const getAllNationalFinals = async () => {
       FROM edition ed 
       JOIN event e ON ed.event_id = e.id 
       WHERE ed.event_id != 1 
+      AND ed.year <= 2100
       ORDER BY ed.year DESC, e.name ASC`,
     args: []
   })
