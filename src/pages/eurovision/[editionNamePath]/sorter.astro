@@ -33,5 +33,5 @@ if (editionId) {
 <FloatingHeaderLayout
   title=`Eurovision ${editionName} Sorter | Eurovision Place`
 >
-  <Battler client:load songList={entries} />
+  <Battler client:load songList={entries} editionId={editionId.toString()} />
 </FloatingHeaderLayout>
