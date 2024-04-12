@@ -36,9 +36,12 @@ if (editionId) {
     client:load
     songList={entries}
     editionId={editionId.toString()}
+    eventName={'Eurovision'}
+    editionName={editionName ?? ''}
     communityVariant={{
       disableLeaderboard: false,
-      customColor: 'bg-euromovidas'
+      customColor: 'bg-euromovidas',
+      customRankingTitle: 'Mi Ránking para el Movidas'
     }}
   />
 </Layout>

@@ -31,10 +31,14 @@ const Load = () => (
 function Leaderboard({
   songList,
   editionId,
+  eventName,
+  editionName,
   communityVariant
 }: {
   songList: EntryDetails[]
   editionId: string
+  eventName: string
+  editionName: string
   communityVariant?: CommunityVariant
 }) {
   const hasHydrated = useFilterStore((state) => state._hasHydrated)
@@ -44,7 +48,7 @@ function Leaderboard({
   const [viewGroup, setViewGroup] = useState<string>('')
   const [entryValues, setEntryValues] = useState<OptionType[]>([])
   const [rankingTitle, setRankingTitle] = useState<string>(
-    'Eurovision 2024 Leaderboard'
+    `${eventName} ${editionName} Leaderboard`
   )
   const [scoringFunction, setScoringFunction] = useState<'linear' | 'esc'>(
     'linear'
@@ -59,6 +63,7 @@ function Leaderboard({
     filteredEntries: state.filteredEntries,
     setFilteredEntries: state.setFilteredEntries
   }))
+  const isNationalSelection = eventName === 'Eurovision' ? false : true
   const t = useTranslations('en')
 
   useEffect(() => {
@@ -193,8 +198,6 @@ function Leaderboard({
                     ? 'Balkans'
                     : null
 
-      console.log(songs)
-
       let filteredSongs = songs.filter(
         (song) => !filteredEntries.includes(song.id.toString())
       )
@@ -203,9 +206,13 @@ function Leaderboard({
         filteredSongs = filteredSongs.filter((song) =>
           song.categories.includes(group)
         )
-        setRankingTitle(`${group} 2024 Leaderboard`)
+        setRankingTitle(`${group} ${editionName} Leaderboard`)
       } else {
-        setRankingTitle('Eurovision 2024 Leaderboard')
+        setRankingTitle(`${eventName} ${editionName} Leaderboard`)
+      }
+
+      if (communityVariant?.customLeaderboardTitle) {
+        setRankingTitle(communityVariant.customLeaderboardTitle)
       }
 
       setFilteredSongs(filteredSongs)
@@ -231,6 +238,7 @@ function Leaderboard({
         ageGroup={ageGroup}
         country={country}
         rankingCount={fetchedPositions.length}
+        isNationalSelection={isNationalSelection}
         communityVariant={communityVariant}
         setFilteredEntries={setFilteredEntries}
         setViewGroup={setViewGroup}

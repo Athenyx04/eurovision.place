@@ -80,13 +80,11 @@ export const getEditionIdByEventCountryAndEditionName = async (
   editionName: string
 ) => {
   const response = await db.execute({
-    sql: 'SELECT ed.id AS editionId FROM edition ed JOIN event e ON ed.event_id = e.id WHERE e.country = ? AND ed.year = ?',
+    sql: 'SELECT ed.id AS editionId, e.name AS eventName FROM edition ed JOIN event e ON ed.event_id = e.id WHERE e.country = ? AND ed.year = ?',
     args: [eventName, editionName]
   })
 
-  console.log(eventName, editionName, response)
-
-  return response.rows[0]?.editionId
+  return response.rows[0]
 }
 
 export const getEntriesByEditionId = async (editionId: string) => {

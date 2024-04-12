@@ -10,11 +10,13 @@ import {
 } from './ui/dialog'
 
 interface ShareDialogProps {
+  title: string
   shareImage: HTMLCanvasElement | null
   setShareImage: (canvas: HTMLCanvasElement | null) => void
 }
 
 const ShareDialog: React.FC<ShareDialogProps> = ({
+  title,
   shareImage,
   setShareImage
 }) => {
@@ -24,7 +26,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
         if (!blob) {
           return
         }
-        const file = new File([blob], 'eurovision-2024-ranking.png', {
+        const file = new File([blob], `${title} Ranking.png`, {
           type: 'image/png'
         })
         const shareData = {
@@ -46,7 +48,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
   const handleDownload = () => {
     if (!shareImage) return
     const link = document.createElement('a')
-    link.download = 'eurovision-2024-ranking.png'
+    link.download = `${title} Ranking.png`
     link.href = shareImage.toDataURL('image/png')
     link.click()
     setShareImage(null)
