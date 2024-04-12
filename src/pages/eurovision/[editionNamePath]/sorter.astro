@@ -1,22 +1,20 @@
 ---
-import Battler from '../../../components/Battler.tsx'
+import Battler from 'src/components/Battler'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
-} from '../../../db/client.ts'
-import FloatingHeaderLayout from '../../../layouts/FloatingHeaderLayout.astro'
-import type { EntryDetails } from '../../../lib/data.ts'
-const { eventNamePath, editionNamePath } = Astro.params
+} from 'src/db/client'
+import FloatingHeaderLayout from 'src/layouts/FloatingHeaderLayout.astro'
+import type { EntryDetails } from 'src/lib/data'
+const { editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
-const eventName = eventNamePath
-  ?.replace(/-/g, ' ')
-  .replace(/\b\w/g, (l) => l.toUpperCase())
 const editionName = editionNamePath
   ?.replace(/-/g, ' ')
   .replace(/\b\w/g, (l) => l.toUpperCase())
+
 const editionId = await getEditionIdByEventNameAndEditionName(
-  eventName ?? '',
+  'Eurovision',
   editionName ?? ''
 )
 
@@ -33,7 +31,7 @@ if (editionId) {
 ---
 
 <FloatingHeaderLayout
-  title=`${eventName} ${editionName} Sorter | Eurovision Place`
+  title=`Eurovision ${editionName} Sorter | Eurovision Place`
 >
   <Battler client:load songList={entries} editionId={editionId.toString()} />
 </FloatingHeaderLayout>

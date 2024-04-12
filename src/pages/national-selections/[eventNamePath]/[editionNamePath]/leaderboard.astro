@@ -1,0 +1,52 @@
+---
+import LeaderboardComponent from '../../../../components/Leaderboard'
+import {
+  getEditionIdByEventCountryAndEditionName,
+  getEntriesByEditionId
+} from '../../../../db/client'
+import Layout from '../../../../layouts/Layout.astro'
+import type { EntryDetails } from '../../../../lib/data'
+const { eventNamePath, editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventCountry = eventNamePath?.toUpperCase()
+
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+
+if (!eventCountry || !editionName) {
+  return Astro.redirect('/404')
+} else if (eventCountry === 'EUROVISION' || eventCountry === 'EU') {
+  return Astro.redirect(`/eurovision/${editionNamePath}/leaderboard`)
+}
+
+const editionDetails = await getEditionIdByEventCountryAndEditionName(
+  eventCountry ?? '',
+  editionName ?? ''
+)
+
+const editionId = editionDetails?.editionId
+const eventName = editionDetails?.eventName
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<Layout title=`${eventName} ${editionName} Leaderboards | Eurovision Place`>
+  <LeaderboardComponent
+    client:load
+    songList={entries}
+    editionId={editionId.toString()}
+    eventName={eventName?.toString() ?? ''}
+    editionName={editionName}
+  />
+</Layout>

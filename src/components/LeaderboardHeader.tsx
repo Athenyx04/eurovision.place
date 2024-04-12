@@ -32,6 +32,7 @@ interface LeaderboardHeaderProps {
   country: string
   ageGroup: AgeGroup
   rankingCount: number
+  isNationalSelection: boolean
   communityVariant?: CommunityVariant
   setViewGroup: (value: string) => void
   setFilteredEntries: (prevState: string[]) => void
@@ -49,6 +50,7 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
   country,
   ageGroup,
   rankingCount,
+  isNationalSelection,
   communityVariant,
   setViewGroup,
   setFilteredEntries,
@@ -393,79 +395,83 @@ const LeaderboardHeader: React.FC<LeaderboardHeaderProps> = ({
                   </ToggleGroupItem>
                 </ToggleGroup>
               </div>
-              <div className='space-y-2'>
-                <span className='text-sm font-bold text-eerie'>
-                  Filtered entries
-                </span>
-                <MultiSelect
-                  options={entryValues}
-                  selected={filteredEntries}
-                  onChange={setFilteredEntries}
-                />
-              </div>
-              <div className='space-y-2'>
-                <span className='text-sm font-bold text-eerie'>Group</span>
-                <ToggleGroup
-                  type='single'
-                  variant='outline'
-                  className='flex flex-wrap justify-normal gap-2'
-                  value={viewGroup}
-                  onValueChange={(value) => setViewGroup(value)}
-                >
-                  <div className='flex w-full gap-2'>
-                    <ToggleGroupItem
-                      value='big5'
-                      size={'text'}
-                      aria-label='Toggle Big 5 + Host'
-                      className='flex grow'
-                    >
-                      <span>Big 5 + Host</span>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='semiOne'
-                      size={'text'}
-                      aria-label='Toggle Semifinal 1'
-                      className='flex grow'
-                    >
-                      <span>Semifinal 1</span>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='semiTwo'
-                      size={'text'}
-                      aria-label='Toggle Semifinal 2'
-                      className='flex grow'
-                    >
-                      <span>Semifinal 2</span>
-                    </ToggleGroupItem>
+              {!isNationalSelection && (
+                <>
+                  <div className='space-y-2'>
+                    <span className='text-sm font-bold text-eerie'>
+                      Filtered entries
+                    </span>
+                    <MultiSelect
+                      options={entryValues}
+                      selected={filteredEntries}
+                      onChange={setFilteredEntries}
+                    />
                   </div>
-                  <div className='flex w-full gap-2'>
-                    <ToggleGroupItem
-                      value='nordics'
-                      size={'text'}
-                      aria-label='Toggle Nordics'
-                      className='flex grow'
+                  <div className='space-y-2'>
+                    <span className='text-sm font-bold text-eerie'>Group</span>
+                    <ToggleGroup
+                      type='single'
+                      variant='outline'
+                      className='flex flex-wrap justify-normal gap-2'
+                      value={viewGroup}
+                      onValueChange={(value) => setViewGroup(value)}
                     >
-                      <span>Nordics</span>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='baltics'
-                      size={'text'}
-                      aria-label='Toggle Baltics'
-                      className='flex grow'
-                    >
-                      <span>Baltics</span>
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value='balkans'
-                      size={'text'}
-                      aria-label='Toggle Balkans'
-                      className='flex grow'
-                    >
-                      <span>Balkans</span>
-                    </ToggleGroupItem>
+                      <div className='flex w-full gap-2'>
+                        <ToggleGroupItem
+                          value='big5'
+                          size={'text'}
+                          aria-label='Toggle Big 5 + Host'
+                          className='flex grow'
+                        >
+                          <span>Big 5 + Host</span>
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                          value='semiOne'
+                          size={'text'}
+                          aria-label='Toggle Semifinal 1'
+                          className='flex grow'
+                        >
+                          <span>Semifinal 1</span>
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                          value='semiTwo'
+                          size={'text'}
+                          aria-label='Toggle Semifinal 2'
+                          className='flex grow'
+                        >
+                          <span>Semifinal 2</span>
+                        </ToggleGroupItem>
+                      </div>
+                      <div className='flex w-full gap-2'>
+                        <ToggleGroupItem
+                          value='nordics'
+                          size={'text'}
+                          aria-label='Toggle Nordics'
+                          className='flex grow'
+                        >
+                          <span>Nordics</span>
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                          value='baltics'
+                          size={'text'}
+                          aria-label='Toggle Baltics'
+                          className='flex grow'
+                        >
+                          <span>Baltics</span>
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                          value='balkans'
+                          size={'text'}
+                          aria-label='Toggle Balkans'
+                          className='flex grow'
+                        >
+                          <span>Balkans</span>
+                        </ToggleGroupItem>
+                      </div>
+                    </ToggleGroup>
                   </div>
-                </ToggleGroup>
-              </div>
+                </>
+              )}
               <DialogFooter className='gap-4'>
                 <DialogClose asChild>
                   <Button>Close</Button>

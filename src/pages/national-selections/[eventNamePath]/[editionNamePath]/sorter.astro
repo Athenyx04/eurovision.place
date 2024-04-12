@@ -1,0 +1,48 @@
+---
+import Battler from '../../../../components/Battler'
+import {
+  getEditionIdByEventCountryAndEditionName,
+  getEntriesByEditionId
+} from '../../../../db/client'
+import FloatingHeaderLayout from '../../../../layouts/FloatingHeaderLayout.astro'
+import type { EntryDetails } from '../../../../lib/data'
+const { eventNamePath, editionNamePath } = Astro.params
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const eventCountry = eventNamePath?.toUpperCase()
+
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+
+if (!eventCountry || !editionName) {
+  return Astro.redirect('/404')
+} else if (eventCountry === 'EUROVISION' || eventCountry === 'EU') {
+  return Astro.redirect(`/eurovision/${editionNamePath}/sorter`)
+}
+
+const editionDetails = await getEditionIdByEventCountryAndEditionName(
+  eventCountry === 'EUROVISION' ? 'EU' : eventCountry ?? '',
+  editionName ?? ''
+)
+
+const editionId = editionDetails?.editionId
+const eventName = editionDetails?.eventName
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+}
+---
+
+<FloatingHeaderLayout
+  title=`${eventName} ${editionName} Sorter | Eurovision Place`
+>
+  <Battler client:load songList={entries} editionId={editionId.toString()} />
+</FloatingHeaderLayout>

@@ -1,0 +1,67 @@
+---
+import BackgroundGradient from '@/components/BackgroundGradient.astro'
+import { CLOUDFRONT_DOMAIN } from '@/lib/data'
+import { getAllNationalFinals } from 'src/db/client'
+import Layout from 'src/layouts/Layout.astro'
+
+const allEditions = await getAllNationalFinals()
+
+const editionsByYear = allEditions.reduce(
+  (acc: Record<string, typeof allEditions>, edition) => {
+    const year = edition.editionYear?.toString()
+    if (!year) {
+      return acc
+    }
+
+    if (!acc[year]) {
+      acc[year] = []
+    }
+    acc[year].push(edition)
+    return acc
+  },
+  {}
+)
+---
+
+<Layout title='National Selections | Eurovision Place'>
+  <BackgroundGradient />
+  <div class='container mx-auto px-4 py-8'>
+    <h1 class='text-4xl font-bold text-white'>National Selections</h1>
+    <!-- Editions by year descendent -->
+    {
+      Object.entries(editionsByYear)
+        .sort((a, b) => parseInt(b[0]) - parseInt(a[0]))
+        .map(([year, editions]) => {
+          return (
+            <div class='flex flex-col gap-4 py-4'>
+              <h2 class='text-2xl font-bold text-white'>{year}</h2>
+              <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                {editions.map((edition) => {
+                  const year = edition.editionYear?.toString()
+                  const country = edition.eventCountry?.toString().toLowerCase()
+                  const editionPath = `/national-selections/${country}/${year}/ranking`
+                  return (
+                    <a
+                      href={editionPath}
+                      class='bg-slate-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 ease-in-out hover:scale-105'
+                    >
+                      <div class='p-4 flex items-center space-x-4'>
+                        <img
+                          src={`${CLOUDFRONT_DOMAIN}/flags/${edition.eventCountry?.toString().toLowerCase()}.png`}
+                          alt=''
+                          class='w-8 rounded-md'
+                        />
+                        <h2 class='text-xl font-bold text-eerie truncate'>
+                          {edition.eventName} {edition.editionYear}
+                        </h2>
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })
+    }
+  </div>
+</Layout>

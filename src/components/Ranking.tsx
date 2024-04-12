@@ -33,10 +33,14 @@ const Load = () => (
 function Ranking({
   songList,
   editionId,
+  eventName,
+  editionName,
   communityVariant
 }: {
   songList: EntryDetails[]
   editionId: string
+  eventName: string
+  editionName: string
   communityVariant?: CommunityVariant
 }) {
   const { sortedEntriesIds, setEntriesIds } = useSorterStore()
@@ -49,12 +53,15 @@ function Ranking({
   const [filteredSongs, setFilteredSongs] = useState<EntryDetails[]>([])
   const [viewGroup, setViewGroup] = useState<string>('')
   const [entryValues, setEntryValues] = useState<OptionType[]>([])
-  const [rankingTitle, setRankingTitle] = useState<string>('My Eurovision 2024')
+  const [rankingTitle, setRankingTitle] = useState<string>(
+    `My ${eventName} ${editionName}`
+  )
   const { filteredEntries, setFilteredEntries } = useFilterStore((state) => ({
     filteredEntries: state.filteredEntries,
     setFilteredEntries: state.setFilteredEntries
   }))
   const [positions, setPositions] = useState<number[]>([])
+  const isNationalSelection = eventName === 'Eurovision' ? false : true
   const t = useTranslations('en')
 
   function handleSelectRanking(ranking: string) {
@@ -152,8 +159,6 @@ function Ranking({
     // Generate a new array based on the filteredSongs order
     const newFilteredSongs = arrayMove(filteredSongs, oldIndex, newIndex)
     setFilteredSongs(newFilteredSongs)
-
-    console.log('newFilteredSongs', newFilteredSongs)
 
     // Apply the new order to the original songs array (filteredSongs is a subset of songs)
     const originalOriginIndex = songs.findIndex((song) => song.id === active.id)
@@ -298,9 +303,13 @@ function Ranking({
         filteredSongs = filteredSongs.filter((song) =>
           song.categories.includes(group)
         )
-        setRankingTitle(`My ${group} 2024`)
+        setRankingTitle(`My ${group} ${editionName}`)
       } else {
-        setRankingTitle('My Eurovision 2024')
+        setRankingTitle(`My ${eventName} ${editionName}`)
+      }
+
+      if (communityVariant?.customRankingTitle) {
+        setRankingTitle(communityVariant.customRankingTitle)
       }
 
       setFilteredSongs(filteredSongs)
@@ -322,6 +331,8 @@ function Ranking({
         viewGroup={viewGroup}
         entryValues={entryValues}
         filteredEntries={filteredEntries}
+        isNationalSelection={isNationalSelection}
+        songCount={filteredSongs.length}
         setFilteredEntries={setFilteredEntries}
         setViewGroup={setViewGroup}
         handleSelectRanking={handleSelectRanking}
@@ -343,7 +354,11 @@ function Ranking({
         songs={filteredSongs.slice(0, 10)}
         title={`${rankingTitle} Top 10`}
       />
-      <ShareDialog shareImage={shareImage} setShareImage={setShareImage} />
+      <ShareDialog
+        title={rankingTitle}
+        shareImage={shareImage}
+        setShareImage={setShareImage}
+      />
     </div>
   )
 }

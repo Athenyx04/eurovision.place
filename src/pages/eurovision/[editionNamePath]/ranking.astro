@@ -1,23 +1,20 @@
 ---
-import RankingComponent from '../../../components/Ranking.tsx'
+import RankingComponent from 'src/components/Ranking'
 import {
   getEditionIdByEventNameAndEditionName,
   getEntriesByEditionId
-} from '../../../db/client.ts'
-import Layout from '../../../layouts/Layout.astro'
-import type { EntryDetails } from '../../../lib/data.ts'
-const { eventNamePath, editionNamePath } = Astro.params
+} from 'src/db/client'
+import Layout from 'src/layouts/Layout.astro'
+import type { EntryDetails } from 'src/lib/data'
+const { editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
-const eventName = eventNamePath
-  ?.replace(/-/g, ' ')
-  .replace(/\b\w/g, (l) => l.toUpperCase())
 const editionName = editionNamePath
   ?.replace(/-/g, ' ')
   .replace(/\b\w/g, (l) => l.toUpperCase())
 
 const editionId = await getEditionIdByEventNameAndEditionName(
-  eventName ?? '',
+  'Eurovision',
   editionName ?? ''
 )
 
@@ -33,10 +30,12 @@ if (editionId) {
 }
 ---
 
-<Layout title=`My ${eventName} ${editionName} | Eurovision Place`>
+<Layout title=`My Eurovision ${editionName} | Eurovision Place`>
   <RankingComponent
     client:load
     songList={entries}
     editionId={editionId.toString()}
+    editionName={editionName ?? ''}
+    eventName='Eurovision'
   />
 </Layout>

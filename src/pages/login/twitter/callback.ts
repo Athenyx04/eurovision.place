@@ -35,7 +35,6 @@ export async function GET(context: APIContext): Promise<Response> {
     const twitterUserObject = await twitterUserResponse.json()
     const twitterUser: TwitterUser = twitterUserObject.data
 
-    console.log(twitterUser)
     const existingUser = await getUserIdBySocialId(twitterUser.id, 'twitter')
 
     if (existingUser) {
