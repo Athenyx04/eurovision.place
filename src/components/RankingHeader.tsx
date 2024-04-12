@@ -18,6 +18,8 @@ interface RankingHeaderProps {
   viewGroup: string
   entryValues: OptionType[]
   filteredEntries: string[]
+  isNationalSelection: boolean
+  songCount: number
   communityVariant?: CommunityVariant
   setViewGroup: (value: string) => void
   setFilteredEntries: (prevState: string[]) => void
@@ -29,6 +31,8 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
   viewGroup,
   entryValues,
   filteredEntries,
+  isNationalSelection,
+  songCount,
   communityVariant,
   setViewGroup,
   setFilteredEntries,
@@ -118,127 +122,129 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
             </a>
           </button>
         )}
-        <Dialog>
-          <DialogTrigger>
-            <div
-              className={
-                'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-white hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
-              }
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='16'
-                height='16'
-                viewBox='0 0 24 24'
-                strokeWidth='1.7'
-                stroke='#111827'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+        {!isNationalSelection && (
+          <Dialog>
+            <DialogTrigger>
+              <div
+                className={
+                  'flex flex-row items-center justify-center gap-2 rounded-full bg-gray-200 p-2 text-white hover:scale-105 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:hover:scale-100'
+                }
               >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path d='M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
-                <path d='M4 6l8 0' />
-                <path d='M16 6l4 0' />
-                <path d='M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
-                <path d='M4 12l2 0' />
-                <path d='M10 12l10 0' />
-                <path d='M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
-                <path d='M4 18l11 0' />
-                <path d='M19 18l1 0' />
-              </svg>
-              <span className='hidden text-sm font-bold text-eerie md:flex'>
-                Filter
-              </span>
-            </div>
-          </DialogTrigger>
-          <DialogContent className='text-eerie'>
-            <DialogHeader>
-              <DialogTitle>Filter your ranking</DialogTitle>
-              <DialogDescription>
-                Select which filters you want to apply to your ranking.
-              </DialogDescription>
-            </DialogHeader>
-            <div className='flex flex-col gap-2'>
-              <span className='text-sm font-bold text-eerie'>
-                Filtered entries
-              </span>
-              <MultiSelect
-                options={entryValues}
-                selected={filteredEntries}
-                onChange={setFilteredEntries}
-              />
-            </div>
-            <div className='flex flex-col gap-2'>
-              <span className='text-sm font-bold text-eerie'>Group</span>
-              <ToggleGroup
-                type='single'
-                variant='outline'
-                className='flex flex-wrap justify-normal gap-2'
-                value={viewGroup}
-                onValueChange={(value) => setViewGroup(value)}
-              >
-                <div className='flex w-full gap-2'>
-                  <ToggleGroupItem
-                    value='big5'
-                    size={'text'}
-                    aria-label='Toggle Big 5 + Host'
-                    className='flex grow'
-                  >
-                    <span>Big 5 + Host</span>
-                  </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value='semiOne'
-                    size={'text'}
-                    aria-label='Toggle Semifinal 1'
-                    className='flex grow'
-                  >
-                    <span>Semifinal 1</span>
-                  </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value='semiTwo'
-                    size={'text'}
-                    aria-label='Toggle Semifinal 2'
-                    className='flex grow'
-                  >
-                    <span>Semifinal 2</span>
-                  </ToggleGroupItem>
-                </div>
-                <div className='flex w-full gap-2'>
-                  <ToggleGroupItem
-                    value='nordics'
-                    size={'text'}
-                    aria-label='Toggle Nordics'
-                    className='flex grow'
-                  >
-                    <span>Nordics</span>
-                  </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value='baltics'
-                    size={'text'}
-                    aria-label='Toggle Baltics'
-                    className='flex grow'
-                  >
-                    <span>Baltics</span>
-                  </ToggleGroupItem>
-                  <ToggleGroupItem
-                    value='balkans'
-                    size={'text'}
-                    aria-label='Toggle Balkans'
-                    className='flex grow'
-                  >
-                    <span>Balkans</span>
-                  </ToggleGroupItem>
-                </div>
-              </ToggleGroup>
-            </div>
-            <DialogFooter className='gap-4'>
-              <DialogClose asChild>
-                <Button>Close</Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='16'
+                  height='16'
+                  viewBox='0 0 24 24'
+                  strokeWidth='1.7'
+                  stroke='#111827'
+                  fill='none'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                  <path d='M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 6l8 0' />
+                  <path d='M16 6l4 0' />
+                  <path d='M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 12l2 0' />
+                  <path d='M10 12l10 0' />
+                  <path d='M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0' />
+                  <path d='M4 18l11 0' />
+                  <path d='M19 18l1 0' />
+                </svg>
+                <span className='hidden text-sm font-bold text-eerie md:flex'>
+                  Filter
+                </span>
+              </div>
+            </DialogTrigger>
+            <DialogContent className='text-eerie'>
+              <DialogHeader>
+                <DialogTitle>Filter your ranking</DialogTitle>
+                <DialogDescription>
+                  Select which filters you want to apply to your ranking.
+                </DialogDescription>
+              </DialogHeader>
+              <div className='flex flex-col gap-2'>
+                <span className='text-sm font-bold text-eerie'>
+                  Filtered entries
+                </span>
+                <MultiSelect
+                  options={entryValues}
+                  selected={filteredEntries}
+                  onChange={setFilteredEntries}
+                />
+              </div>
+              <div className='flex flex-col gap-2'>
+                <span className='text-sm font-bold text-eerie'>Group</span>
+                <ToggleGroup
+                  type='single'
+                  variant='outline'
+                  className='flex flex-wrap justify-normal gap-2'
+                  value={viewGroup}
+                  onValueChange={(value) => setViewGroup(value)}
+                >
+                  <div className='flex w-full gap-2'>
+                    <ToggleGroupItem
+                      value='big5'
+                      size={'text'}
+                      aria-label='Toggle Big 5 + Host'
+                      className='flex grow'
+                    >
+                      <span>Big 5 + Host</span>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value='semiOne'
+                      size={'text'}
+                      aria-label='Toggle Semifinal 1'
+                      className='flex grow'
+                    >
+                      <span>Semifinal 1</span>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value='semiTwo'
+                      size={'text'}
+                      aria-label='Toggle Semifinal 2'
+                      className='flex grow'
+                    >
+                      <span>Semifinal 2</span>
+                    </ToggleGroupItem>
+                  </div>
+                  <div className='flex w-full gap-2'>
+                    <ToggleGroupItem
+                      value='nordics'
+                      size={'text'}
+                      aria-label='Toggle Nordics'
+                      className='flex grow'
+                    >
+                      <span>Nordics</span>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value='baltics'
+                      size={'text'}
+                      aria-label='Toggle Baltics'
+                      className='flex grow'
+                    >
+                      <span>Baltics</span>
+                    </ToggleGroupItem>
+                    <ToggleGroupItem
+                      value='balkans'
+                      size={'text'}
+                      aria-label='Toggle Balkans'
+                      className='flex grow'
+                    >
+                      <span>Balkans</span>
+                    </ToggleGroupItem>
+                  </div>
+                </ToggleGroup>
+              </div>
+              <DialogFooter className='gap-4'>
+                <DialogClose asChild>
+                  <Button>Close</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
         <Dialog>
           <DialogTrigger>
             <div
@@ -282,7 +288,10 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
                 viewGroup === 'semiTwo' ||
                 viewGroup === '') && (
                 <DialogClose asChild>
-                  <Button onClick={() => handleSelectRanking('share10')}>
+                  <Button
+                    onClick={() => handleSelectRanking('share10')}
+                    disabled={songCount < 10}
+                  >
                     Top 10
                   </Button>
                 </DialogClose>

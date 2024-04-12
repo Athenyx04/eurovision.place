@@ -9,22 +9,25 @@ import type { EntryDetails } from '../../../../lib/data'
 const { eventNamePath, editionNamePath } = Astro.params
 
 // Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
-const eventName = eventNamePath?.toUpperCase()
+const eventCountry = eventNamePath?.toUpperCase()
 
 const editionName = editionNamePath
   ?.replace(/-/g, ' ')
   .replace(/\b\w/g, (l) => l.toUpperCase())
 
-if (!eventName || !editionName) {
+if (!eventCountry || !editionName) {
   return Astro.redirect('/404')
-} else if (eventName === 'EUROVISION' || eventName === 'EU') {
+} else if (eventCountry === 'EUROVISION' || eventCountry === 'EU') {
   return Astro.redirect(`/eurovision/${editionNamePath}/ranking`)
 }
 
-const editionId = await getEditionIdByEventCountryAndEditionName(
-  eventName === 'EUROVISION' ? 'EU' : eventName ?? '',
+const editionDetails = await getEditionIdByEventCountryAndEditionName(
+  eventCountry === 'EUROVISION' ? 'EU' : eventCountry ?? '',
   editionName ?? ''
 )
+
+const editionId = editionDetails?.editionId
+const eventName = editionDetails?.eventName
 
 if (!editionId) {
   return Astro.redirect('/404')
@@ -43,5 +46,7 @@ if (editionId) {
     client:load
     songList={entries}
     editionId={editionId.toString()}
+    eventName={eventName?.toString() ?? ''}
+    editionName={editionName}
   />
 </Layout>

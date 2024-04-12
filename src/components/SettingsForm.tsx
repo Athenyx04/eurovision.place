@@ -47,7 +47,6 @@ export function SettingsForm() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
     // Post the new order to the server
     fetch('/api/userSettings.json', {
       method: 'PUT',
