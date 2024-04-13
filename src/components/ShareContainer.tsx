@@ -39,7 +39,7 @@ function ShareContainer({
       <div
         id={id}
         className={
-          'absolute left-[9999px] grid grid-cols-1 overflow-hidden bg-eerie'
+          'absolute left-[-9999px] grid grid-cols-1 overflow-hidden bg-eerie'
         }
         style={{ height, width, gridTemplateColumns }}
       >
@@ -101,7 +101,7 @@ function ShareContainer({
     <div
       id={id}
       className={
-        'absolute left-[9999px] grid grid-cols-1 overflow-hidden bg-eerie'
+        'absolute left-[-9999px] grid grid-cols-1 overflow-hidden bg-eerie'
       }
       style={{
         height,
