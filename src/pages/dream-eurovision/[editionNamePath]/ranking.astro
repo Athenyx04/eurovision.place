@@ -1,0 +1,76 @@
+---
+import RankingComponent from 'src/components/Ranking'
+import {
+  getEditionIdByEventNameAndEditionName,
+  getEntriesByEditionId,
+  getNationalFinalsByYear,
+  getRankingByUserIdAndEditionId,
+  getSongById
+} from 'src/db/client'
+import Layout from 'src/layouts/Layout.astro'
+import type { EntryDetails, EditionDetails } from 'src/lib/data'
+const { editionNamePath } = Astro.params
+
+const user = Astro.locals.user
+if (!user) {
+  return Astro.redirect('/login')
+}
+
+// Path names are in kebab-case, so we need to convert them to title case replacing dashes with spaces
+const editionName = editionNamePath
+  ?.replace(/-/g, ' ')
+  .replace(/\b\w/g, (l) => l.toUpperCase())
+
+const editionId = await getEditionIdByEventNameAndEditionName(
+  'Eurovision',
+  editionName ?? ''
+)
+
+if (!editionId) {
+  return Astro.redirect('/404')
+}
+
+let entries: EntryDetails[] = []
+if (editionId) {
+  entries = (await getEntriesByEditionId(
+    editionId.toString()
+  )) as unknown as EntryDetails[]
+
+  const allNationalFinals = (await getNationalFinalsByYear(
+    editionName ?? '2024'
+  )) as unknown as EditionDetails[]
+
+  for (const nationalFinal of allNationalFinals) {
+    const userRanking = (await getRankingByUserIdAndEditionId(
+      user.id,
+      nationalFinal.editionId.toString()
+    )) as string
+    if (userRanking) {
+      const countryEntry = entries.find(
+        (entry) => entry.country === nationalFinal.eventCountry
+      )
+      const userRankingFirstId = userRanking.split(',')[0]
+      const userRankingFirstSongDetails = await getSongById(userRankingFirstId)
+      const editedEntry = {
+        ...countryEntry,
+        ...userRankingFirstSongDetails
+      } as EntryDetails
+      if (editedEntry) {
+        entries = entries.map((entry) =>
+          entry.country === nationalFinal.eventCountry ? editedEntry : entry
+        )
+      }
+    }
+  }
+}
+---
+
+<Layout title=`My Dream Eurovision ${editionName} | Eurovision Place`>
+  <RankingComponent
+    client:load
+    songList={entries}
+    editionId={'26'}
+    editionName={editionName ?? ''}
+    eventName='Dream Eurovision'
+  />
+</Layout>
