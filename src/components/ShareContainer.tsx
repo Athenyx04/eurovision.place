@@ -6,11 +6,13 @@ import ShareCard from './ShareCard'
 function ShareContainer({
   id,
   songs,
-  title
+  title,
+  isDreamSelection = false
 }: {
   id: string
   songs: EntryDetails[]
   title: string
+  isDreamSelection?: boolean
 }) {
   const headerHeight = 40
   const songCardHeight = 50
@@ -56,6 +58,7 @@ function ShareContainer({
           position={1}
           key={songs[0].id}
           gridColumn={gridColumn}
+          isDreamSelection={isDreamSelection}
         />
         {songs.slice(1).map((song, index) => (
           <ShareCard
@@ -65,6 +68,7 @@ function ShareContainer({
             position={index + 2}
             key={song.id}
             gridColumn={gridColumn}
+            isDreamSelection={isDreamSelection}
           />
         ))}
         {/* Add a white box with a message */}
@@ -126,6 +130,7 @@ function ShareContainer({
           position={index + 1}
           key={song.id}
           gridColumn={1}
+          isDreamSelection={isDreamSelection}
         />
       ))}
 
@@ -139,6 +144,7 @@ function ShareContainer({
           key={song.id}
           gridColumn={2}
           gridRowStart={index + 2}
+          isDreamSelection={isDreamSelection}
         />
       ))}
 

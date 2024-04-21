@@ -19,6 +19,7 @@ interface RankingHeaderProps {
   entryValues: OptionType[]
   filteredEntries: string[]
   isNationalSelection: boolean
+  isDreamSelection: boolean
   songCount: number
   communityVariant?: CommunityVariant
   setViewGroup: (value: string) => void
@@ -32,6 +33,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
   entryValues,
   filteredEntries,
   isNationalSelection,
+  isDreamSelection,
   songCount,
   communityVariant,
   setViewGroup,
@@ -88,7 +90,7 @@ const RankingHeader: React.FC<RankingHeaderProps> = ({
             </div>
           </a>
         </button>
-        {communityVariant?.disableLeaderboard ? null : (
+        {communityVariant?.disableLeaderboard || isDreamSelection ? null : (
           <button>
             <a href={leaderboardPath}>
               <div
