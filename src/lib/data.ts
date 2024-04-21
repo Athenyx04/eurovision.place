@@ -12,6 +12,14 @@ export type EntryDetails = {
   score?: number
 }
 
+export type EditionDetails = {
+  editionId: number
+  eventName: string
+  eventCountry: string
+  editionYear: number
+  eventId: number
+}
+
 export type RankingResponse = {
   positions: string
 }

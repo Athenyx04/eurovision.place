@@ -9,6 +9,7 @@ type Props = {
   pictureUri: string
   gridColumn: string | number
   gridRowStart?: number | ''
+  isDreamSelection?: boolean
 }
 
 function ShareCard({
@@ -17,7 +18,8 @@ function ShareCard({
   pictureUri,
   country,
   gridColumn = 'span 1 / span 1',
-  gridRowStart
+  gridRowStart,
+  isDreamSelection = false
 }: Props) {
   const t = useTranslations('en')
 
@@ -60,7 +62,18 @@ function ShareCard({
       </div>
       <div className='flex min-w-0 grow flex-row items-center py-3'>
         <div className='flex min-w-0 grow flex-col'>
-          {country !== null ? (
+          {isDreamSelection && (
+            <div className='flex grow items-center gap-3 font-bold'>
+              <img
+                src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
+                // @ts-expect-error - ${country} is a database country code
+                alt={t(`country.${country}`)}
+                className='w-6 rounded-md'
+              />
+              <span className=''>{artistName.toUpperCase()}</span>
+            </div>
+          )}
+          {country !== null && !isDreamSelection && (
             <div className='flex grow items-center gap-3 font-bold'>
               <img
                 src={`${CLOUDFRONT_DOMAIN}/flags/${country.toLowerCase()}.png`}
@@ -71,7 +84,8 @@ function ShareCard({
               {/* @ts-expect-error - ${country} is a database country code */}
               <span className=''>{t(`country.${country}`).toUpperCase()}</span>
             </div>
-          ) : (
+          )}
+          {country === null && (
             <div className='flex grow items-center gap-3 font-bold'>
               <span className=''>{artistName.toUpperCase()}</span>
             </div>

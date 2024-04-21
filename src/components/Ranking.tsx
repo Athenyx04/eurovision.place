@@ -61,7 +61,10 @@ function Ranking({
     setFilteredEntries: state.setFilteredEntries
   }))
   const [positions, setPositions] = useState<number[]>([])
-  const isNationalSelection = eventName === 'Eurovision' ? false : true
+  const isNationalSelection =
+    eventName === 'Eurovision' || eventName === 'Dream Eurovision'
+      ? false
+      : true
   const t = useTranslations('en')
 
   function handleSelectRanking(ranking: string) {
@@ -303,7 +306,9 @@ function Ranking({
         filteredSongs = filteredSongs.filter((song) =>
           song.categories.includes(group)
         )
-        setRankingTitle(`My ${group} ${editionName}`)
+        setRankingTitle(
+          `My${eventName === 'Dream Eurovision' ? ' Dream ' : ' '}${group} ${editionName}`
+        )
       } else {
         setRankingTitle(`My ${eventName} ${editionName}`)
       }
@@ -332,6 +337,7 @@ function Ranking({
         entryValues={entryValues}
         filteredEntries={filteredEntries}
         isNationalSelection={isNationalSelection}
+        isDreamSelection={eventName === 'Dream Eurovision'}
         songCount={filteredSongs.length}
         setFilteredEntries={setFilteredEntries}
         setViewGroup={setViewGroup}
@@ -348,11 +354,13 @@ function Ranking({
         id='shareAll'
         songs={filteredSongs}
         title={rankingTitle}
+        isDreamSelection={eventName === 'Dream Eurovision'}
       />
       <ShareContainer
         id='share10'
         songs={filteredSongs.slice(0, 10)}
         title={`${rankingTitle} Top 10`}
+        isDreamSelection={eventName === 'Dream Eurovision'}
       />
       <ShareDialog
         title={rankingTitle}
